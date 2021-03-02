@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# importing urls for allauth and TemplateView (03/01/21)
+from django.urls import path, include
+from django.views.generic import TemplateView
 
 urlpatterns = [
+
+    # added 03/01/21
+    path('', TemplateView.as_view(template_name = "exercise/index.html")),
+
     path('admin/', admin.site.urls),
+
+    # added 03/01/21
+    path('accounts/', include('allauth.urls'))
 ]
