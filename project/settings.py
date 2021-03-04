@@ -94,6 +94,7 @@ DATABASES = {
     }
 }
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -142,7 +143,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Added site id and also specified the redirect URL
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
 # Way to get user's email addresses when they log in
