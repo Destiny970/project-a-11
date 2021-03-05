@@ -4,13 +4,12 @@
     <center><title>Exercise Gamification Login</title></center>
   </head>
   <body>
-  <center><h1>Exercise Gamification Login</h1></center>
   {% if user.is_authenticated %}
   <center><p style="font-size:20px">Hello, {{ user.username }} !</p></center>
  
   {% else %}
   <center><h1>Exercise Gamification Login</h1></center>
-  <a href="{% provider_login_url 'google' %}">Login with Google</a>
+  <center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
   {% endif %}
 
   </body>
