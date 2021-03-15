@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
-import django_heroku
+# import django_heroku 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,18 +83,27 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#        'ENGINE':'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'dcd2j05latd35a',
+#        'USER': 'kkkifpshjwhhue',
+#        'PASSWORD': '456391adf83d19807c430d193ccfe73c37ea28affa4933d4a9e2eb17913f5c8a',
+#        'HOST': 'ec2-54-198-73-79.compute-1.amazonaws.com',
+#        'PORT': '5432'
+#    }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dcd2j05latd35a',
-        'USER': 'kkkifpshjwhhue',
-        'PASSWORD': '456391adf83d19807c430d193ccfe73c37ea28affa4933d4a9e2eb17913f5c8a',
-        'HOST': 'ec2-54-198-73-79.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -134,6 +143,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 django_heroku.settings(locals())
 
 # Specified 'allauth' backend (03/01/21)
@@ -158,3 +168,13 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+=======
+# django_heroku.settings(locals())
+# Activate Django-Heroku.
+try:
+    # Configure Django App for Heroku.
+    import django_heroku
+    django_heroku.settings(locals())
+except ImportError:
+    found = False
+
