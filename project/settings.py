@@ -168,7 +168,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-=======
+
 # django_heroku.settings(locals())
 # Activate Django-Heroku.
 try:
