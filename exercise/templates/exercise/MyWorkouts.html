@@ -1,0 +1,18 @@
+<h>MY WORKOUTS PAGE</h>
+<br>
+<a href="{% url 'exercise:user_home' %}">User Home</a>
+<a href="{% url 'exercise:log_new' %}">Log Workout</a>
+<a href="{% url 'exercise:my_points' %}">My Points</a>
+<br>
+<br>
+{% for wk in exercise %}
+    <b>Exercise Type: </b><i>{{wk.exercise_type}}</i> 
+    <br>
+    <b>Date: </b><i>{{wk.exercise_date}}</i> 
+    <br>
+    <b>Duration: </b><i>{{wk.time_taken}}</i>
+    <br>
+    <b>Description: </b><i>{{wk.description}}</i>    
+    <br>
+    <br>
+{% endfor %}
