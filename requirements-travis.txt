@@ -2,3 +2,4 @@ Django
 gunicorn 
 bootstrap4
 django-allauth
+django-heroku
