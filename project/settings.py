@@ -39,6 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Updated the installed apps (03/01/21)
+    'django.contrib.sites',
+    'exercise',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -93,6 +101,10 @@ DATABASES = {
     }
 }
 
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -131,6 +143,32 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+django_heroku.settings(locals())
+
+# Specified 'allauth' backend (03/01/21)
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# Added site id and also specified the redirect URL
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+
+# Way to get user's email addresses when they log in
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+=======
 # django_heroku.settings(locals())
 # Activate Django-Heroku.
 try:
