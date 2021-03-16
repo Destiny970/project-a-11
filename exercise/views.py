@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from .forms import ExerciseForm
 from .models import Exercise
 
@@ -15,9 +16,10 @@ def log_nws(request):
         print(filled_form.errors)
         if filled_form.is_valid():
             filled_form.save() 
-            note = 'Thank you, your workout has been logged.'
+            return HttpResponseRedirect(reverse('exercise:my_ws'))
         else: 
-            note = "Something went wrong, please try again."
+            print("Something went wrong, please try again.")
+        note = "Something went wrong, please try again."
         new_form = ExerciseForm()
         return render(request, 'exercise/LogNW.html', {'exerciseform':new_form, 'note':note})
     else: 

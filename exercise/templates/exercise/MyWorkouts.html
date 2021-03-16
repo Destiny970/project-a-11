@@ -8,7 +8,9 @@
 {% for wk in exercise %}
     <b>Exercise Type: </b><i>{{wk.exercise_type}}</i> 
     <br>
-    <b>Date: </b><i>{{wk.exercise_date}}</i> 
+    <!-- the following website aided in writing the code used in line 13
+    http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
+    <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i> 
     <br>
     <b>Duration: </b><i>{{wk.time_taken}}</i>
     <br>

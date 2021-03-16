@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-
 class Exercise(models.Model):
     def __str__(self):
         return self.description
@@ -20,10 +17,10 @@ class Exercise(models.Model):
         ('FLX', 'yoga/flexibility'),
     ]
 
-    exercise_type = models.CharField(max_length=3, choices=EXERCISE_CHOICES, default='CAR', null=True)
+    exercise_type = models.CharField(max_length=3, choices=EXERCISE_CHOICES, default='CAR')
     exercise_date = models.DateTimeField('date completed', null=True)
-    time_taken = models.IntegerField(default=0, null=True)
+    time_taken = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
-    description = models.CharField(max_length=200, default='daily workout', null=True)
+    description = models.CharField(max_length=200, blank=True)
 
 
