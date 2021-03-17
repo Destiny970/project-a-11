@@ -153,7 +153,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Added site id and also specified the redirect URL
-SITE_ID = 2
+SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
 
 # Way to get user's email addresses when they log in
