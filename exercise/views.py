@@ -4,11 +4,14 @@ from django.urls import reverse
 from .forms import ExerciseForm
 from .models import Exercise
 
+
 def home(request):
     return render(request, 'exercise/HomeLogin.html')
 
+
 def user_home(request):
     return render(request, 'exercise/UserHome.html')
+
 
 def log_nws(request):
     if request.method == 'POST':
@@ -25,12 +28,14 @@ def log_nws(request):
     else: 
         form = ExerciseForm()
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
-    
+
+
 def my_ws(request):
     form = ExerciseForm()
     exercise = Exercise.objects.all()
     args = {'form': form, 'exercise': exercise}
     return render(request, 'exercise/MyWorkouts.html', args)
+
 
 def my_points(request):
     return render(request, 'exercise/MyPoints.html')

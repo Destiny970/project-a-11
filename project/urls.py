@@ -12,5 +12,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path ('', include('exercise.urls')),
     # path('exercise/', include('exercise.urls')),
+
     path('admin/', admin.site.urls),
 ]
