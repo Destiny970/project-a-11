@@ -2,6 +2,7 @@ from django import forms
 from .models import Exercise
 import datetime
 
+
 class ExerciseForm(forms.ModelForm): 
 
     class Meta:
@@ -14,3 +15,14 @@ class ExerciseForm(forms.ModelForm):
             'description': forms.TextInput(attrs={'class':'form-control','size': 50,'placeholder': 'Provide thoughts on your workout here.'})
         }
 
+
+# Added 03/19/21
+# from django.forms import ModelForm
+# from .models import Post
+#
+#
+# class PostForm(ModelForm):
+#     class Meta:
+#         model = Post
+#         fields = ['contents', 'access_level']
+# End
