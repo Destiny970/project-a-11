@@ -1,0 +1,20 @@
+<h>MY WORKOUTS PAGE</h>
+<br>
+<a href="{% url 'exercise:user_home' %}">User Home</a>
+<a href="{% url 'exercise:log_new' %}">Log Workout</a>
+<a href="{% url 'exercise:my_points' %}">My Points</a>
+<br>
+<br>
+{% for wk in exercise %}
+    <b>Exercise Type: </b><i>{{wk.exercise_type}}</i> 
+    <br>
+    <!-- the following website aided in writing the code used in line 13
+    http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
+    <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i> 
+    <br>
+    <b>Duration: </b><i>{{wk.time_taken}}</i>
+    <br>
+    <b>Description: </b><i>{{wk.description}}</i>    
+    <br>
+    <br>
+{% endfor %}

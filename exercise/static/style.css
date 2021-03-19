@@ -1,1 +1,39 @@
+.bg-img {
+  background-image: url("header_image.jpg");
 
+  min-height: 380px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  position: relative;
+}
+
+.container {
+  position: absolute-center;
+  margin: 0;
+  width: 2000px;
+}
+
+.login_container {
+  position: absolute-center;
+  margin: 0;
+  width: 200px;
+  border-style: double;
+}
+
+.topnav {
+  overflow: hidden;
+  font-size: 40px;
+}
+
+.mednav {
+    overflow: hidden;
+    font-size: 24px;
+}
+
+.rightnav {
+    overflow: hidden;
+    font-size: 18px;
+}
