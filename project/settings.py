@@ -153,7 +153,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Added site id and also specified the redirect URL
-SITE_ID = 0
+# SITE_ID = 0
+# Use 4 when deploying to Heroku
+SITE_ID = 4
 LOGIN_REDIRECT_URL = '/'
 
 # Way to get user's email addresses when they log in
