@@ -156,7 +156,7 @@ AUTHENTICATION_BACKENDS = (
 # SITE_ID = 0
 # SITE_ID = 0
 # Use 4 when deploying to Heroku
-SITE_ID = 4
+SITE_ID = 5
 LOGIN_REDIRECT_URL = '/'
 
 # Way to get user's email addresses when they log in

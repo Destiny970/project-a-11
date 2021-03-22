@@ -3,18 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="16983ae4-8de3-4704-bfac-ef69c4e4501a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/django-admin.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/django-admin.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/django-admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/django-admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/pip.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip3.6.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/pip3.6.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip3.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/pip3.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/sqlformat.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/sqlformat.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exercise/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exercise/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/LogNW.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/LogNW.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/MyPoints.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/MyPoints.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/MyWorkouts.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/MyWorkouts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exercise/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
