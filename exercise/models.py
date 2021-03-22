@@ -33,16 +33,23 @@ class Exercise(models.Model):
     def set_points(self):
         self.points = int(self.time_taken) * 10
 
+
     EXERCISE_CHOICES = [
         ('CAR', 'cardio'),
         ('STR', 'strength'),
         ('SPT', 'sports'),
         ('FLX', 'yoga/flexibility'),
     ]
-
+    TIME_CHOICES = [
+        ('LESS_THAN_30', 'Quick Workout (Between 1-29 min)'),
+        ('LESS_THAN_1_HR', 'Longer Workout (Between 30-59 min'),
+        ('BETWEEN_1_AND_2_HRS', 'Long Workout (Between 60 and 119 min'),
+        ('MORE_THAN_2_HRS', 'Very Long Workout (120 min or greater)'),
+    ]
     exercise_type = models.CharField(max_length=3, choices=EXERCISE_CHOICES, default='CAR')
     exercise_date = models.DateTimeField('date completed', null=True)
-    time_taken = models.IntegerField(default=0)
+    # time_taken = models.IntegerField(default=0)
+    time_taken = models.CharField(max_length=20, choices=TIME_CHOICES, default='LESS_THAN_30')
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
 
