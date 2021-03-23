@@ -2,6 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16983ae4-8de3-4704-bfac-ef69c4e4501a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/activate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/activate.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/activate.fish" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/activate.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/activate.xsh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/activate_this.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/chardetect.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/deactivate.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/django-admin.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/django-admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/gunicorn.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/pip-3.6.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/pip.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/pip3.6.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/pip3.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/pydoc.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/python.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/python3.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/python36.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/pythonw.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/sqlformat.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/sqlite3.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/tcl86t.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/tk86t.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/vcruntime140.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/wheel-3.6.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/wheel.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/wheel3.6.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/wheel3.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0008_user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0009_delete_user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0010_user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0011_post.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0012_auto_20210319_2055.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0013_auto_20210321_1148.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0014_auto_20210321_1520.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0015_remove_exercise_total_time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0016_auto_20210321_1541.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0017_exercise_total_time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/migrations/0018_remove_exercise_total_time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/templates/exercise/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/templates/exercise/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exercise/templates/exercise/new_post.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pyvenv.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/project-a-11.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-a-11.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exercise/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exercise/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/apps.py" afterDir="false" />
@@ -37,6 +85,7 @@
       <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/urls.py" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,58 +120,15 @@
     <option name="width" value="984" />
     <option name="height" value="1044" />
   </component>
-  <component name="ProjectId" id="1q4JQBlaATT2sP1C8kUYjbAMLZZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="project-a-11" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-a-11" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-a-11" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-a-11" type="462c0819:PsiDirectoryNode" />
-              <item name="exercise" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-a-11" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-a-11" type="462c0819:PsiDirectoryNode" />
-              <item name="exercise" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-a-11" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-a-11" type="462c0819:PsiDirectoryNode" />
-              <item name="exercise" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-a-11" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-a-11" type="462c0819:PsiDirectoryNode" />
-              <item name="exercise" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="exercise" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-a-11" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-a-11" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/exercise/models.py" />
@@ -181,9 +187,8 @@
         <item itemvalue="Python.signals" />
         <item itemvalue="Python.views" />
       </list>
-    </recent_temporary>
+    </option>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -199,7 +204,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -246,8 +250,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/exercise/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        <state relative-caret-position="238">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -256,8 +260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/exercise/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        <state relative-caret-position="68">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -266,8 +270,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="47" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
+        <state relative-caret-position="136">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
@@ -286,8 +290,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/exercise/templates/exercise/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        <state relative-caret-position="289">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -297,7 +301,7 @@
     <entry file="file://$PROJECT_DIR$/exercise/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -306,10 +310,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/exercise/templates/exercise/HomeLogin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
-            <element signature="n#style#0;n#p#0;n#center#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#center#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -317,8 +320,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/exercise/static/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+        <state relative-caret-position="357">
+          <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
         </state>
       </provider>
     </entry>
