@@ -27,7 +27,8 @@
         {% if user.is_authenticated %}
             <center><p style="font-size:20px">Hello, {{ user.username }} !</p></center>
         {% else %}
-            <center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
+          <center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
+          <center><a href = "{% url 'register' %}">Register</a></center>
         {% endif %}
     </div>
   </div>

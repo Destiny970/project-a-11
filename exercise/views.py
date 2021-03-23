@@ -1,14 +1,37 @@
 from django.db.models import Sum
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed
 from django.urls import reverse
 from .forms import ExerciseForm
 from .models import Exercise
-from json import dumps
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegisterForm
+
+
+def profile(request):
+    return render(request, 'exercise/profile.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            # return redirect('login')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'exercise/register.html', {'form': form})
+
 
 def index(request):
     return render(request, 'exercise/index.html')
-#
+
+
 def home(request):
     return render(request, 'exercise/HomeLogin.html')
 

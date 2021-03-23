@@ -3,13 +3,51 @@
   <component name="ChangeListManager">
     <list default="true" id="16983ae4-8de3-4704-bfac-ef69c4e4501a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/MyWorkouts.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/MyWorkouts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0002_auto_20210315_2014.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0003_auto_20210315_2017.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0004_auto_20210315_2116.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0005_auto_20210315_2121.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0006_auto_20210315_2204.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0007_auto_20210315_2214.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0008_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0009_delete_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0010_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0011_post.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0012_auto_20210319_2055.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0013_auto_20210321_1148.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0014_auto_20210321_1520.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0015_remove_exercise_total_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0016_auto_20210321_1541.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0017_exercise_total_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/0018_remove_exercise_total_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/HomeLogin.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/HomeLogin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/LogNW.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/LogNW.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/MyPoints.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/MyPoints.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/UserHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/UserHome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/templates/exercise/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/templates/exercise/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,7 +125,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/exercise/templates/exercise/MyWorkouts.html" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/exercise/models.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -95,7 +133,28 @@
       <recent name="C:\Users\student\PycharmProjects\Desktop\project-a-11\exercise\static" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.signals">
+    <configuration name="signals" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="project-a-11" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/exercise" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/exercise/signals.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="project-a-11" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -119,6 +178,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.signals" />
         <item itemvalue="Python.views" />
       </list>
     </recent_temporary>

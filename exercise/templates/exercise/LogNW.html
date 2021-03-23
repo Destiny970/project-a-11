@@ -3,6 +3,7 @@
 <a href="{% url 'exercise:user_home' %}">User Home</a>
 <a href="{% url 'exercise:my_ws' %}">My Workouts</a>
 <a href="{% url 'exercise:my_points' %}">My Points</a>
+<a href="{% url 'exercise:profile' %}">My Profile</a>
 
 <form action="{% url 'exercise:log_new' %}" method="post">
     {% csrf_token %}

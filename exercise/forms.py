@@ -3,16 +3,23 @@ from .models import Exercise
 import datetime
 
 
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+
 class ExerciseForm(forms.ModelForm): 
 
     class Meta:
         model = Exercise
-        # TIME_CHOICES = [
-        #     ('LESS_THAN_30', 'Quick Workout (Between 1-29 min)'),
-        #     ('LESS_THAN_1_HR', 'Longer Workout (Between 30-59 min'),
-        #     ('BETWEEN_1_AND_2_HRS', 'Long Workout (Between 60 and 119 min'),
-        #     ('MORE_THAN_2_HRS', 'Very Long Workout (120 min or greater)'),
-        # ]
         exclude = ['points']
         widgets = {
             ## the following stack overflow post aided in writing the code for the exercise_date widget
