@@ -153,7 +153,10 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Added site id and also specified the redirect URL
-SITE_ID = 2
+# SITE_ID = 0
+# SITE_ID = 0
+# Use 4 when deploying to Heroku
+SITE_ID = 5
 LOGIN_REDIRECT_URL = '/'
 
 # Way to get user's email addresses when they log in
@@ -168,8 +171,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+# Added 03/19/21
+# AUTH_USER_MODEL = 'exercise.User'
+# End
 
-# django_heroku.settings(locals())
 # Activate Django-Heroku.
 try:
     # Configure Django App for Heroku.

@@ -1,3 +1,5 @@
+{% block content %}
+<html>
 <h>MY WORKOUTS PAGE</h>
 <br>
 <a href="{% url 'exercise:user_home' %}">User Home</a>
@@ -16,5 +18,11 @@
     <br>
     <b>Description: </b><i>{{wk.description}}</i>    
     <br>
+    <b>Points: </b><i>{{wk.points}}</i>
+    <br>
     <br>
 {% endfor %}
+<b>Total Points: </b><i>{{total}}</i>
+
+</html>
+{% endblock %}
