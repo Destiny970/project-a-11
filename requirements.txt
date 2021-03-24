@@ -4,3 +4,4 @@ django-heroku
 bootstrap4
 django-allauth
 django-crispy-forms==1.11.0
+pillow
