@@ -63,63 +63,25 @@ def log_nws(request):
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
         total = 0
+        model.points = 5
         # user_profile = Profile._meta.get_field('workout_points')
         if filled_form.is_valid():
             model = filled_form.save(commit=False)
             model.profile = Profile.objects.get(user=request.user)
             # model.exercise = Exercise.objects.get(exercise_type=request.user)
-            if filled_form.cleaned_data['time_taken'] == 'LESS_THAN_30':
-                if filled_form.cleaned_data['exercise_type'] == 'CAR':
-                    model.points += 10
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'STR':
-                    model.points += 15
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'SPT':
-                    model.points += 20
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'FLX':
-                    model.points = 5
-                    total += model.points
-            elif filled_form.cleaned_data['time_taken'] == 'LESS_THAN_1_HR':
-                if filled_form.cleaned_data['exercise_type'] == 'CAR':
-                    model.points += 20
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'STR':
-                    model.points += 30
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'SPT':
-                    model.points += 40
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'FLX':
-                    model.points += 10
-                    total += model.points
+            if filled_form.cleaned_data['time_taken'] == 'LESS_THAN_1_HR':
+                model.points*=2
             elif filled_form.cleaned_data['time_taken'] == 'BETWEEN_1_AND_2_HRS':
-                if filled_form.cleaned_data['exercise_type'] == 'CAR':
-                    model.points += 40
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'STR':
-                    model.points += 60
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'SPT':
-                    model.points += 80
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'FLX':
-                    model.points = 20
-                    total += model.points
+                model.points*=4
             elif filled_form.cleaned_data['time_taken'] == 'MORE_THAN_2_HRS':
-                if filled_form.cleaned_data['exercise_type'] == 'CAR':
-                    model.points += 80
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'STR':
-                    model.points += 120
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'SPT':
-                    model.points += 160
-                    total += model.points
-                elif filled_form.cleaned_data['exercise_type'] == 'FLX':
-                    model.points = 40
-                    total += model.points
+                model.points*=8
+            if filled_form.cleaned_data['exercise_type'] == 'CAR':
+                model.points*=2
+            elif filled_form.cleaned_data['exercise_type'] == 'STR':
+                model.points*=3
+            elif filled_form.cleaned_data['exercise_type'] == 'SPT':
+                model.points*=4
+            total += model.points
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:
