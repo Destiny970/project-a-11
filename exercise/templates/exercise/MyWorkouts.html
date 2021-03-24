@@ -2,12 +2,15 @@
 <html>
 <h>MY WORKOUTS PAGE</h>
 <br>
-<a href="{% url 'exercise:user_home' %}">User Home</a>
 <a href="{% url 'exercise:log_new' %}">Log Workout</a>
 <a href="{% url 'exercise:my_points' %}">My Points</a>
+<a href="{% url 'exercise:profile' %}">My Profile</a>
+<a href = "{% url 'logout' %}">Logout</a>
 <br>
 <br>
 {% for wk in exercise %}
+    <b>User: </b><i>{{user.username}}</i>
+    <br>
     <b>Exercise Type: </b><i>{{wk.exercise_type}}</i> 
     <br>
     <!-- the following website aided in writing the code used in line 13
@@ -22,7 +25,6 @@
     <br>
     <br>
 {% endfor %}
-<b>Total Points: </b><i>{{total}}</i>
 
 </html>
 {% endblock %}

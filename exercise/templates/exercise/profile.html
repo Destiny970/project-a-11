@@ -1,5 +1,22 @@
-{% extends "exercise/base.html" %}
-
-<b>Username: </b><i>{{ user.username }}</i>
+<center><h2>Profile Page</h2>
+<a href="{% url 'exercise:log_new' %}">Log Workout</a>
+<a href="{% url 'exercise:my_ws' %}">My Workouts</a>
+<a href="{% url 'exercise:my_points' %}">My Points</a>
+    <a href = "{% url 'logout' %}">Logout</a>
 <br>
-<b>Email: </b><i>{{ user.email }}</i>
+    <br>
+        <b>Username: </b><i>{{ user.username }}</i>
+    <br>
+        <b>Email: </b><i>{{ user.email }}</i>
+    <br>
+        <b>Total Points: </b><i>{{ user.profile.workout_points }}</i>
+    <br>
+        <br>
+<form action="{% url 'exercise:profile' %}" method="post">
+    {% csrf_token %}
+    {{ u_form }}
+    {{ p_form }}
+    <br>
+    <input type="submit" value="Update">
+</form>
+</center>

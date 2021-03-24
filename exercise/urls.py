@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+# from .views import UserWorkoutListView
 
 app_name = 'exercise'
 urlpatterns = [   
@@ -11,6 +12,7 @@ urlpatterns = [
     path('MyPoints/', views.my_points, name='my_points'),
     # path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
+    # path('user/<str:username>', UserWorkoutListView.as_view(), name='user-workouts')
     # path('login/', views.login, name='login'),
     # path('logout/', views.logout, name='logout'),
 

@@ -5,14 +5,16 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    name = models.CharField(max_length=100, blank=True)
+    workout_points = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self, *args, **kwargs):
-        super(Profile,self).save(*args, **kwargs)
+    # def total_points(self):
+    #     return self.workout_points + 100
 
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
 
 
 class Exercise(models.Model):
@@ -24,7 +26,6 @@ class Exercise(models.Model):
     """
     def set_points(self):
         self.points = int(self.time_taken) * 10
-
 
     EXERCISE_CHOICES = [
         ('CAR', 'cardio'),
@@ -44,5 +45,6 @@ class Exercise(models.Model):
     time_taken = models.CharField(max_length=20, choices=TIME_CHOICES, default='LESS_THAN_30')
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
+    profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
 
 

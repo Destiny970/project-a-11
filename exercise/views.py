@@ -3,15 +3,31 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed
 from django.urls import reverse
 from .forms import ExerciseForm
-from .models import Exercise
-
+from .models import Exercise, Profile
+from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
+@login_required
 def profile(request):
-    return render(request, 'exercise/profile.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated! You are now able to log in')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'exercise/profile.html', context)
 
 
 def register(request):
@@ -20,9 +36,11 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! You are now able to log in')
+            # messages.success(request, f'Your account has been created! You are now able to log in')
             # return redirect('login')
+            note = 'Your account has been created! You are now able to log in'
             return redirect('login')
+            # return render(request, 'exercise/login.html', {'note': note})
     else:
         form = UserRegisterForm()
     return render(request, 'exercise/register.html', {'form': form})
@@ -45,8 +63,11 @@ def log_nws(request):
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
         total = 0
+        # user_profile = Profile._meta.get_field('workout_points')
         if filled_form.is_valid():
             model = filled_form.save(commit=False)
+            model.profile = Profile.objects.get(user=request.user)
+            # model.exercise = Exercise.objects.get(exercise_type=request.user)
             if filled_form.cleaned_data['time_taken'] == 'LESS_THAN_30':
                 if filled_form.cleaned_data['exercise_type'] == 'CAR':
                     model.points += 10
@@ -118,73 +139,21 @@ def my_ws(request):
     return render(request, 'exercise/MyWorkouts.html', args)
 
 
+# class WorkoutListView(ListView):
+#     model = Exercise
+#     template = 'exercise/MyWorkouts.html'
+#     context_object_name = 'exercise'
+#
+#
+# class UserWorkoutListView(ListView):
+#     model = Exercise
+#     template_name = 'exercise/user_workouts.html'
+#     context_object_name = 'exercise'
+#
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.kwargs.get('username'))
+#         return Exercise.objects.filter(author=user)
+
+
 def my_points(request):
-    # points = 0
-    # form = ExerciseForm()
-    # exercise = Exercise.objects.all()
-    # total_points = 0
-    # for wk in exercise:
-    #     if wk.time_taken == 'LESS_THAN_30':
-    #         wk.points += 10
-    #         # wk.save()
-    #     elif wk.time_taken == 'LESS_THAN_1_HR':
-    #         wk.points += 20
-    #         # wk.save()
-    #     elif wk.time_taken == 'BETWEEN_1_AND_2_HRS':
-    #         wk.points += 30
-    #         # wk.save()
-    #     else:
-    #         wk.points += 40
-    #         # wk.save()
-    #     wk.total_time = wk.points
-    # args = {'form': form, 'exercise': exercise}
     return render(request, 'exercise/MyPoints.html')
-
-
-
-
-# Added 03/19/21
-# from .models import Post
-# from .forms import PostForm
-#
-#
-# def list_posts(request):
-#     posts = Post.objects.all().order_by('-created_at')[:10]
-#     # posts_text = ""
-#     # for post in posts:
-#     #     posts_text += f"@{post.created_by} {post.contents}"
-#     return render(request, 'exercise/list.html', {'posts': posts})
-#
-#
-# def new_post(request):
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         post = form.save(commit=False)
-#         post.created_by = request.user
-#         post.save()
-#         return HttpResponseRedirect(reverse('public_private'))
-#     elif request.method == 'GET':
-#         form = PostForm()
-#         return render(request, 'exercise/new_post.html', {'form': form})
-#     else:
-#         return HttpResponseNotAllowed(['GET', 'POST'])
-# End
-
-
-# lst = []
-# points = 0
-# for wk in exercise:
-#     if wk.time_taken > 0 & wk.time_taken <= 60:
-#         points = wk.time_taken * 10
-#         lst.append(points)
-#     elif wk.time_taken > 60 & wk.time_taken < 120:
-#         points = wk.time_taken * 20
-#         lst.append(points)
-#     elif wk.time_taken <= 20:
-#         points = wk.time_taken
-#         lst.append(points)
-#     else:
-#         points = wk.time_taken * 30
-#         lst.append(points)
-# for item in lst:
-#     total_points += item
