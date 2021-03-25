@@ -7,25 +7,30 @@ from .models import Exercise, Profile
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm
+# ProfileUpdateForm
+
+# Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
+# users in the app database
 
 
 @login_required
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
+        # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid():
+                # and p_form.is_valid():
             u_form.save()
-            p_form.save()
+            # p_form.save()
             messages.success(request, f'Your account has been updated! You are now able to log in')
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        # p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        # 'p_form': p_form
     }
     return render(request, 'exercise/profile.html', context)
 
@@ -37,10 +42,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             # messages.success(request, f'Your account has been created! You are now able to log in')
-            # return redirect('login')
             note = 'Your account has been created! You are now able to log in'
             return redirect('login')
-            # return render(request, 'exercise/login.html', {'note': note})
     else:
         form = UserRegisterForm()
     return render(request, 'exercise/register.html', {'form': form})
@@ -63,10 +66,11 @@ def log_nws(request):
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
         total = 0
-        model.points = 5
+        # model.points = 5
         # user_profile = Profile._meta.get_field('workout_points')
         if filled_form.is_valid():
             model = filled_form.save(commit=False)
+            model.points = 5
             model.profile = Profile.objects.get(user=request.user)
             # model.exercise = Exercise.objects.get(exercise_type=request.user)
             if filled_form.cleaned_data['time_taken'] == 'LESS_THAN_1_HR':
