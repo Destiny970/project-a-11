@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # import django_heroku 
@@ -42,12 +42,18 @@ INSTALLED_APPS = [
 
     # Updated the installed apps (03/01/21)
     'django.contrib.sites',
-    'exercise',
+    'crispy_forms',
+    # 'exercise',
+    'exercise.apps.ExerciseConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
 ]
+
+# Added 03/22
+# AUTH_USER_MODEL = 'exercise.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +70,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,9 +148,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# django_heroku.settings(locals())
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Specified 'allauth' backend (03/01/21)
 AUTHENTICATION_BACKENDS = (
@@ -153,8 +158,18 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Added site id and also specified the redirect URL
-SITE_ID = 3
+# SITE_ID = 0
+# Use 5 when deploying to Heroku
+SITE_ID = 5
 LOGIN_REDIRECT_URL = '/'
+
+# Added 03/22
+# ACCOUNT_EMAIL_VERIFICATION = "none"
+# ACCOUNT_LOGOUT_ON_GET = True
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # Way to get user's email addresses when they log in
 SOCIALACCOUNT_PROVIDERS = {
@@ -168,8 +183,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+# Added 03/19/21
+# AUTH_USER_MODEL = 'exercise.User'
+# End
 
-# django_heroku.settings(locals())
 # Activate Django-Heroku.
 try:
     # Configure Django App for Heroku.

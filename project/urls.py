@@ -1,17 +1,22 @@
 from django.contrib import admin
-# importing urls for allauth and TemplateView (03/01/21)
 from django.urls import path, include
-from django.views.generic import TemplateView
-# from . import views
+
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from exercise import views as exercise_views
 
 app_name = 'exercise'
 urlpatterns = [
-    # added 03/01/21
-    path('exercise/', TemplateView.as_view(template_name = "exercise/index.html")),
-    # added 03/01/21
     path('accounts/', include('allauth.urls')),
-    path ('', include('exercise.urls')),
-    # path('exercise/', include('exercise.urls')),
-
+    path('', include('exercise.urls')),
     path('admin/', admin.site.urls),
+    path('register/', exercise_views.register, name='register'),
+    path('profile/', exercise_views.profile, name='profile'),
+    path('login/', auth_views.LoginView.as_view(template_name='exercise/login.html'), name='login'),
+    path('logout/', auth_views.LoginView.as_view(template_name='exercise/logout.html'), name='logout'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

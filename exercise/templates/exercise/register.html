@@ -1,0 +1,12 @@
+<h>REGISTER FOR EXERCISE GAMIFICATION</h>
+<br>
+<br>
+<br>
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <br>
+    <input type="submit" value="Register">
+</form>
+
+<b>Already have an account?</b><a href="{% url 'login' %}">Sign In</a>

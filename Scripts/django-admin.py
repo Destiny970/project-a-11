@@ -1,4 +1,4 @@
-#!C:\Users\aclee\CS3240\project\Scripts\python.exe
+#!C:\Users\aclee\Documents\GitHub\project-a-11\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
