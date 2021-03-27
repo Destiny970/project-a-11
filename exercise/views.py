@@ -61,6 +61,16 @@ def user_home(request):
     return render(request, 'exercise/UserHome.html')
 
 
+@login_required
+def my_ws(request):
+    form = ExerciseForm()
+    exercise = Exercise.objects.filter(profile=request.user.profile)
+    args = {'form': form, 'exercise': exercise}
+    # workouts = Exercise.objects.filter(user=request.user)
+    return render(request, 'exercise/MyWorkouts.html', args)
+
+
+@login_required
 def log_nws(request):
     if request.method == 'POST':
         filled_form = ExerciseForm(request.POST)
@@ -98,11 +108,11 @@ def log_nws(request):
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
 
 
-def my_ws(request):
-    form = ExerciseForm()
-    exercise = Exercise.objects.all()
-    args = {'form': form, 'exercise': exercise}
-    return render(request, 'exercise/MyWorkouts.html', args)
+# def my_ws(request):
+#     form = ExerciseForm()
+#     exercise = Exercise.objects.all()
+#     args = {'form': form, 'exercise': exercise}
+#     return render(request, 'exercise/MyWorkouts.html', args)
 
 
 # class WorkoutListView(ListView):
