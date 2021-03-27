@@ -131,5 +131,5 @@ def log_nws(request):
 #         return Exercise.objects.filter(author=user)
 
 
-def my_points(request):
-    return render(request, 'exercise/MyPoints.html')
+# def my_points(request):
+#     return render(request, 'exercise/MyPoints.html')
