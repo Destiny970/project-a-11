@@ -16,6 +16,8 @@ from .forms import UserRegisterForm, UserUpdateForm
 
 @login_required
 def profile(request):
+    exercise = Exercise.objects.filter(profile=request.user.profile)
+    total_points = exercise.aggregate(total_points=Sum('points'))
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -30,6 +32,7 @@ def profile(request):
         # p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'u_form': u_form,
+        'total_points': total_points,
         # 'p_form': p_form
     }
     return render(request, 'exercise/profile.html', context)
@@ -65,8 +68,9 @@ def user_home(request):
 def my_ws(request):
     form = ExerciseForm()
     exercise = Exercise.objects.filter(profile=request.user.profile)
-    args = {'form': form, 'exercise': exercise}
-    # workouts = Exercise.objects.filter(user=request.user)
+    total_points = exercise.aggregate(total_points=Sum('points'))
+    Profile.workout_points = total_points
+    args = {'form': form, 'exercise': exercise, 'total_points': total_points}
     return render(request, 'exercise/MyWorkouts.html', args)
 
 
@@ -96,6 +100,7 @@ def log_nws(request):
             elif filled_form.cleaned_data['exercise_type'] == 'SPT':
                 model.points*=4
             total += model.points
+            # model.total_points = total
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:

@@ -46,5 +46,6 @@ class Exercise(models.Model):
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
+    # total_points = models.IntegerField(default=0)
 
 
