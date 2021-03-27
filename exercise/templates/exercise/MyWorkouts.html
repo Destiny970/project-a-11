@@ -1,11 +1,9 @@
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <html>
-<h>MY WORKOUTS PAGE</h>
-<br>
-<a href="{% url 'exercise:log_new' %}">Log Workout</a>
-<a href="{% url 'exercise:profile' %}">My Profile</a>
-<a href = "{% url 'logout' %}">Logout</a>
-<br>
+<center>
+<h2>MY WORKOUTS PAGE</h2>
 <br>
 {% for wk in exercise %}
     <b>User: </b><i>{{user.username}}</i>
@@ -25,6 +23,7 @@
     <br>
 {% endfor %}
 
-
+</center>
 </html>
+
 {% endblock %}
