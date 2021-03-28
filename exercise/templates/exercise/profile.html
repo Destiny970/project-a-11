@@ -12,6 +12,9 @@
     <br>
     <br>
 
+
+
+    <br>
 <form action="{% url 'exercise:profile' %}" method="post">
     {% csrf_token %}
     {{ u_form|crispy }}

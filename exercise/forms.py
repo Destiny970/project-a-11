@@ -39,3 +39,5 @@ class ExerciseForm(forms.ModelForm):
             'description': forms.TextInput(attrs={'class':'form-control','size': 50,'placeholder': 'Provide thoughts on your workout here.'}),
         }
 
+
+

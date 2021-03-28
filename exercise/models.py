@@ -4,20 +4,44 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 # from pinax.badges.base import Badge, BadgeAwarded
 # from pinax.badges.registry import badges
+# from django_gamification.models import GamificationInterface
+
+# class PointsBadge(Badge):
+#     slug = 'points'
+#     levels = [
+#         "Bronze",
+#         "Silver",
+#         "Gold",
+#     ]
+#     events = [
+#         "points_awarded"
+#     ]
+#     multiple = False
+#
+#     def award(self, **state):
+#         user = stat["user"]
+#         points = user.profile.workout_points
+#         if points > 500:
+#             return BadgeAwarded(level=1)
+#         elif points > 750:
+#             return BadgeAwarded(level=2)
+#         elif points > 1000:
+#             return BadgeAwarded(level=3)
+#
+#     badges.register(PointsBadge)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    # badges = models.ImageField(default='default.jpg', upload_to='profile_pics')
     workout_points = models.IntegerField(default=0)
+    # interface = models.ForeignKey(GamificationInterface, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    # def total_points(self):
-    #     return self.workout_points + 100
-
     def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class Exercise(models.Model):

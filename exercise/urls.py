@@ -12,6 +12,7 @@ urlpatterns = [
     # path('MyPoints/', views.my_points, name='my_points'),
     # path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
+    path('badges/', views.badges, name='badges')
     # path('badges/', views.badges, name='badges')
     # path('user/<str:username>', UserWorkoutListView.as_view(), name='user-workouts')
     # path('login/', views.login, name='login'),

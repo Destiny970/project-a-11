@@ -1,0 +1,19 @@
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<html>
+<center>
+    <h2>LEADERBOARD</h2>
+    <br>
+    {% for user_points in points_total %}
+    <b>User: </b><i>{{ point_totals }}</i>
+    <br>
+    <b>Points: </b><i>{{us}}</i>
+    <br>
+    <br>
+    {% endfor %}
+
+</center>
+</html>
+
+{% endblock %}

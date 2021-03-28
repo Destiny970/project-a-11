@@ -8,8 +8,7 @@ from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm
-# from brabeion import badges
-# from brabeion.base import BadgeAwarded
+# from pinax.badges.registry import badges
 # ProfileUpdateForm
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -17,16 +16,26 @@ from .forms import UserRegisterForm, UserUpdateForm
 
 # Source for navigation bar and base template
 # https://www.selimatmaca.com/211-base-template/
+
+
 @login_required
 def profile(request):
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
 
+    # SAVING POINTS TO PROFILE OF USER
+    model = Profile
+    if list(total_points.values())[0] is None:
+        model.workout_points = 0
+    else:
+        model.workout_points = list(total_points.values())[0]
+    request.user.profile.save()
+    points = model.workout_points
+
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if u_form.is_valid():
-                # and p_form.is_valid():
+        if u_form.is_valid():  # and p_form.is_valid():
             u_form.save()
             # p_form.save()
             messages.success(request, f'Your account has been updated! You are now able to log in')
@@ -37,8 +46,10 @@ def profile(request):
     context = {
         'u_form': u_form,
         'total_points': total_points,
+        'points': points
         # 'p_form': p_form
     }
+
     return render(request, 'exercise/profile.html', context)
 
 
@@ -56,9 +67,12 @@ def register(request):
     return render(request, 'exercise/register.html', {'form': form})
 
 
-# def badges(request):
+def badges(request):
+    exercise = Exercise.objects.filter(profile=request.user.profile)
+    total_points = exercise.aggregate(total_points=Sum('points'))
 
-
+    context = {'total_points': total_points}
+    return render(request, 'exercise/MyBadges.html', context)
 
 def index(request):
     return render(request, 'exercise/index.html')
@@ -82,6 +96,16 @@ def my_ws(request):
     return render(request, 'exercise/MyWorkouts.html', args)
 
 
+# @login_required
+# def leaderboard(request):
+#     point_totals = {}
+#     exercise = Exercise.objects.all()
+#     for user_points in exercise:
+#         point_totals[user_points.profile] = user_points.points
+#     args = {'point_totals': point_totals}
+#     return render(request, 'exercise/leaderboard.html', args)
+
+
 @login_required
 def log_nws(request):
     if request.method == 'POST':
@@ -94,6 +118,7 @@ def log_nws(request):
             model = filled_form.save(commit=False)
             model.points = 5
             model.profile = Profile.objects.get(user=request.user)
+
             # model.exercise = Exercise.objects.get(exercise_type=request.user)
             if filled_form.cleaned_data['time_taken'] == 'LESS_THAN_1_HR':
                 model.points*=2
@@ -107,8 +132,13 @@ def log_nws(request):
                 model.points*=3
             elif filled_form.cleaned_data['exercise_type'] == 'SPT':
                 model.points*=4
-            total += model.points
-            # model.total_points = total
+
+            request.user.profile.workout_points += model.points
+            request.user.profile.save()
+
+            if request.user.profile.workout_points >= 100:
+                print('Congrats you have earned the centurion badge')
+
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:
