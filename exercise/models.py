@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.template.defaultfilters import slugify
+# from pinax.badges.base import Badge, BadgeAwarded
+# from pinax.badges.registry import badges
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

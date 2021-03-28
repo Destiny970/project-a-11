@@ -8,16 +8,20 @@ from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm
+# from brabeion import badges
+# from brabeion.base import BadgeAwarded
 # ProfileUpdateForm
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
 # users in the app database
 
-
+# Source for navigation bar and base template
+# https://www.selimatmaca.com/211-base-template/
 @login_required
 def profile(request):
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
+
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -50,6 +54,10 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'exercise/register.html', {'form': form})
+
+
+# def badges(request):
+
 
 
 def index(request):
