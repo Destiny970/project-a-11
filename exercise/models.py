@@ -25,7 +25,15 @@ class Exercise(models.Model):
     This method sets the points given a time taken (should probably modify later)
     """
     def set_points(self):
-        self.points = int(self.time_taken) * 10
+        ## self.points = int(self.time_taken) * 10
+        if (self.time_taken == 'LESS_THAN_30'):
+            self.points = 5
+        elif (self.time_taken == 'LESS_THAN_1_HR'):
+            self.points = 10
+        elif (self.time_taken == 'BETWEEN_1_AND_2_HRS'):
+            self.points = 15 
+        else:
+            self.points = 20 
 
     EXERCISE_CHOICES = [
         ('CAR', 'cardio'),
