@@ -20,6 +20,8 @@ class ExerciseModelSetPointMethodTests(TestCase):
         ex_obj.set_points()
         self.assertEqual(ex_obj.points, 20)
 
+## The following Django documentation, accessible through the below url, was used to help write the code in this test class.
+## https://docs.djangoproject.com/en/3.1/topics/testing/tools/
 class WorkingURLPaths(TestCase):
     def test_home_page(self):
         response = self.client.get('/', follow=True)
