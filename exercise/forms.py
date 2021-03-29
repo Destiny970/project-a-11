@@ -1,8 +1,17 @@
 from django import forms 
-from .models import Exercise, Profile
+from .models import Exercise, Profile, City
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+
+
+class CityForm(forms.ModelForm):
+    class Meta:
+        model = City
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
+        }
 
 
 class UserRegisterForm(UserCreationForm):

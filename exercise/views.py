@@ -3,11 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed
 from django.urls import reverse
 from .forms import ExerciseForm
-from .models import Exercise, Profile
+from .models import Exercise, Profile, City
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, CityForm
+# from django_gamification.models import Badge
+from django.views.generic import TemplateView, RedirectView
+import requests
 # from pinax.badges.registry import badges
 # ProfileUpdateForm
 
@@ -74,16 +77,36 @@ def badges(request):
     context = {'total_points': total_points}
     return render(request, 'exercise/MyBadges.html', context)
 
-def index(request):
-    return render(request, 'exercise/index.html')
+
+def the_weather(request):
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+    weather_data = []
+    cities = City.objects.all()
+    if request.method == 'POST':
+        form = CityForm(request.POST)
+        form.save()
+
+    form = CityForm()
+    # request the API data and convert the JSON to Python data types
+    for city in cities:
+        city_weather = requests.get(url.format(city)).json()
+        weather = {
+            'city': city,
+            'temperature': city_weather['main']['temp'],
+            'description': city_weather['weather'][0]['description'],
+            'icon': city_weather['weather'][0]['icon']
+        }
+        weather_data.append(weather)
+    context = {'weather_data': weather_data, 'form': form}
+    return render(request, 'exercise/weather.html', context)
 
 
 def home(request):
     return render(request, 'exercise/HomeLogin.html')
 
 
-def user_home(request):
-    return render(request, 'exercise/UserHome.html')
+# def user_home(request):
+#     return render(request, 'exercise/UserHome.html')
 
 
 @login_required
@@ -94,16 +117,6 @@ def my_ws(request):
     Profile.workout_points = total_points
     args = {'form': form, 'exercise': exercise, 'total_points': total_points}
     return render(request, 'exercise/MyWorkouts.html', args)
-
-
-# @login_required
-# def leaderboard(request):
-#     point_totals = {}
-#     exercise = Exercise.objects.all()
-#     for user_points in exercise:
-#         point_totals[user_points.profile] = user_points.points
-#     args = {'point_totals': point_totals}
-#     return render(request, 'exercise/leaderboard.html', args)
 
 
 @login_required
@@ -132,13 +145,13 @@ def log_nws(request):
                 model.points*=3
             elif filled_form.cleaned_data['exercise_type'] == 'SPT':
                 model.points*=4
+            if filled_form.cleaned_data['location'] == 'OUTSIDE':
+                model.points*=2
 
-            request.user.profile.workout_points += model.points
+            # request.user.profile.workout_points += model.points
+            request.user.profile.award_points(model.points)
             request.user.profile.save()
-
-            if request.user.profile.workout_points >= 100:
-                print('Congrats you have earned the centurion badge')
-
+            # badges.possibly_award_badge('points_awarded', user=request.user)
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:

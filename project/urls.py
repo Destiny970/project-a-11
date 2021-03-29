@@ -16,7 +16,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='exercise/login.html'), name='login'),
     path('logout/', auth_views.LoginView.as_view(template_name='exercise/logout.html'), name='logout'),
 
-    # path('badges/', include('pinax.badges.urls'))
+    #path('badges/', include('pinax.badges.urls'))
 ]
 
 if settings.DEBUG:

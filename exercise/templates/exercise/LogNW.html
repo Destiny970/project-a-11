@@ -8,6 +8,7 @@
 <form action="{% url 'exercise:log_new' %}" method="post">
     {% csrf_token %}
     {{ exerciseform|crispy }}
+    <br>
     <input type="submit" value="Log Your Workout">
 </form>
     {% endblock %}

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'crispy_forms',
     # 'exercise',
+    # 'django_gamification',
+    # 'pinax.badges',
     'exercise.apps.ExerciseConfig',
     'allauth',
     'allauth.account',
