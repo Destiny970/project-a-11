@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 ## https://stackoverflow.com/questions/47579644/django-configuring-different-databases
 ## https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 ## https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django?fbclid=IwAR22uppxhHcUSnvO73roHVYH3qzRzmP3687S7krh1844c5N49h2l7VTKrrA 
-if os.environ.get('ENV') == "PROD":
+if os.environ.get('ENV') != "PROD":
     print("!!!!!!! INSIDE NON PRODUCTION ENV BRANCH !!!!!!!!")
     DATABASES = { 
         'default': 
