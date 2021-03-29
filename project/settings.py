@@ -87,25 +87,29 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE':'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'dcd2j05latd35a',
-#        'USER': 'kkkifpshjwhhue',
-#        'PASSWORD': '456391adf83d19807c430d193ccfe73c37ea28affa4933d4a9e2eb17913f5c8a',
-#        'HOST': 'ec2-54-198-73-79.compute-1.amazonaws.com',
-#        'PORT': '5432'
-#    }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+## The following stack overflow post aided in writing this code
+## https://stackoverflow.com/questions/47579644/django-configuring-different-databases
+## https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+if os.environ.get('ENV') != "PROD":
+    DATABASES = { 
+        'default': 
+        {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        },
     }
-}
+else: 
+    DATABASES = { 
+        'default': 
+        {
+            'ENGINE':'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dcd2j05latd35a',
+            'USER': 'kkkifpshjwhhue',
+            'PASSWORD': '456391adf83d19807c430d193ccfe73c37ea28affa4933d4a9e2eb17913f5c8a',
+            'HOST': 'ec2-54-198-73-79.compute-1.amazonaws.com',
+            'PORT': '5432'
+        },
+    }
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
