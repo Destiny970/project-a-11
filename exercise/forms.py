@@ -1,8 +1,17 @@
 from django import forms 
-from .models import Exercise, Profile
+from .models import Exercise, Profile, City
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+
+
+class CityForm(forms.ModelForm):
+    class Meta:
+        model = City
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
+        }
 
 
 class UserRegisterForm(UserCreationForm):
@@ -18,7 +27,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email']
+        fields = ['username', 'email']
 
 
 # class ProfileUpdateForm(forms.ModelForm):
@@ -38,4 +47,6 @@ class ExerciseForm(forms.ModelForm):
             'exercise_date': forms.DateTimeInput(format=('%m/%d/%Y'),attrs={'class':'form-control','type':'date'}),
             'description': forms.TextInput(attrs={'class':'form-control','size': 50,'placeholder': 'Provide thoughts on your workout here.'}),
         }
+
+
 

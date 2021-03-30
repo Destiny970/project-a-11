@@ -1,12 +1,18 @@
-<h>REGISTER FOR EXERCISE GAMIFICATION</h>
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<center>
+<h2>REGISTER FOR EXERCISE GAMIFICATION</h2>
 <br>
-<br>
-<br>
+    <ul>
 <form action="{% url 'register' %}" method="post">
     {% csrf_token %}
-    {{ form }}
+    <li style="list-style-type: none;">{{ form|crispy }} </li>
     <br>
     <input type="submit" value="Register">
 </form>
+    </ul>
 
-<b>Already have an account?</b><a href="{% url 'login' %}">Sign In</a>
+<b>Already have an account? </b><a href="{% url 'login' %}">Sign In</a>
+{% endblock %}
+</center>

@@ -14,18 +14,23 @@
 <div class="bg-img">
   <div class="container">
     <div class="topnav">
-        <p>Welcome to Exercise Gamification!</p>
+        <h1>Welcome to Exercise Gamification!</h1>
+        <br>
     </div>
     <div class="mednav">
-        <p>Log your Exercises</p>
-        <p>Better Yourself</p>
-        <p>Compete with Others</p>
+        <b>Log your Exercises</b>
+        <br>
+        <b>Better Yourself</b>
+        <br>
+        <b>Compete with Others</b>
+        <br>
+        <br>
     </div>
   </div>
   <div class="login_container">
       <div class="rightnav">
         {% if user.is_authenticated %}
-            <center><p style="font-size:20px">Hello, {{ user.username }} !</p></center>
+            <center><p style="font-size:20px"><b>Hello, {{ user.username }} !</b></p></center>
             <center><a href = "{% url 'logout' %}">Logout</a></center>
         {% else %}
           <center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
