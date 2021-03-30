@@ -10,13 +10,7 @@
     <b>Total Points: </b><a href="{% url 'exercise:my_ws' %}">{{ total_points.total_points }} </a>
     <br>
     <br>
-    <b>Edit your username and/or email below. Erase current username/email and replace with desired info and then click 'Update' </b>
-<form action="{% url 'exercise:profile' %}" method="post">
-    {% csrf_token %}
-    {{ u_form|crispy }}
-    {{ p_form|crispy }}
-    <br>
-    <input type="submit" value="Update">
-</form>
+    <a href="{% url 'exercise:editprofile' %}">Edit Profile </a>
+
 </center>
 {% endblock %}

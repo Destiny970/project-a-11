@@ -56,6 +56,23 @@ def profile(request):
     return render(request, 'exercise/profile.html', context)
 
 
+def edit_profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Your account has been updated! You are now able to log in')
+            return HttpResponseRedirect(reverse('exercise:profile'))
+        else:
+            print("Something went wrong, please try again.")
+        note = "Something went wrong, please try again."
+        new_form = UserUpdateForm()
+        return render(request, 'exercise/editprofile.html', {'profileform':new_form, 'note':note})
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+    return render(request, 'exercise/editprofile.html', {'u_form': u_form})
+
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -67,7 +84,7 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-    return render(request, 'exercise/register.html', {'form': form})
+        return render(request, 'exercise/register.html', {'form': form})
 
 
 def badges(request):
