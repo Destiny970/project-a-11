@@ -1,6 +1,5 @@
 {% extends 'exercise/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <center><h2>My Profile</h2>
     <br>
@@ -8,13 +7,10 @@
     <br>
         <b>Email: </b><i>{{ user.email }}</i>
     <br>
-    <b>Total Points: </b><i>{{ total_points.total_points }}</i>
+    <b>Total Points: </b><a href="{% url 'exercise:my_ws' %}">{{ total_points.total_points }} </a>
     <br>
     <br>
-
-
-
-    <br>
+    <b>Edit your username and/or email below. Erase current username/email and replace with desired info and then click 'Update' </b>
 <form action="{% url 'exercise:profile' %}" method="post">
     {% csrf_token %}
     {{ u_form|crispy }}

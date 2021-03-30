@@ -101,6 +101,29 @@ def the_weather(request):
     return render(request, 'exercise/weather.html', context)
 
 
+def index(request):
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+    weather_data = []
+    cities = City.objects.all()
+    if request.method == 'POST':
+        form = CityForm(request.POST)
+        form.save()
+
+    form = CityForm()
+    # request the API data and convert the JSON to Python data types
+    for city in cities:
+        city_weather = requests.get(url.format(city)).json()
+        weather = {
+            'city': city,
+            'temperature': city_weather['main']['temp'],
+            'description': city_weather['weather'][0]['description'],
+            'icon': city_weather['weather'][0]['icon']
+        }
+        weather_data.append(weather)
+    context = {'weather_data': weather_data, 'form': form}
+    return render(request, 'exercise/index.html', context)
+
+
 def home(request):
     return render(request, 'exercise/HomeLogin.html')
 

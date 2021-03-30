@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
 <body>
+
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
@@ -53,7 +56,7 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{ weather.city }}</span>
+                                        <center><span class="title">{{ weather.city }}</span></center>
                                         <br>
                                         <span class="subtitle">{{ weather.temperature }}° F</span>
                                         <br> {{ weather.description }}
@@ -67,7 +70,6 @@
             </div>
         </div>
     </section>
-    <footer class="footer">
-    </footer>
 </body>
 </html>
+{% endblock %}

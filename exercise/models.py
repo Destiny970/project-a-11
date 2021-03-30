@@ -76,15 +76,15 @@ class Exercise(models.Model):
         self.points = int(self.time_taken) * 10
 
     EXERCISE_CHOICES = [
-        ('CAR', 'cardio'),
-        ('STR', 'strength'),
-        ('SPT', 'sports'),
-        ('FLX', 'yoga/flexibility'),
+        ('CAR', 'Cardio'),
+        ('STR', 'Strength'),
+        ('SPT', 'Sports'),
+        ('FLX', 'Yoga/Flexibility'),
     ]
     TIME_CHOICES = [
         ('LESS_THAN_30', 'Quick Workout (Between 1-29 min)'),
-        ('LESS_THAN_1_HR', 'Longer Workout (Between 30-59 min'),
-        ('BETWEEN_1_AND_2_HRS', 'Long Workout (Between 60 and 119 min'),
+        ('LESS_THAN_1_HR', 'Longer Workout (Between 30-59 min)'),
+        ('BETWEEN_1_AND_2_HRS', 'Long Workout (Between 60 and 119 min)'),
         ('MORE_THAN_2_HRS', 'Very Long Workout (120 min or greater)'),
     ]
     LOCATION_CHOICES = [
