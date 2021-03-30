@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import sys
 
 # import django_heroku 
 
@@ -93,7 +94,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 ## https://stackoverflow.com/questions/47579644/django-configuring-different-databases
 ## https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 ## https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django?fbclid=IwAR22uppxhHcUSnvO73roHVYH3qzRzmP3687S7krh1844c5N49h2l7VTKrrA 
-DATABASES = { 
+## This site was critical in helping to debug an issue with Travis and automated testing: https://medium.com/analytics-vidhya/provisioning-a-test-postgresql-database-on-heroku-for-your-django-app-febb2b5d3b29
+if 'test' in sys.argv:
+        DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dcap1mcbmkirfo',
+            'USER': 'rclnkmcxxugxnk',
+            'PASSWORD': 'b0a9b9684c9f9e0f3985450566ee881c179f0e2b78956ce2609b39ba9fee27dd',
+            'HOST': 'ec2-3-233-43-103.compute-1.amazonaws.com',
+            'PORT': 5432,
+            'TEST': {
+                'NAME': 'dcap1mcbmkirfo', 
+            }
+        }
+    }
+else:
+    DATABASES = { 
     'default': 
     {
         'ENGINE':'django.db.backends.postgresql_psycopg2',
