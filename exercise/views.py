@@ -8,6 +8,7 @@ from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, CityForm
+from django.contrib.auth.models import User
 # from django_gamification.models import Badge
 from django.views.generic import TemplateView, RedirectView
 import requests
@@ -202,6 +203,20 @@ def log_nws(request):
     else:
         form = ExerciseForm()
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
+
+
+@login_required
+def leaderboard(request):
+    all_users = User.objects.all()
+    for user in all_users:
+        exercise = Exercise.objects.filter(profile=request.user.profile)
+        total_points = exercise.aggregate(total_points=Sum('points'))
+    context = {
+        'all_users': all_users,
+        'total_points': total_points,
+    }
+    return render(request, 'exercise/leaderboard.html', context)
+
 
 
 # def my_ws(request):

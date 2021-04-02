@@ -76,26 +76,26 @@ class Exercise(models.Model):
         self.points = int(self.time_taken) * 10
 
     EXERCISE_CHOICES = [
-        ('CAR', 'Cardio'),
-        ('STR', 'Strength'),
-        ('SPT', 'Sports'),
-        ('FLX', 'Yoga/Flexibility'),
+        ('Cardio', 'Cardio'),
+        ('Strength', 'Strength'),
+        ('Sports', 'Sports'),
+        ('Yoga/Flexibility', 'Yoga/Flexibility'),
     ]
     TIME_CHOICES = [
-        ('LESS_THAN_30', 'Quick Workout (Between 1-29 min)'),
-        ('LESS_THAN_1_HR', 'Longer Workout (Between 30-59 min)'),
-        ('BETWEEN_1_AND_2_HRS', 'Long Workout (Between 60 and 119 min)'),
-        ('MORE_THAN_2_HRS', 'Very Long Workout (120 min or greater)'),
+        ('Quick Workout (Between 1-29 min)', 'Quick Workout (Between 1-29 min)'),
+        ('Longer Workout (Between 30-59 min)', 'Longer Workout (Between 30-59 min)'),
+        ('Long Workout (Between 60 and 119 min)', 'Long Workout (Between 60 and 119 min)'),
+        ('Very Long Workout (120 min or greater)', 'Very Long Workout (120 min or greater)'),
     ]
     LOCATION_CHOICES = [
-        ('INSIDE', 'Indoors'),
-        ('OUTSIDE', 'Outdoors')
+        ('Indoors', 'Indoors'),
+        ('Outdoors', 'Outdoors')
     ]
-    exercise_type = models.CharField(max_length=3, choices=EXERCISE_CHOICES, default='CAR')
-    location = models.CharField(max_length=7, choices=LOCATION_CHOICES, default='INSIDE')
+    exercise_type = models.CharField(max_length=20, choices=EXERCISE_CHOICES, default='Cardio')
+    location = models.CharField(max_length=8, choices=LOCATION_CHOICES, default='Indoors')
     exercise_date = models.DateTimeField('date completed', null=True)
     # time_taken = models.IntegerField(default=0)
-    time_taken = models.CharField(max_length=20, choices=TIME_CHOICES, default='LESS_THAN_30')
+    time_taken = models.CharField(max_length=100, choices=TIME_CHOICES, default='Quick Workout (Between 1-29 min)')
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)

@@ -5,11 +5,8 @@
 <center>
     <h2>LEADERBOARD</h2>
     <br>
-    {% for user_points in points_total %}
-    <b>User: </b><i>{{ point_totals }}</i>
-    <br>
-    <b>Points: </b><i>{{us}}</i>
-    <br>
+    {% for user in all_users %}
+    <b>User: </b><i>{{ user.username }}      </i><b>Points: </b><i>{{ total_points.total_points }}</i>
     <br>
     {% endfor %}
 

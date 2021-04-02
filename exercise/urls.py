@@ -16,7 +16,7 @@ urlpatterns = [
     path('badges/', views.badges, name='badges'),
     # path('weather/', views.the_weather, name='weather')
     path('weather/', views.index, name='weather'),
-    path('editprofile/', views.edit_profile, name='editprofile')
+    path('editprofile/', views.edit_profile, name='editprofile'),
     # path('badges/', views.badges, name='badges')
     # path('user/<str:username>', UserWorkoutListView.as_view(), name='user-workouts')
     # path('login/', views.login, name='login'),
@@ -24,6 +24,7 @@ urlpatterns = [
     # path('main/', MainView.as_view(), name='main'),
     # path('award-badge/<int:badge_id>/', AwardBadgeView.as_view(), name='award-badge'),
     # path('revoke-badge/<int:badge_id>', RevokeBadgeView.as_view(), name='revoke-badge')
+    path('leaderboard/', views.leaderboard, name='leaderboard'),
 
 ]
 

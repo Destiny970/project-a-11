@@ -1,5 +1,7 @@
-
 {% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -11,15 +13,16 @@
   </head>
 {% include "exercise/header.html" %}
   <body>
+    <div class="bg-img">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-8">
-          <center><h1 class="mt-2">Exercise Gamification App</h1></center>
           <hr class="mt-0 mb-4">
           {% block content %}
           {% endblock %}
         </div>
       </div>
+    </div>
     </div>
   </body>
 
