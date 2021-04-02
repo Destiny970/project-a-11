@@ -208,17 +208,24 @@ def log_nws(request):
 @login_required
 def leaderboard(request):
     all_users = User.objects.all()
-    for user in all_users:
-        exercise = Exercise.objects.filter(profile=request.user.profile)
-        total_points = exercise.aggregate(total_points=Sum('points'))
+    leader_board = Profile.objects.order_by('-workout_points')[:]
     context = {
         'all_users': all_users,
-        'total_points': total_points,
+        'leader_board': leader_board
     }
     return render(request, 'exercise/leaderboard.html', context)
 
 
 
+
+# for user in all_users:
+#     exercise = Exercise.objects.filter(profile=request.user.profile)
+#     total_points = exercise.aggregate(total_points=Sum('points'))
+#     # total_points = user.profile.workout_points
+# context = {
+#     'all_users': all_users,
+#     'total_points': total_points,
+# }
 # def my_ws(request):
 #     form = ExerciseForm()
 #     exercise = Exercise.objects.all()
