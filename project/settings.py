@@ -51,8 +51,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # 'exercise',
-    # 'django_gamification',
-    'pinax.badges',
 ]
 
 # Added 03/22
