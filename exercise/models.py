@@ -7,6 +7,12 @@ from django.utils.safestring import mark_safe
 # Source for 3rd party weather API
 # https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django
 
+# Image links
+# https://img.pngio.com/bronze-medal-png-images-free-png-library-bronze-png-600_600.png
+# https://i1.wp.com/wordsowers.com/wp-content/uploads/2017/01/silver-level1.png?fit=562%2C562
+# https://th.bing.com/th/id/R84dfb027e4224af516af716f00ab61e3?rik=EEUBbK%2bGv%2b9afQ&riu=http%3a%2f%2fanimallawsource.
+# org%2fwp-content%2fuploads%2f2015%2f08%2fgold-level.png&ehk=0IkwAb6rc%2fkDekvBKFYQP%2flI1PRyvvBxpFlmM8ntFAg%3d&risl=&pid=ImgRaw
+
 
 class City(models.Model):
     name = models.CharField(max_length=25)
@@ -102,6 +108,41 @@ class Exercise(models.Model):
 
     # total_points = models.IntegerField(default=0)
 
+
+# from django.conf import settings
+# from django.db import models
+# from django.utils import timezone
+#
+#
+# class BadgeAward(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="badges_earned", on_delete=models.CASCADE)
+#     awarded_at = models.DateTimeField(default=timezone.now)
+#     slug = models.CharField(max_length=255)
+#     level = models.IntegerField()
+#
+#     def __getattr__(self, attr):
+#         return getattr(self._badge, attr)
+#
+#     @property
+#     def badge(self):
+#         return self
+#
+#     @property
+#     def _badge(self):
+#         from .registry import badges
+#         return badges._registry[self.slug]
+#
+#     @property
+#     def name(self):
+#         return self._badge.levels[self.level].name
+#
+#     @property
+#     def description(self):
+#         return self._badge.levels[self.level].description
+#
+#     @property
+#     def progress(self):
+#         return self._badge.progress(self.user, self.level)
 
 # from pinax.badges.base import Badge, BadgeAwarded
 # from pinax.badges.registry import badges

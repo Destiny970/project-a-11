@@ -9,11 +9,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, CityForm
 from django.contrib.auth.models import User
-# from django_gamification.models import Badge
 from django.views.generic import TemplateView, RedirectView
 import requests
-# from pinax.badges.registry import badges
-# ProfileUpdateForm
+
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
 # users in the app database
@@ -46,14 +44,11 @@ def profile(request):
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        # p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'u_form': u_form,
         'total_points': total_points,
         'points': points
-        # 'p_form': p_form
     }
-
     return render(request, 'exercise/profile.html', context)
 
 
@@ -80,7 +75,6 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            # messages.success(request, f'Your account has been created! You are now able to log in')
             note = 'Your account has been created! You are now able to log in'
             return redirect('login')
     else:
@@ -91,9 +85,8 @@ def register(request):
 def badges(request):
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
-
     context = {'total_points': total_points}
-    return render(request, 'exercise/MyBadges.html', context)
+    return render(request, 'exercise/badges.html', context)
 
 
 def the_weather(request):
@@ -146,10 +139,6 @@ def home(request):
     return render(request, 'exercise/HomeLogin.html')
 
 
-# def user_home(request):
-#     return render(request, 'exercise/UserHome.html')
-
-
 @login_required
 def my_ws(request):
     form = ExerciseForm()
@@ -174,25 +163,24 @@ def log_nws(request):
             model.profile = Profile.objects.get(user=request.user)
 
             # model.exercise = Exercise.objects.get(exercise_type=request.user)
-            if filled_form.cleaned_data['time_taken'] == 'LESS_THAN_1_HR':
+            if filled_form.cleaned_data['time_taken'] == 'Longer Workout (Between 30-59 min)':
                 model.points*=2
-            elif filled_form.cleaned_data['time_taken'] == 'BETWEEN_1_AND_2_HRS':
+            elif filled_form.cleaned_data['time_taken'] == 'Long Workout (Between 60 and 119 min)':
                 model.points*=4
-            elif filled_form.cleaned_data['time_taken'] == 'MORE_THAN_2_HRS':
+            elif filled_form.cleaned_data['time_taken'] == 'Very Long Workout (120 min or greater)':
                 model.points*=8
-            if filled_form.cleaned_data['exercise_type'] == 'CAR':
+            if filled_form.cleaned_data['exercise_type'] == 'Cardio':
                 model.points*=2
-            elif filled_form.cleaned_data['exercise_type'] == 'STR':
+            elif filled_form.cleaned_data['exercise_type'] == 'Strength':
                 model.points*=3
-            elif filled_form.cleaned_data['exercise_type'] == 'SPT':
+            elif filled_form.cleaned_data['exercise_type'] == 'Sports':
                 model.points*=4
-            if filled_form.cleaned_data['location'] == 'OUTSIDE':
+            if filled_form.cleaned_data['location'] == 'Outdoors':
                 model.points*=2
 
             # request.user.profile.workout_points += model.points
             request.user.profile.award_points(model.points)
             request.user.profile.save()
-            # badges.possibly_award_badge('points_awarded', user=request.user)
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:
@@ -216,38 +204,3 @@ def leaderboard(request):
     return render(request, 'exercise/leaderboard.html', context)
 
 
-
-
-# for user in all_users:
-#     exercise = Exercise.objects.filter(profile=request.user.profile)
-#     total_points = exercise.aggregate(total_points=Sum('points'))
-#     # total_points = user.profile.workout_points
-# context = {
-#     'all_users': all_users,
-#     'total_points': total_points,
-# }
-# def my_ws(request):
-#     form = ExerciseForm()
-#     exercise = Exercise.objects.all()
-#     args = {'form': form, 'exercise': exercise}
-#     return render(request, 'exercise/MyWorkouts.html', args)
-
-
-# class WorkoutListView(ListView):
-#     model = Exercise
-#     template = 'exercise/MyWorkouts.html'
-#     context_object_name = 'exercise'
-#
-#
-# class UserWorkoutListView(ListView):
-#     model = Exercise
-#     template_name = 'exercise/user_workouts.html'
-#     context_object_name = 'exercise'
-#
-#     def get_queryset(self):
-#         user = get_object_or_404(User, username=self.kwargs.get('username'))
-#         return Exercise.objects.filter(author=user)
-
-
-# def my_points(request):
-#     return render(request, 'exercise/MyPoints.html')

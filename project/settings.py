@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'badgify',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,14 +44,15 @@ INSTALLED_APPS = [
     # Updated the installed apps (03/01/21)
     'django.contrib.sites',
     'crispy_forms',
-    # 'exercise',
-    # 'django_gamification',
-    # 'pinax.badges',
     'exercise.apps.ExerciseConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    # 'exercise',
+    # 'django_gamification',
+    'pinax.badges',
 ]
 
 # Added 03/22

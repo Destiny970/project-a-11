@@ -1,0 +1,34 @@
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<center>
+<h2>BADGES</h2>
+<b>Total Points: </b>{{ total_points.total_points }}
+    <br>
+    <br>
+    {% if total_points.total_points > 1000 %}
+    <div class="background">
+        <div class="transbox">
+            <img src="{% static 'GoldBadge.jpg' %}" width="100" height="100">
+        </div>
+    </div>
+    <i>Gold Badge</i>
+    {% elif total_points.total_points > 500 %}
+    <div class="background">
+        <div class="transbox">
+            <img src="{% static 'SilverBadge.jpg' %}" width="100" height="100">
+        </div>
+    </div>
+    <i>Silver Badge</i>
+    {% elif total_points.total_points > 200 %}
+    <div class="background">
+        <div class="transbox">
+            <img src="{% static 'BronzeBadge.jpg' %}" width="100" height="100">
+        </div>
+    </div>
+    <i>Bronze Badge</i>
+
+    {% endif %}
+{% endblock %}
+</center>
