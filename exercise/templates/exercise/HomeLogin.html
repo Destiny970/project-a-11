@@ -14,15 +14,12 @@
 <div class="bg-img">
   <div class="container">
     <div class="topnav">
-        <h1>Welcome to Exercise Gamification!</h1>
-        <br>
+        <h4></h4>
+        <h1><b><center>Welcome to Exercise Gamification!</center></b></h1>
     </div>
     <div class="mednav">
-        <b>Log your Exercises</b>
+        <center><b>Log your Exercises | Better Yourself | Compete with Others</b></center>
         <br>
-        <b>Better Yourself</b>
-        <br>
-        <b>Compete with Others</b>
         <br>
         <br>
     </div>
@@ -36,8 +33,8 @@
             <center><a href="{% url 'exercise:log_new' %}">Log a New Workout!</a></center>
             <center><a href = "{% url 'logout' %}">Logout</a></center>
         {% else %}
-          <center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
-          <center><a href = "{% url 'register' %}">Register</a></center>
+            <h2><center><a href="{% provider_login_url 'google' %}">Login with Google</a></center></h2>
+            <h2><center><a href = "{% url 'register' %}">Register</a></center></h2>
         {% endif %}
     </div>
   </div>
