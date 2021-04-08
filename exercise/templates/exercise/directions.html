@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<html>
+<head>
+    <center><h2>HOW TO USE THE APP</h2></center>
+<style>
+div.transbox {
+    margin: 30 px;
+    background-color: #ffffff;
+    border: 1px solid white;
+    opacity: 1.0;
+}
+div.transbox p {
+    margin: 1%;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+    <div class="transbox">
+        <p>Log your workouts in the 'Log New Workouts' tab to earn points and badges!</p>
+        <br>
+        <p>Get outside and workout to earn bonus points! Check the weather in your area first in the 'Current Weather' tab!</p>
+        <br>
+        <p>Make your way up the leaderboard by logging more workouts and exercises!</p>
+        <br>
+        <p>Log your workout tips and things you would like to share with others in the 'Log New Post' tab!</p>
+    </div>
+</body>
+
+{% endblock %}
+
+</html>

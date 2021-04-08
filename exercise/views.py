@@ -21,6 +21,9 @@ from django_oso.auth import authorize
 # Source for navigation bar and base template
 # https://www.selimatmaca.com/211-base-template/
 
+def directions(request):
+    return render(request, 'exercise/directions.html')
+
 @login_required
 def new_post(request):
     if request.method == 'POST':
@@ -113,6 +116,7 @@ def register(request):
 def badges(request):
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
+    date = Exercise.objects.filter()
     context = {'total_points': total_points}
     return render(request, 'exercise/badges.html', context)
 

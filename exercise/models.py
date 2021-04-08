@@ -3,9 +3,13 @@ from django.contrib.auth.models import User
 
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
+from django.utils.timezone import now
 
 # Source for 3rd party weather API
 # https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django
+
+# Source for Community posts feature
+# https://www.osohq.com/post/building-django-app-with-data-access-control
 
 # Image links
 # https://img.pngio.com/bronze-medal-png-images-free-png-library-bronze-png-600_600.png
@@ -116,6 +120,6 @@ class Exercise(models.Model):
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
-
+    created_at = models.DateTimeField(default=now, editable=False)
     # total_points = models.IntegerField(default=0)
 

@@ -2,8 +2,24 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-<center>
-<h2>BADGES</h2>
+<html>
+<head>
+    <center><h2>MY BADGES</h2></center>
+    <style>
+div.transbox {
+    margin: 30 px;
+    background-color: #ffffff;
+    border: 1px solid white;
+    opacity: 1.0;
+}
+div.transbox p {
+    margin: 1%;
+    font-weight: bold;
+    color: black;
+}
+</style>
+</head>
+<div class="transbox" align="center">
 <b>Total Points: </b>{{ total_points.total_points }}
     <br>
     <br>
@@ -30,5 +46,6 @@
     <i>Bronze Badge</i>
 
     {% endif %}
+</div>
 {% endblock %}
-</center>
+</html>

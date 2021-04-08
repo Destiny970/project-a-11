@@ -2,15 +2,28 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <html>
-<center>
-    <h2>LEADERBOARD</h2>
-    <br>
+<head>
+    <center><h2>LEADERBOARD</h2></center>
+    <style>
+div.transbox {
+    margin: 30 px;
+    background-color: #ffffff;
+    border: 1px solid white;
+    opacity: 1.0;
+}
+div.transbox p {
+    margin: 1%;
+    font-weight: bold;
+    color: black;
+}
+</style>
+</head>
+<div class="transbox" align="center">
     {% for rank in leader_board %}
     {{ forloop.counter }} <b>User: </b><i>{{ rank.user }}</i><b>  Points: </b><i>{{ rank.workout_points }}</i>
     <br>
     {% endfor %}
-
-</center>
+</div>
 </html>
 
 {% endblock %}

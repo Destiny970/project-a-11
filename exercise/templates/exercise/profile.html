@@ -1,8 +1,23 @@
 {% extends 'exercise/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<center><h2>My Profile</h2>
-    <br>
+<html>
+<head>
+    <center><h2>PROFILE</h2></center>
+    <style>
+div.transbox {
+    margin: 30 px;
+    background-color: #ffffff;
+    border: 1px solid white;
+    opacity: 1.0;
+}
+div.transbox p {
+    margin: 1%;
+    color: black;
+}
+</style>
+</head>
+<div class="transbox" align="center">
         <b>Username: </b><i>{{ user.username }}</i>
     <br>
         <b>Email: </b><i>{{ user.email }}</i>
@@ -17,4 +32,5 @@
     <a href="{% url 'exercise:editprofile' %}">Edit Profile </a>
 
 </center>
+</div>
 {% endblock %}
