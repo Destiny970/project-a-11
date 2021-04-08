@@ -14,6 +14,34 @@ from django.utils.safestring import mark_safe
 # org%2fwp-content%2fuploads%2f2015%2f08%2fgold-level.png&ehk=0IkwAb6rc%2fkDekvBKFYQP%2flI1PRyvvBxpFlmM8ntFAg%3d&risl=&pid=ImgRaw
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    workout_points = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def award_points(self, workout_points):
+        self.workout_points += workout_points
+        self.save()
+
+
+class Post(models.Model):
+    ACCESS_PUBLIC = 0
+    ACCESS_PRIVATE = 1
+    ACCESS_LEVEL_CHOICES = [
+        (ACCESS_PUBLIC, 'Public'),
+        (ACCESS_PRIVATE, 'Private'),
+    ]
+    contents = models.CharField(max_length=140)
+    access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class City(models.Model):
     name = models.CharField(max_length=25)
 
@@ -52,23 +80,6 @@ class Publication(models.Model):
         return mark_safe("<img src='/%s' max-width='50' />" % self.picture)
 
     image_tag.short_description = "Picture"
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # badges = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    workout_points = models.IntegerField(default=0)
-    # interface = models.ForeignKey(GamificationInterface, null=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user.username} Profile'
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-    def award_points(self, workout_points):
-        self.workout_points += workout_points
-        self.save()
 
 
 class Exercise(models.Model):

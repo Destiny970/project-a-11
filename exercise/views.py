@@ -2,8 +2,8 @@ from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotAllowed
 from django.urls import reverse
-from .forms import ExerciseForm
-from .models import Exercise, Profile, City
+from .forms import ExerciseForm, PostForm
+from .models import Exercise, Profile, City, Post
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,8 @@ from .forms import UserRegisterForm, UserUpdateForm, CityForm
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView, RedirectView
 import requests
+from django.core.exceptions import PermissionDenied
+from django_oso.auth import authorize
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -18,6 +20,34 @@ import requests
 
 # Source for navigation bar and base template
 # https://www.selimatmaca.com/211-base-template/
+
+@login_required
+def new_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        post = form.save(commit=False)
+        post.created_by = request.user
+        post.save()
+        return HttpResponseRedirect(reverse('exercise:posts'))
+    elif request.method == 'GET':
+        form = PostForm()
+        context = {'form': form}
+        return render(request, 'exercise/new_post.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+@login_required
+def list_posts(request):
+    posts = Post.objects.all().order_by('-created_at')[:10]
+    authorized_posts = []
+    for post in posts:
+        try:
+            authorize(request, post, action="view")
+            authorized_posts.append(post)
+        except PermissionDenied:
+            continue
+    return render(request, 'exercise/posts.html', {'posts': authorized_posts})
 
 
 @login_required
@@ -36,10 +66,8 @@ def profile(request):
 
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if u_form.is_valid():  # and p_form.is_valid():
             u_form.save()
-            # p_form.save()
             messages.success(request, f'Your account has been updated! You are now able to log in')
             return redirect('profile')
     else:
