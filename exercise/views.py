@@ -13,6 +13,7 @@ from django.views.generic import TemplateView, RedirectView
 import requests
 from django.core.exceptions import PermissionDenied
 from django_oso.auth import authorize
+from django.db.models import Count
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -212,6 +213,11 @@ def log_nws(request):
 
             # request.user.profile.workout_points += model.points
             request.user.profile.award_points(model.points)
+            request.user.profile.num_workouts += 1
+            if request.user.profile.num_workouts > 0:
+                request.user.profile.avg_points = request.user.profile.workout_points/request.user.profile.num_workouts
+            else:
+                request.user.profile.avg_points = request.user.profile.workout_points
             request.user.profile.save()
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
@@ -228,10 +234,17 @@ def log_nws(request):
 @login_required
 def leaderboard(request):
     all_users = User.objects.all()
-    leader_board = Profile.objects.order_by('-workout_points')[:]
+    leader_board = Profile.objects.order_by('-avg_points')[:]
+    avg_points = []
+    for rank in leader_board:
+        if rank.num_workouts > 0:
+            request.user.profile.avg_points = rank.workout_points/rank.num_workouts
+        else:
+            request.user.profile.avg_points = rank.workout_points
+        request.user.profile.save()
     context = {
         'all_users': all_users,
-        'leader_board': leader_board
+        'leader_board': leader_board,
     }
     return render(request, 'exercise/leaderboard.html', context)
 

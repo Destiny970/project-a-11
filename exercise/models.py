@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
+from datetime import timedelta
+from django.utils import timezone
 
 # Source for 3rd party weather API
 # https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django
@@ -21,6 +23,8 @@ from django.utils.timezone import now
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     workout_points = models.IntegerField(default=0)
+    num_workouts = models.IntegerField(default=0)
+    avg_points = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -122,4 +126,5 @@ class Exercise(models.Model):
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=now, editable=False)
     # total_points = models.IntegerField(default=0)
+
 

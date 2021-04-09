@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 {% extends 'exercise/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
 <html>
 <head>
-    <center><h2>LEADERBOARD</h2></center>
+    <center><h2>LEADERBOARD</h2>
+    <p>See where you are in the rankings!</p></center>
     <style>
 div.transbox {
     margin: 30 px;
@@ -13,17 +15,24 @@ div.transbox {
 }
 div.transbox p {
     margin: 1%;
-    font-weight: bold;
     color: black;
 }
 </style>
 </head>
+<body>
+
+<div class="transbox" align="center">
+    <p>Note: You are ranked by average total points not by the overall total to be fair to users who join later</p>
+</div>
+
 <div class="transbox" align="center">
     {% for rank in leader_board %}
-    {{ forloop.counter }} <b>User: </b><i>{{ rank.user }}</i><b>  Points: </b><i>{{ rank.workout_points }}</i>
+    {{ forloop.counter }} <b>User: </b><i>{{ rank.user }}</i><b>  Points: </b><i>{{ rank.workout_points }}</i><b> Average Points: </b><i>{{ rank.avg_points }}</i>
     <br>
     {% endfor %}
 </div>
+
+</body>
 </html>
 
 {% endblock %}
