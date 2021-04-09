@@ -3,6 +3,7 @@ gunicorn
 bootstrap4
 django-allauth
 django-crispy-forms==1.11.0
+django-oso
 pillow
 psycopg2==2.8.6
 psycopg2-binary==2.8.6

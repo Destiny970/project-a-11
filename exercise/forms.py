@@ -1,8 +1,14 @@
 from django import forms 
-from .models import Exercise, Profile, City
+from .models import Exercise, Profile, City, Post
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['contents', 'access_level']
 
 
 class CityForm(forms.ModelForm):
@@ -23,11 +29,11 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    # email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'first_name', 'last_name']
 
 
 # class ProfileUpdateForm(forms.ModelForm):

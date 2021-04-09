@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Exercise, Profile, City #, BadgeAward
+from .models import Exercise, Profile, City, Post
 from .models import InstagramAccount, Publication, Tag
 
 # Use this link to assist in implementing Instagram component https://github.com/dannywillems/django-instagram
@@ -23,6 +23,5 @@ admin.site.register(Tag, TagAdmin)
 admin.site.register(Exercise)
 admin.site.register(Profile)
 admin.site.register(City)
-# admin.site.register(BadgeAward)
-# admin.site.register(User)
+admin.site.register(Post)
 

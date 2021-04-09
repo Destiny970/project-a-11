@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'badgify',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,14 +45,14 @@ INSTALLED_APPS = [
     # Updated the installed apps (03/01/21)
     'django.contrib.sites',
     'crispy_forms',
-    # 'exercise',
-    # 'django_gamification',
-    # 'pinax.badges',
     'exercise.apps.ExerciseConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_oso'
+
+    # 'exercise',
 ]
 
 # Added 03/22
@@ -150,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'EST'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 

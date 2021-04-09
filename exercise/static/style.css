@@ -1,7 +1,7 @@
 .bg-img {
-  background-image: url("header_image.jpg");
+  background-image: url("Gamification.jpg");
 
-  min-height: 380px;
+  min-height: 600px;
 
   background-position: center;
   background-repeat: no-repeat;
@@ -14,13 +14,6 @@
   position: absolute-center;
   margin: 0;
   width: 2000px;
-}
-
-.login_container {
-  position: absolute-center;
-  margin: 0;
-  width: 200px;
-  border-style: double;
 }
 
 .topnav {

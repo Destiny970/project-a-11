@@ -1,16 +1,36 @@
 {% extends 'exercise/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<center><h2>My Profile</h2>
-    <br>
+<html>
+<head>
+    <center><h2>PROFILE</h2></center>
+    <style>
+div.transbox {
+    margin: 30 px;
+    background-color: #ffffff;
+    border: 1px solid white;
+    opacity: 1.0;
+}
+div.transbox p {
+    margin: 1%;
+    color: black;
+}
+</style>
+</head>
+<div class="transbox" align="center">
         <b>Username: </b><i>{{ user.username }}</i>
     <br>
         <b>Email: </b><i>{{ user.email }}</i>
     <br>
+        <b>First Name: </b><i>{{ user.first_name }}</i>
+    <br>
+        <b>Last Name: </b><i>{{ user.last_name }}</i>
+    <br>
     <b>Total Points: </b><a href="{% url 'exercise:my_ws' %}">{{ total_points.total_points }} </a>
     <br>
     <br>
-    <a href="{% url 'exercise:editprofile' %}">Edit Profile </a>
+    <a href="{% url 'exercise:editprofile' %}">Click here to edit your profile </a>
 
 </center>
+</div>
 {% endblock %}

@@ -3,9 +3,51 @@ from django.contrib.auth.models import User
 
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
+from django.utils.timezone import now
+from datetime import timedelta
+from django.utils import timezone
 
 # Source for 3rd party weather API
 # https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django
+
+# Source for Community posts feature
+# https://www.osohq.com/post/building-django-app-with-data-access-control
+
+# Image links
+# https://img.pngio.com/bronze-medal-png-images-free-png-library-bronze-png-600_600.png
+# https://i1.wp.com/wordsowers.com/wp-content/uploads/2017/01/silver-level1.png?fit=562%2C562
+# https://th.bing.com/th/id/R84dfb027e4224af516af716f00ab61e3?rik=EEUBbK%2bGv%2b9afQ&riu=http%3a%2f%2fanimallawsource.
+# org%2fwp-content%2fuploads%2f2015%2f08%2fgold-level.png&ehk=0IkwAb6rc%2fkDekvBKFYQP%2flI1PRyvvBxpFlmM8ntFAg%3d&risl=&pid=ImgRaw
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    workout_points = models.IntegerField(default=0)
+    num_workouts = models.IntegerField(default=0)
+    avg_points = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def award_points(self, workout_points):
+        self.workout_points += workout_points
+        self.save()
+
+
+class Post(models.Model):
+    ACCESS_PUBLIC = 0
+    ACCESS_PRIVATE = 1
+    ACCESS_LEVEL_CHOICES = [
+        (ACCESS_PUBLIC, 'Public'),
+        (ACCESS_PRIVATE, 'Private'),
+    ]
+    contents = models.CharField(max_length=140)
+    access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class City(models.Model):
@@ -48,23 +90,6 @@ class Publication(models.Model):
     image_tag.short_description = "Picture"
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # badges = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    workout_points = models.IntegerField(default=0)
-    # interface = models.ForeignKey(GamificationInterface, null=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user.username} Profile'
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-    def award_points(self, workout_points):
-        self.workout_points += workout_points
-        self.save()
-
-
 class Exercise(models.Model):
     def __str__(self):
         return self.description
@@ -84,72 +109,30 @@ class Exercise(models.Model):
             self.points = 20 
 
     EXERCISE_CHOICES = [
-        ('CAR', 'Cardio'),
-        ('STR', 'Strength'),
-        ('SPT', 'Sports'),
-        ('FLX', 'Yoga/Flexibility'),
+        ('Cardio', 'Cardio'),
+        ('Strength', 'Strength'),
+        ('Sports', 'Sports'),
+        ('Yoga/Flexibility', 'Yoga/Flexibility'),
     ]
     TIME_CHOICES = [
-        ('LESS_THAN_30', 'Quick Workout (Between 1-29 min)'),
-        ('LESS_THAN_1_HR', 'Longer Workout (Between 30-59 min)'),
-        ('BETWEEN_1_AND_2_HRS', 'Long Workout (Between 60 and 119 min)'),
-        ('MORE_THAN_2_HRS', 'Very Long Workout (120 min or greater)'),
+        ('Quick Workout (Between 1-29 min)', 'Quick Workout (Between 1-29 min)'),
+        ('Longer Workout (Between 30-59 min)', 'Longer Workout (Between 30-59 min)'),
+        ('Long Workout (Between 60 and 119 min)', 'Long Workout (Between 60 and 119 min)'),
+        ('Very Long Workout (120 min or greater)', 'Very Long Workout (120 min or greater)'),
     ]
     LOCATION_CHOICES = [
-        ('INSIDE', 'Indoors'),
-        ('OUTSIDE', 'Outdoors')
+        ('Indoors', 'Indoors'),
+        ('Outdoors', 'Outdoors')
     ]
-    exercise_type = models.CharField(max_length=3, choices=EXERCISE_CHOICES, default='CAR')
-    location = models.CharField(max_length=7, choices=LOCATION_CHOICES, default='INSIDE')
+    exercise_type = models.CharField(max_length=20, choices=EXERCISE_CHOICES, default='Cardio')
+    location = models.CharField(max_length=8, choices=LOCATION_CHOICES, default='Indoors')
     exercise_date = models.DateTimeField('date completed', null=True)
     # time_taken = models.IntegerField(default=0)
-    time_taken = models.CharField(max_length=20, choices=TIME_CHOICES, default='LESS_THAN_30')
+    time_taken = models.CharField(max_length=100, choices=TIME_CHOICES, default='Quick Workout (Between 1-29 min)')
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=200, blank=True)
     profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
-
+    created_at = models.DateTimeField(default=now, editable=False)
     # total_points = models.IntegerField(default=0)
 
 
-# from pinax.badges.base import Badge, BadgeAwarded
-# from pinax.badges.registry import badges
-# from django_gamification.models import GamificationInterface, UnlockableDefinition, BadgeDefinition, Category
-
-# UnlockableDefinition.objects.create(
-#     name='Bronze',
-#     description='You just reached the bronze level!',
-#     points_required=500
-# )
-#
-# BadgeDefinition.objects.create(
-#     name='Bronze Badge',
-#     description='You just earned the bronze badge!',
-#     points=500,
-#     category=Category.objects.create(name='Bronze Badge', description='This is level 1 of the badges')
-# )
-
-
-# class BadgeAward(Badge):
-#     slug = 'points'
-#     levels = [
-#         "Bronze",
-#         "Silver",
-#         "Gold",
-#     ]
-#     events = [
-#         "points_awarded"
-#     ]
-#     multiple = False
-#
-#     def award(self, **state):
-#         user = state["user"]
-#         workout_points = user.profile.workout_points
-#         if workout_points > 1000:
-#             return BadgeAwarded(level=3)
-#         elif workout_points > 750:
-#             return BadgeAwarded(level=2)
-#         elif workout_points > 500:
-#             return BadgeAwarded(level=1)
-#
-#
-# badges.register(BadgeAward)
