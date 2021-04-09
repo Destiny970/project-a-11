@@ -8,7 +8,7 @@ class ExerciseModelSetPointMethodTests(TestCase):
     def test_default(self):
         ex_obj = Exercise()
         ex_obj.set_points()
-        self.assertEqual(ex_obj.points, 5)
+        self.assertEqual(ex_obj.points, 20)
     def test_second_branch(self):
         ex_obj = Exercise(time_taken='LESS_THAN_1_HR')
         ex_obj.set_points()
