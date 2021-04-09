@@ -114,6 +114,7 @@ def register(request):
         return render(request, 'exercise/register.html', {'form': form})
 
 
+@login_required
 def badges(request):
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
