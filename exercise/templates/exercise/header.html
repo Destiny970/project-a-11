@@ -1,42 +1,62 @@
-<!--Navbar Starts Here-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<style>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href = "{% url 'exercise:home' %}">Home</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href = "{% url 'exercise:directions' %}">How To Use The App</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'exercise:log_new' %}">Log Workout</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href = "{% url 'exercise:new_post' %}">Log New Post</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'exercise:my_ws' %}">My Workouts</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'exercise:profile' %}">My Profile</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'exercise:badges' %}">My Badges</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'exercise:leaderboard' %}">Leaderboard</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href = "{% url 'exercise:posts' %}">Community Posts</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href = "{% url 'exercise:weather' %}">Current Weather</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href = "{% url 'logout' %}">Logout</a>
-        </li>
-        </ul>
+    div.dropdown {
+        float: left;
+        padding: 14px 16px;
+        color: black;
+    }
+    
+
+</style>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg mx-auto">
+    <div class="container">
+    <div class="collapse navbar-collapse">
+
+        <a class="nav-link" href = "{% url 'exercise:home' %}">Home</a>
+
+        <a class="nav-link" href="{% url 'exercise:profile' %}">My Profile</a>
+
+
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Community
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href = "{% url 'exercise:new_post' %}">Log New Post</a>
+                <a class="dropdown-item" href = "{% url 'exercise:posts' %}">Community Posts</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Workouts
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href = "{% url 'exercise:log_new' %}">Log New Workout</a>
+                <a class="dropdown-item" href = "{% url 'exercise:my_ws' %}">My Workouts</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Badges/Leaderboard
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href = "{% url 'exercise:badges' %}">Badges</a>
+                <a class="dropdown-item" href = "{% url 'exercise:leaderboard' %}">Leaderboard</a>
+            </div>
+        </div>
+        <a class="nav-link" href = "{% url 'exercise:weather' %}">Current Weather</a>
+        <a class="nav-link" href = "{% url 'logout' %}">Logout</a>
+</div>
     </div>
     </nav>
-    <!--Navbar Ends-->
+</body>
