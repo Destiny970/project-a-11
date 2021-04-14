@@ -13,7 +13,7 @@ from django.views.generic import TemplateView, RedirectView
 import requests
 from django.core.exceptions import PermissionDenied
 from django_oso.auth import authorize
-from django.db.models import Count
+from django.db.models import Count, Avg
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -123,32 +123,6 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-def the_weather(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
-    weather_data = []
-    cities = City.objects.all()
-    if request.method == 'POST':
-        form = CityForm(request.POST)
-        form.save()
-
-    form = CityForm()
-    r = requests.get(url.format(city))
-    # request the API data and convert the JSON to Python data types
-    for city in cities:
-        city_weather = requests.get(url.format(city.name)).json()
-        weather = {
-            'city': city_weather['name'],
-            'temperature': city_weather['main']['temp'],
-            'description': city_weather['weather'][0]['description'],
-            'icon': city_weather['weather'][0]['icon']
-        }
-        weather_data.append(weather)
-        context = {'weather_data': weather_data, 'form': form}
-        return render(request, 'exercise/weather.html', context)
-    else:
-        return HttpResponse("Not Found")
-
-
 def index(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
@@ -159,15 +133,18 @@ def index(request):
 
     form = CityForm()
     # request the API data and convert the JSON to Python data types
-    for city in cities:
-        city_weather = requests.get(url.format(city)).json()
-        weather = {
-            'city': city,
-            'temperature': city_weather['main']['temp'],
-            'description': city_weather['weather'][0]['description'],
-            'icon': city_weather['weather'][0]['icon']
-        }
-        weather_data.append(weather)
+    try:
+        for city in cities:
+            city_weather = requests.get(url.format(city)).json()
+            weather = {
+                'city': city,
+                'temperature': city_weather['main']['temp'],
+                'description': city_weather['weather'][0]['description'],
+                'icon': city_weather['weather'][0]['icon']
+            }
+            weather_data.append(weather)
+    except KeyError:
+        pass
     context = {'weather_data': weather_data, 'form': form}
     return render(request, 'exercise/index.html', context)
 
@@ -218,10 +195,10 @@ def log_nws(request):
             # request.user.profile.workout_points += model.points
             request.user.profile.award_points(model.points)
             request.user.profile.num_workouts += 1
-            if request.user.profile.num_workouts > 0:
-                request.user.profile.avg_points = request.user.profile.workout_points/request.user.profile.num_workouts
-            else:
-                request.user.profile.avg_points = request.user.profile.workout_points
+            # if request.user.profile.num_workouts > 0:
+            #     request.user.profile.avg_points = request.user.profile.workout_points/request.user.profile.num_workouts
+            # else:
+            #     request.user.profile.avg_points = request.user.profile.workout_points
             request.user.profile.save()
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
@@ -238,14 +215,16 @@ def log_nws(request):
 @login_required
 def leaderboard(request):
     all_users = User.objects.all()
+
+    Profile.objects.all().aggregate(Avg('workout_points'))
     leader_board = Profile.objects.order_by('-avg_points')[:]
-    avg_points = []
-    for rank in leader_board:
-        if rank.num_workouts > 0:
-            request.user.profile.avg_points = rank.workout_points/rank.num_workouts
-        else:
-            request.user.profile.avg_points = rank.workout_points
-        request.user.profile.save()
+    # avg_points = []
+    # for rank in leader_board:
+    #     if rank.num_workouts > 0:
+    #         request.user.profile.avg_points = rank.workout_points/rank.num_workouts
+    #     else:
+    #         request.user.profile.avg_points = rank.workout_points
+    #     request.user.profile.save()
     context = {
         'all_users': all_users,
         'leader_board': leader_board,
