@@ -178,6 +178,7 @@ AUTHENTICATION_BACKENDS = (
 # Use 5 when deploying to Heroku
 SITE_ID = 5
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Added 03/22
 # ACCOUNT_EMAIL_VERIFICATION = "none"

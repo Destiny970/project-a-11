@@ -26,7 +26,7 @@ div.transbox p {
 </div>
 
 <div class="transbox" align="center">
-    {% for rank in leader_board %}
+    {% for rank in leader_board_avg %}
     {{ forloop.counter }} <b>User: </b><i>{{ rank.user }}</i><b>  Points: </b><i>{{ rank.workout_points }}</i><b> Average Points: </b><i>{{ rank.avg_points }}</i>
     <br>
     {% endfor %}

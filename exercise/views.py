@@ -14,6 +14,7 @@ import requests
 from django.core.exceptions import PermissionDenied
 from django_oso.auth import authorize
 from django.db.models import Count, Avg
+from django.contrib.auth import authenticate, login, logout
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -215,20 +216,27 @@ def log_nws(request):
 @login_required
 def leaderboard(request):
     all_users = User.objects.all()
-
-    Profile.objects.all().aggregate(Avg('workout_points'))
-    leader_board = Profile.objects.order_by('-avg_points')[:]
-    # avg_points = []
-    # for rank in leader_board:
-    #     if rank.num_workouts > 0:
-    #         request.user.profile.avg_points = rank.workout_points/rank.num_workouts
-    #     else:
-    #         request.user.profile.avg_points = rank.workout_points
-    #     request.user.profile.save()
+    # leader_board = Profile.objects.order_by('-avg_points')[:]
+    leader_board = Profile.objects.all()
+    avg_points = []
+    for rank in leader_board:
+        if rank.num_workouts > 0:
+            request.user.profile.avg_points = rank.workout_points/rank.num_workouts
+        else:
+            request.user.profile.avg_points = rank.workout_points
+        request.user.profile.save()
+    leader_board_avg = Profile.objects.order_by('-avg_points')[:]
     context = {
         'all_users': all_users,
         'leader_board': leader_board,
+        'avg_points': avg_points,
+        'leader_board_avg': leader_board_avg,
     }
     return render(request, 'exercise/leaderboard.html', context)
 
+# Website used to help with issue with logging out user
+# https://stackoverflow.com/questions/5315100/how-to-configure-where-to-redirect-after-a-log-out-in-django
+def log_out(request):
+    logout(request)
+    return HttpResponseRedirect('')
 
