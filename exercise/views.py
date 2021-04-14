@@ -224,9 +224,7 @@ def leaderboard(request):
             rank.avg_points = rank.workout_points/rank.num_workouts
         else:
             rank.avg_points = rank.workout_points
-        # print(rank.num_workouts)
-        # print(rank.workout_points)
-        # print(rank.avg_points)
+
         # request.user.profile.save()
         rank.save()
     leader_board_avg = Profile.objects.all().order_by('-avg_points')[:]

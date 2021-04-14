@@ -5,7 +5,11 @@
         padding: 14px 16px;
         color: black;
     }
-    
+
+    div.navbar {
+        display: inline-block;
+    }
+
 
 </style>
 <head>
@@ -18,17 +22,13 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg mx-auto">
-    <div class="container">
-    <div class="collapse navbar-collapse">
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent text-center">
+        <a style="color: black" class="nav-link" href = "{% url 'exercise:home' %}">Home</a>
 
-        <a class="nav-link" href = "{% url 'exercise:home' %}">Home</a>
-
-        <a class="nav-link" href="{% url 'exercise:profile' %}">My Profile</a>
-
-
-        <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <a style="color: black" class="nav-link" href="{% url 'exercise:profile' %}">My Profile</a>
+    <div class="dropdown-links" align="center">
+        <div class="dropdown" align="center">
+            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
                 Community
             </button>
             <div class="dropdown-menu">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
                 Workouts
             </button>
             <div class="dropdown-menu">
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
                 Badges/Leaderboard
             </button>
             <div class="dropdown-menu">
@@ -54,9 +54,8 @@
                 <a class="dropdown-item" href = "{% url 'exercise:leaderboard' %}">Leaderboard</a>
             </div>
         </div>
-        <a class="nav-link" href = "{% url 'exercise:weather' %}">Current Weather</a>
-        <a class="nav-link" href = "{% url 'logout' %}">Logout</a>
-</div>
     </div>
+        <a style="color: black" class="nav-link" href = "{% url 'exercise:weather' %}">Current Weather</a>
+        <a style="color: black" class="nav-link" href = "{% url 'logout' %}">Logout</a>
     </nav>
 </body>

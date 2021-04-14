@@ -30,7 +30,7 @@
         {% if user.is_authenticated %}
             <center><p style="font-size:20px"><b>Hello, {{ user.username }}!</b></p></center>
             <center><a href = "{% url 'exercise:directions' %}">How To Use The App</a></center>
-            <center><a href="{% url 'exercise:profile' %}">Your Profile</a></center>
+            <center><a href="{% url 'exercise:profile' %}">My Profile</a></center>
             <center><a href="{% url 'exercise:log_new' %}">Log a New Workout!</a></center>
             <center><a href = "{% url 'logout' %}">Logout</a></center>
         {% else %}
