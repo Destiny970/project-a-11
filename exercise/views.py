@@ -218,18 +218,24 @@ def leaderboard(request):
     all_users = User.objects.all()
     # leader_board = Profile.objects.order_by('-avg_points')[:]
     leader_board = Profile.objects.all()
-    avg_points = []
+    # avg_points = []
     for rank in leader_board:
         if rank.num_workouts > 0:
-            request.user.profile.avg_points = rank.workout_points/rank.num_workouts
+            rank.avg_points = rank.workout_points/rank.num_workouts
         else:
-            request.user.profile.avg_points = rank.workout_points
-        request.user.profile.save()
-    leader_board_avg = Profile.objects.order_by('-avg_points')[:]
+            rank.avg_points = rank.workout_points
+        # print(rank.num_workouts)
+        # print(rank.workout_points)
+        # print(rank.avg_points)
+        # request.user.profile.save()
+        rank.save()
+    leader_board_avg = Profile.objects.all().order_by('-avg_points')[:]
+    for r in leader_board_avg:
+        print(r.avg_points)
     context = {
         'all_users': all_users,
         'leader_board': leader_board,
-        'avg_points': avg_points,
+        # 'avg_points': avg_points,
         'leader_board_avg': leader_board_avg,
     }
     return render(request, 'exercise/leaderboard.html', context)
