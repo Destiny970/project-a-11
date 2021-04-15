@@ -13,7 +13,8 @@ from django.views.generic import TemplateView, RedirectView
 import requests
 from django.core.exceptions import PermissionDenied
 from django_oso.auth import authorize
-from django.db.models import Count
+from django.db.models import Count, Avg
+from django.contrib.auth import authenticate, login, logout
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -123,29 +124,6 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-def the_weather(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
-    weather_data = []
-    cities = City.objects.all()
-    if request.method == 'POST':
-        form = CityForm(request.POST)
-        form.save()
-
-    form = CityForm()
-    # request the API data and convert the JSON to Python data types
-    for city in cities:
-        city_weather = requests.get(url.format(city)).json()
-        weather = {
-            'city': city,
-            'temperature': city_weather['main']['temp'],
-            'description': city_weather['weather'][0]['description'],
-            'icon': city_weather['weather'][0]['icon']
-        }
-        weather_data.append(weather)
-    context = {'weather_data': weather_data, 'form': form}
-    return render(request, 'exercise/weather.html', context)
-
-
 def index(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
@@ -156,15 +134,18 @@ def index(request):
 
     form = CityForm()
     # request the API data and convert the JSON to Python data types
-    for city in cities:
-        city_weather = requests.get(url.format(city)).json()
-        weather = {
-            'city': city,
-            'temperature': city_weather['main']['temp'],
-            'description': city_weather['weather'][0]['description'],
-            'icon': city_weather['weather'][0]['icon']
-        }
-        weather_data.append(weather)
+    try:
+        for city in cities:
+            city_weather = requests.get(url.format(city)).json()
+            weather = {
+                'city': city,
+                'temperature': city_weather['main']['temp'],
+                'description': city_weather['weather'][0]['description'],
+                'icon': city_weather['weather'][0]['icon']
+            }
+            weather_data.append(weather)
+    except KeyError:
+        pass
     context = {'weather_data': weather_data, 'form': form}
     return render(request, 'exercise/index.html', context)
 
@@ -215,10 +196,10 @@ def log_nws(request):
             # request.user.profile.workout_points += model.points
             request.user.profile.award_points(model.points)
             request.user.profile.num_workouts += 1
-            if request.user.profile.num_workouts > 0:
-                request.user.profile.avg_points = request.user.profile.workout_points/request.user.profile.num_workouts
-            else:
-                request.user.profile.avg_points = request.user.profile.workout_points
+            # if request.user.profile.num_workouts > 0:
+            #     request.user.profile.avg_points = request.user.profile.workout_points/request.user.profile.num_workouts
+            # else:
+            #     request.user.profile.avg_points = request.user.profile.workout_points
             request.user.profile.save()
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
@@ -235,18 +216,31 @@ def log_nws(request):
 @login_required
 def leaderboard(request):
     all_users = User.objects.all()
-    leader_board = Profile.objects.order_by('-avg_points')[:]
-    avg_points = []
+    # leader_board = Profile.objects.order_by('-avg_points')[:]
+    leader_board = Profile.objects.all()
+    # avg_points = []
     for rank in leader_board:
         if rank.num_workouts > 0:
-            request.user.profile.avg_points = rank.workout_points/rank.num_workouts
+            rank.avg_points = rank.workout_points/rank.num_workouts
         else:
-            request.user.profile.avg_points = rank.workout_points
-        request.user.profile.save()
+            rank.avg_points = rank.workout_points
+
+        # request.user.profile.save()
+        rank.save()
+    leader_board_avg = Profile.objects.all().order_by('-avg_points')[:]
+    for r in leader_board_avg:
+        print(r.avg_points)
     context = {
         'all_users': all_users,
         'leader_board': leader_board,
+        # 'avg_points': avg_points,
+        'leader_board_avg': leader_board_avg,
     }
     return render(request, 'exercise/leaderboard.html', context)
 
+# Website used to help with issue with logging out user
+# https://stackoverflow.com/questions/5315100/how-to-configure-where-to-redirect-after-a-log-out-in-django
+def log_out(request):
+    logout(request)
+    return HttpResponseRedirect('')
 
