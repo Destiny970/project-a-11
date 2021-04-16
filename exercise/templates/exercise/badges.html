@@ -48,5 +48,33 @@ div.transbox p {
 
     {% endif %}
 </div>
+
+<div class="transbox" align="center">
+<b>Total Streak: </b>{{ streak }}
+    <br>
+    <br>
+    {% if streak >= 20 %}
+    <div class="background">
+        <div class="transbox">
+            <img src="{% static 'GoldBadge.jpg' %}" width="100" height="100">
+        </div>
+    </div>
+    <i>Gold Badge: Streak</i>
+    {% elif streak >= 10 %}
+    <div class="background">
+        <div class="transbox">
+            <img src="{% static 'SilverBadge.jpg' %}" width="100" height="100">
+        </div>
+    </div>
+    <i>Silver Badge: Streak</i>
+    {% elif streak >= 5 %}
+    <div class="background">
+        <div class="transbox">
+            <img src="{% static 'BronzeBadge.jpg' %}" width="100" height="100">
+        </div>
+    </div>
+    <i>Bronze Badge: Streak</i>
+    {% endif %}
+</div>
 {% endblock %}
 </html>

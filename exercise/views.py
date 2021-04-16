@@ -15,6 +15,8 @@ from django.core.exceptions import PermissionDenied
 from django_oso.auth import authorize
 from django.db.models import Count, Avg
 from django.contrib.auth import authenticate, login, logout
+from django.utils import timezone
+import datetime
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -119,9 +121,25 @@ def register(request):
 def badges(request):
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
-    date = Exercise.objects.filter()
-    context = {'total_points': total_points}
+    ordered_exercises = exercise.order_by('-exercise_date')
+    streak = 0
+    things = []
+    today = timezone.now()
+    for item in ordered_exercises:
+        #prev_date = today.scheduled_at.date()
+        #date = item.scheduled_at.date()
+        item = item.exercise_date
+        if item >= today - datetime.timedelta(days=1) and item < today:
+            streak += 1
+            things.append(item)
+            today = item
+        elif item == today:
+            today = item
+        else:
+            break
+    context = {'total_points': total_points, 'streak': streak, 'things': things}
     return render(request, 'exercise/badges.html', context)
+
 
 
 def index(request):
