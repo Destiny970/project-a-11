@@ -1,4 +1,4 @@
-{% extends 'exercise/base.html' %}
+
 {% load socialaccount %}
 
 {% load static %}
@@ -13,9 +13,8 @@
 </head>
 
 <div class="bg-img">
-    {% block content %}
   <div class="container">
-
+      {% block content %}
     <div class="topnav">
         <h4></h4>
         <h1><b><center>Welcome to Exercise Gamification!</center></b></h1>
@@ -24,7 +23,7 @@
         <center><b>Log your Exercises | Better Yourself | Compete with Others</b></center>
         <center>Bonus Points for Exercising Outside...But Check the Weather First!</center>
         <br>
-
+    {% endblock %}
     </div>
   </div>
   <center>
@@ -45,7 +44,7 @@
     </div>
 
   </div>
-      {% endblock %}
+
   </center>
 
 </div>

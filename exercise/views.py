@@ -156,20 +156,22 @@ def index(request):
         for city in cities:
             city_weather = requests.get(url.format(city)).json()
             weather = {
-                'city': city,
+                'city': city.name,
                 'temperature': city_weather['main']['temp'],
                 'description': city_weather['weather'][0]['description'],
                 'icon': city_weather['weather'][0]['icon']
             }
             weather_data.append(weather)
     except KeyError:
-        pass
+        print('Enter a valid city')
     context = {'weather_data': weather_data, 'form': form}
     return render(request, 'exercise/index.html', context)
 
 
 def home(request):
-    return render(request, 'exercise/HomeLogin.html')
+    if request.user.is_authenticated:
+        return render(request, 'exercise/HomeLogin.html')
+    return render(request, 'exercise/notloggedin.html')
 
 
 @login_required
