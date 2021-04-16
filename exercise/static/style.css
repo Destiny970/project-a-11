@@ -1,10 +1,10 @@
 .bg-img {
-  background-image: url("Gamification.jpg");
+  background-image: url("Outdoors.jpg");
 
-  min-height: 600px;
+  min-height: 800px;
 
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: cover;
 
   position: relative;
