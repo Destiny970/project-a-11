@@ -175,7 +175,7 @@ def home(request):
 @login_required
 def my_ws(request):
     form = ExerciseForm()
-    exercise = Exercise.objects.filter(profile=request.user.profile)
+    exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
     total_points = exercise.aggregate(total_points=Sum('points'))
     Profile.workout_points = total_points
     args = {'form': form, 'exercise': exercise, 'total_points': total_points}
