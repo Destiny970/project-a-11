@@ -123,24 +123,25 @@ WSGI_APPLICATION = 'project.wsgi.application'
 #     },
 # }
 
-# DATABASES = { 
+## Development 
+DATABASES = { 
+    'default': {
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dcd2j05latd35a',
+        'USER': 'kkkifpshjwhhue',
+        'PASSWORD': '456391adf83d19807c430d193ccfe73c37ea28affa4933d4a9e2eb17913f5c8a',
+        'HOST': 'ec2-54-198-73-79.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+
+# DATABASES = {
 #     'default': {
-#         'ENGINE':'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dcd2j05latd35a',
-#         'USER': 'kkkifpshjwhhue',
-#         'PASSWORD': '456391adf83d19807c430d193ccfe73c37ea28affa4933d4a9e2eb17913f5c8a',
-#         'HOST': 'ec2-54-198-73-79.compute-1.amazonaws.com',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
-## Development 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 ## Production 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
