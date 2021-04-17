@@ -18,6 +18,10 @@ div.transbox p {
     font-weight: bold;
     color: black;
 }
+a:link {
+    color: black;
+}
+
 </style>
 </head>
 <div class="transbox" align="center">
@@ -75,6 +79,8 @@ div.transbox p {
     </div>
     <i>Bronze Badge: Streak</i>
     {% endif %}
+    <center><a href="{% url 'exercise:new_post' %}">Click here to share your accomplishments! </a></center>
 </div>
+
 {% endblock %}
 </html>
