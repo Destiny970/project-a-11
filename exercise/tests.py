@@ -55,7 +55,7 @@ class WorkingURLPathsNotLoggedIn(TestCase):
         self.assertContains(response, "Sign In", status_code=200) 
     def test_current_weather_page(self):
         response = self.client.get('/weather/', follow=True)
-        self.assertContains(response, "What's the weather like?", status_code=200)  
+        self.assertContains(response, "Want to know what the weather's like?", status_code=200)
     ## non-logged in user should be redirected to login url if they attempt to access the logout page  
     def test_log_out_page(self):
         response = self.client.get('/logout/', follow=True)
