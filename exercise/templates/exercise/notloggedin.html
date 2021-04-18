@@ -16,13 +16,13 @@
   <div class="container">
       {% block content %}
     <div class="topnav">
-        <h4></h4>
+        <h1></h1>
         <h1><b><center>Welcome to Exercise Gamification!</center></b></h1>
     </div>
     <div class="mednav">
-        <center><b>Log your Exercises | Better Yourself | Compete with Others</b></center>
-        <center>Bonus Points for Exercising Outside...But Check the Weather First!</center>
-        <br>
+        <center><p>Log your Exercises | Better Yourself | Compete with Others</p></center>
+    <br>
+    <br>
     {% endblock %}
     </div>
   </div>
@@ -38,6 +38,7 @@
 
         {% else %}
             <h2><center><a href="{% provider_login_url 'google' %}">Login with Google</a></center></h2>
+            <a href="{% url 'exercise:notloggeddir' %}">Click here to find out how to use the app!</a>
 
         {% endif %}
 

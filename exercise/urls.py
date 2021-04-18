@@ -28,6 +28,7 @@ urlpatterns = [
     # path('revoke-badge/<int:badge_id>', RevokeBadgeView.as_view(), name='revoke-badge')
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path('editlocation/', views.edit_location, name='editlocation'),
+    path('notloggeddirections/', views.directions, name='notloggeddir'),
 
 ]
 

@@ -26,7 +26,10 @@ import datetime
 # https://www.selimatmaca.com/211-base-template/
 
 def directions(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin_directions.html')
     return render(request, 'exercise/directions.html')
+
 
 @login_required
 def new_post(request):
@@ -98,6 +101,7 @@ def profile(request):
     return render(request, 'exercise/profile.html', context)
 
 
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -115,13 +119,14 @@ def edit_profile(request):
     return render(request, 'exercise/editprofile.html', {'u_form': u_form})
 
 
+@login_required
 def edit_location(request):
     if request.method == 'POST':
         form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
         if form.is_valid():
             form.save()
             messages.success(request, f'Your account has been updated! You are now able to log in')
-            return HttpResponseRedirect(reverse('exercise:profile'))
+            return HttpResponseRedirect(reverse('exercise:home'))
         else:
             print("Something went wrong, please try again.")
         note = "Something went wrong, please try again."
@@ -169,6 +174,7 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
+@login_required
 def index(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
@@ -211,7 +217,6 @@ def home(request):
         'weather': weather
     }
     return render(request, 'exercise/HomeLogin.html', context)
-
 
 
 @login_required
@@ -300,6 +305,8 @@ def leaderboard(request):
 
 # Website used to help with issue with logging out user
 # https://stackoverflow.com/questions/5315100/how-to-configure-where-to-redirect-after-a-log-out-in-django
+
+
 def log_out(request):
     logout(request)
     return HttpResponseRedirect('')
