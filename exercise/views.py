@@ -35,10 +35,11 @@ def directions(request):
 def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
-        post = form.save(commit=False)
-        post.created_by = request.user
-        post.save()
-        return HttpResponseRedirect(reverse('exercise:posts'))
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created_by = request.user
+            post.save()
+            return redirect(reverse('exercise:posts'))
     elif request.method == 'GET':
         form = PostForm()
         context = {'form': form}
