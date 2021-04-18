@@ -27,6 +27,7 @@ urlpatterns = [
     # path('award-badge/<int:badge_id>/', AwardBadgeView.as_view(), name='award-badge'),
     # path('revoke-badge/<int:badge_id>', RevokeBadgeView.as_view(), name='revoke-badge')
     path('leaderboard/', views.leaderboard, name='leaderboard'),
+    path('editlocation/', views.edit_location, name='editlocation'),
 
 ]
 

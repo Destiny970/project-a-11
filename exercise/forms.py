@@ -40,10 +40,10 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'first_name', 'last_name']
 
 
-# class ProfileUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['image']
+class CurrentLocationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['current_location']
 
 
 class ExerciseForm(forms.ModelForm):

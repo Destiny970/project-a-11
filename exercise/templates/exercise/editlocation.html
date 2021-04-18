@@ -1,0 +1,13 @@
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<center><h2>EDIT LOCATION</h2></center>
+<center>
+    <form action="{% url 'exercise:editlocation' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <input type="submit" value="Update">
+    </form>
+</center>
+{% endblock %}

@@ -32,6 +32,9 @@ div.transbox p {
     <div align="center">
         <b>Email: </b><i>{{ user.email }}</i>
     </div>
+    <div align="center">
+        <b>Current Location: </b> {{ user.profile.current_location }}
+    </div>
 
     <div>
     </div>
@@ -42,6 +45,8 @@ div.transbox p {
     <br>
     <br>
     <a href="{% url 'exercise:editprofile' %}">Click here to edit your profile </a>
+    <br>
+    <a href="{% url 'exercise:editlocation' %}">Click here to edit your current location</a>
 
 </center>
 </div>

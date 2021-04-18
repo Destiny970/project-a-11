@@ -7,7 +7,7 @@ from .models import Exercise, Profile, City, Post
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, CityForm
+from .forms import UserRegisterForm, UserUpdateForm, CityForm, CurrentLocationUpdateForm
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView, RedirectView
 import requests
@@ -72,6 +72,15 @@ def profile(request):
     points = model.workout_points
 
     if request.method == 'POST':
+        form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
+        if form.is_valid():  # and p_form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated! You are now able to log in')
+            return redirect('profile')
+    else:
+        form = CurrentLocationUpdateForm(instance=request.user.profile)
+
+    if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():  # and p_form.is_valid():
             u_form.save()
@@ -79,8 +88,10 @@ def profile(request):
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
+
     context = {
         'u_form': u_form,
+        'form': form,
         'total_points': total_points,
         'points': points
     }
@@ -102,6 +113,23 @@ def edit_profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
     return render(request, 'exercise/editprofile.html', {'u_form': u_form})
+
+
+def edit_location(request):
+    if request.method == 'POST':
+        form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated! You are now able to log in')
+            return HttpResponseRedirect(reverse('exercise:profile'))
+        else:
+            print("Something went wrong, please try again.")
+        note = "Something went wrong, please try again."
+        new_form = CurrentLocationUpdateForm()
+        return render(request, 'exercise/editlocation.html', {'profileform':new_form, 'note':note})
+    else:
+        form = CurrentLocationUpdateForm(instance=request.user.profile)
+    return render(request, 'exercise/editlocation.html', {'form': form})
 
 
 def register(request):
@@ -141,7 +169,6 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-
 def index(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
@@ -169,9 +196,22 @@ def index(request):
 
 
 def home(request):
-    if request.user.is_authenticated:
-        return render(request, 'exercise/HomeLogin.html')
-    return render(request, 'exercise/notloggedin.html')
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
+    city = request.user.profile.current_location
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+    city_weather = requests.get(url.format(city)).json()
+    weather = {
+        'city': city,
+        'temperature': city_weather['main']['temp'],
+        'description': city_weather['weather'][0]['description'],
+        'icon': city_weather['weather'][0]['icon']
+    }
+    context = {
+        'weather': weather
+    }
+    return render(request, 'exercise/HomeLogin.html', context)
+
 
 
 @login_required

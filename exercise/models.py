@@ -25,6 +25,7 @@ class Profile(models.Model):
     workout_points = models.IntegerField(default=0)
     num_workouts = models.IntegerField(default=0)
     avg_points = models.IntegerField(default=0)
+    current_location = models.CharField(max_length=50, default="Charlottesville")
 
     def __str__(self):
         return f'{self.user.username} Profile'
