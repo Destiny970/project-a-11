@@ -33,6 +33,8 @@ def directions(request):
 
 @login_required
 def new_post(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -50,6 +52,8 @@ def new_post(request):
 
 @login_required
 def list_posts(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     posts = Post.objects.all().order_by('-created_at')[:10]
     authorized_posts = []
     for post in posts:
@@ -63,6 +67,8 @@ def list_posts(request):
 
 @login_required
 def profile(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
 
@@ -75,14 +81,14 @@ def profile(request):
     request.user.profile.save()
     points = model.workout_points
 
-    if request.method == 'POST':
-        form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
-        if form.is_valid():  # and p_form.is_valid():
-            form.save()
-            messages.success(request, f'Your account has been updated! You are now able to log in')
-            return redirect('profile')
-    else:
-        form = CurrentLocationUpdateForm(instance=request.user.profile)
+    # if request.method == 'POST':
+    #     form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
+    #     if form.is_valid():  # and p_form.is_valid():
+    #         form.save()
+    #         messages.success(request, f'Your account has been updated! You are now able to log in')
+    #         return redirect('profile')
+    # else:
+    #     form = CurrentLocationUpdateForm(instance=request.user.profile)
 
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -95,7 +101,7 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'form': form,
+        # 'form': form,
         'total_points': total_points,
         'points': points
     }
@@ -104,6 +110,8 @@ def profile(request):
 
 @login_required
 def edit_profile(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():
@@ -118,24 +126,6 @@ def edit_profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
     return render(request, 'exercise/editprofile.html', {'u_form': u_form})
-
-
-@login_required
-def edit_location(request):
-    if request.method == 'POST':
-        form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Your account has been updated! You are now able to log in')
-            return HttpResponseRedirect(reverse('exercise:home'))
-        else:
-            print("Something went wrong, please try again.")
-        note = "Something went wrong, please try again."
-        new_form = CurrentLocationUpdateForm()
-        return render(request, 'exercise/editlocation.html', {'profileform':new_form, 'note':note})
-    else:
-        form = CurrentLocationUpdateForm(instance=request.user.profile)
-    return render(request, 'exercise/editlocation.html', {'form': form})
 
 
 def register(request):
@@ -153,6 +143,8 @@ def register(request):
 
 @login_required
 def badges(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
     ordered_exercises = exercise.order_by('-exercise_date')
@@ -177,6 +169,8 @@ def badges(request):
 
 @login_required
 def index(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
     cities = City.objects.all()
@@ -199,7 +193,39 @@ def index(request):
     except KeyError:
         print('Enter a valid city')
     context = {'weather_data': weather_data, 'form': form}
+    print(cities)
     return render(request, 'exercise/index.html', context)
+
+
+@login_required
+def edit_location(request):
+    weather_data = []
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
+    if request.method == 'POST':
+        form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
+        form.save()
+
+        return HttpResponseRedirect(reverse('exercise:home'))
+
+    form = CurrentLocationUpdateForm()
+    try:
+        city = request.user.profile.current_location
+        city_weather = requests.get(url.format(city)).json()
+        print(city_weather)
+        weather = {
+            'city': city,
+            'temperature': city_weather['main']['temp'],
+            'description': city_weather['weather'][0]['description'],
+            'icon': city_weather['weather'][0]['icon']
+        }
+        weather_data.append(weather)
+    except KeyError:
+        print('Enter a valid city')
+    else:
+        form = CurrentLocationUpdateForm(instance=request.user.profile)
+    return render(request, 'exercise/editlocation.html', {'weather_data': weather_data, 'form': form})
 
 
 def home(request):
@@ -222,6 +248,8 @@ def home(request):
 
 @login_required
 def my_ws(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     form = ExerciseForm()
     exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
     total_points = exercise.aggregate(total_points=Sum('points'))
@@ -232,6 +260,8 @@ def my_ws(request):
 
 @login_required
 def log_nws(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
@@ -281,6 +311,8 @@ def log_nws(request):
 
 @login_required
 def leaderboard(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     all_users = User.objects.all()
     # leader_board = Profile.objects.order_by('-avg_points')[:]
     leader_board = Profile.objects.all()

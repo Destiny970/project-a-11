@@ -44,7 +44,7 @@
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
       {% if weather.temperature > 65 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
-      <b style="color:blue">The weather is nice right now!. It's a good day to workout outside!</b>
+      <b style="color:blue">The weather is nice right now! It's a good day to workout outside!</b>
       <br>
       {% elif weather.temperature >= 50 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
       <b style="color:blue">Grab a jacket and consider heading outside for a workout today!</b>
