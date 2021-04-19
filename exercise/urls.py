@@ -20,6 +20,7 @@ urlpatterns = [
     path('posts/', views.list_posts, name='posts'),
     path('newpost/', views.new_post, name='new_post'),
     path('directions/', views.directions, name='directions'),
+    # path('newpost/', views.PostView.as_view(), name='new_post'),
     # path('user/<str:username>', UserWorkoutListView.as_view(), name='user-workouts')
     # path('login/', views.login, name='login'),
     # path('logout/', views.logout, name='logout'),

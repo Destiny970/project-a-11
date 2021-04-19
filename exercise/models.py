@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
+import datetime
 from datetime import timedelta
 from django.utils import timezone
+# from regex_field.fields import RegexField
 
 # Source for 3rd party weather API
 # https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django
@@ -18,6 +20,16 @@ from django.utils import timezone
 # https://i1.wp.com/wordsowers.com/wp-content/uploads/2017/01/silver-level1.png?fit=562%2C562
 # https://th.bing.com/th/id/R84dfb027e4224af516af716f00ab61e3?rik=EEUBbK%2bGv%2b9afQ&riu=http%3a%2f%2fanimallawsource.
 # org%2fwp-content%2fuploads%2f2015%2f08%2fgold-level.png&ehk=0IkwAb6rc%2fkDekvBKFYQP%2flI1PRyvvBxpFlmM8ntFAg%3d&risl=&pid=ImgRaw
+
+
+from django.core.exceptions import ValidationError
+import re
+
+
+def validate_hash(value):
+    reg = re.compile("^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$")
+    if not reg.match(value):
+        raise ValidationError(u'%s hashtag does not comply' % value)
 
 
 class Profile(models.Model):
@@ -39,21 +51,21 @@ class Profile(models.Model):
 
 
 class Post(models.Model):
-    ACCESS_PUBLIC = 0
-    ACCESS_PRIVATE = 1
-    ACCESS_LEVEL_CHOICES = [
-        (ACCESS_PUBLIC, 'Public'),
-        (ACCESS_PRIVATE, 'Private'),
-    ]
+    # ACCESS_PUBLIC = 0
+    # ACCESS_PRIVATE = 1
+    # ACCESS_LEVEL_CHOICES = [
+    #     (ACCESS_PUBLIC, 'Public'),
+    #     (ACCESS_PRIVATE, 'Private'),
+    # ]
     contents = models.TextField(max_length=1000)
-    access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
+    # access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
 class City(models.Model):
-    name = models.CharField(max_length=25)
-
+    # name = models.CharField(max_length=25)
+    name = models.CharField(max_length=50, validators=[validate_hash])
     def __str__(self):
         return self.name
 
@@ -125,9 +137,15 @@ class Exercise(models.Model):
         ('Indoors', 'Indoors'),
         ('Outdoors', 'Outdoors')
     ]
+
+    def exclude_future_date(value):
+        if value > timezone.now():
+            raise ValidationError("The date cannot be in the future!")
+        return value
+
     exercise_type = models.CharField(max_length=20, choices=EXERCISE_CHOICES, default='Cardio')
     location = models.CharField(max_length=8, choices=LOCATION_CHOICES, default='Indoors')
-    exercise_date = models.DateTimeField('date completed', null=True)
+    exercise_date = models.DateTimeField('date completed', null=True, validators=[exclude_future_date])
     # time_taken = models.IntegerField(default=0)
     time_taken = models.CharField(max_length=100, choices=TIME_CHOICES, default='Quick Workout (Between 1-29 min)')
     points = models.IntegerField(default=0)
