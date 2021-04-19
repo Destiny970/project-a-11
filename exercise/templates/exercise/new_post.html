@@ -5,12 +5,13 @@
 <body>
 <center>
     <h2>NEW POST</h2>
-    <p>Post any tips and tricks you would like to share with the community!</p>
-    <form action="{% url 'exercise:new_post' %} " method="post">
+    <p>Post any tips, tricks, or accomplishments you would like to share with the community!</p>
+    <form action="{% url 'exercise:new_post' %} " method="POST">
         {% csrf_token %}
-        {{ form|crispy }}
+    
+        {{ form.contents }}
         <br>
-        <input type="submit" value="Create Post" />
+        <input type="submit" value="Share Post" />
     </form>
 </center>
 </body>

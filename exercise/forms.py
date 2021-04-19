@@ -9,6 +9,10 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['contents', 'access_level']
+        widgets = {
+            # 'contents': forms.TextInput(attrs={'class':'form-control','size': 1000,'placeholder': 'Write your tip/trick here.'}),
+            'contents': forms.Textarea(attrs={'cols': 60, 'rows': 10, 'placeholder': 'Write your tip/trick/accomplishment here.'}),
+        }
 
 
 class CityForm(forms.ModelForm):
@@ -36,22 +40,28 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'first_name', 'last_name']
 
 
-# class ProfileUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['image']
+class CurrentLocationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['current_location']
 
 
 class ExerciseForm(forms.ModelForm):
 
     class Meta:
+        LOCATION_CHOICES = [
+            ('Indoors', 'Indoors'),
+            ('Outdoors', 'Outdoors')
+        ]
         model = Exercise
         exclude = ['points', 'profile']
+        location = forms.ChoiceField(choices=LOCATION_CHOICES)
         widgets = {
             ## the following stack overflow post aided in writing the code for the exercise_date widget
             ## https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget
             'exercise_date': forms.DateTimeInput(format=('%m/%d/%Y'),attrs={'class':'form-control','type':'date'}),
-            'description': forms.TextInput(attrs={'class':'form-control','size': 50,'placeholder': 'Provide thoughts on your workout here.'}),
+            # 'description': forms.TextInput(attrs={'class':'form-control','size': 50,'placeholder': 'Provide thoughts on your workout here.'}),
+            'description': forms.Textarea(attrs={'cols': 60, 'rows': 5, 'placeholder': 'Provide thoughts on your workout here.'}),
         }
 
 

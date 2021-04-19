@@ -18,18 +18,35 @@ div.transbox p {
 </style>
 </head>
 <div class="transbox" align="center">
+    <div style="width: 50%;">
+        <div style="width: 50%; height: 30px; float: left;">
+            <b>First Name: </b><i>{{ user.first_name }}</i>
+        </div>
+        <div style="margin-left: 30%; height: 30px;">
+            <b>Last Name: </b><i>{{ user.last_name }}</i>
+        </div>
+    </div>
+    <div align="center">
         <b>Username: </b><i>{{ user.username }}</i>
-    <br>
+    </div>
+    <div align="center">
         <b>Email: </b><i>{{ user.email }}</i>
-    <br>
-        <b>First Name: </b><i>{{ user.first_name }}</i>
-    <br>
-        <b>Last Name: </b><i>{{ user.last_name }}</i>
+    </div>
+    <div align="center">
+        <b>Current Location: </b> {{ user.profile.current_location }}
+    </div>
+
+    <div>
+    </div>
+
+
     <br>
     <b>Total Points: </b><a href="{% url 'exercise:my_ws' %}">{{ total_points.total_points }} </a>
     <br>
     <br>
     <a href="{% url 'exercise:editprofile' %}">Click here to edit your profile </a>
+    <br>
+    <a href="{% url 'exercise:editlocation' %}">Click here to edit your current location</a>
 
 </center>
 </div>

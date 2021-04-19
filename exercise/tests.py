@@ -28,37 +28,49 @@ class ExerciseModelSetPointMethodTests(TestCase):
 class WorkingURLPathsNotLoggedIn(TestCase):
     def test_home_page(self):
         response = self.client.get('/', follow=True)
-        self.assertContains(response, "Welcome to Exercise Gamification!", status_code=200) 
-    def test_register_page(self):
-        response = self.client.get('/accounts/signup/', follow=True)
-        self.assertContains(response, "Sign Up", status_code=200) 
-    def test_sign_in_page(self):
-        response = self.client.get('/accounts/login/', follow=True)
-        self.assertContains(response, "Sign In", status_code=200) 
-    def test_sign_up_page(self):
-        response = self.client.get('/register/', follow=True)
-        self.assertContains(response, "REGISTER FOR EXERCISE GAMIFICATION", status_code=200) 
-    def test_password_reset_page(self):
-        response = self.client.get('/accounts/password/reset/', follow=True)
-        self.assertContains(response, "Password Reset", status_code=200) 
-    def test_user_home_page(self):
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_admin_page(self):
+        response = self.client.get('/admin/', follow=True)
+        self.assertContains(response, "Username:", status_code=200) 
+    def test_profile_page(self):
         response = self.client.get('/profile/', follow=True)
-        self.assertContains(response, "Sign In", status_code=200) 
-    def test_log_workout_page(self):
-        response = self.client.get('/LogNW/', follow=True)
-        self.assertContains(response, "Sign In", status_code=200) 
-    def test_my_workouts_page(self):
-        response = self.client.get('/LogNW/', follow=True)
-        self.assertContains(response, "Sign In", status_code=200) 
-    def test_my_badges_page(self):
-        response = self.client.get('/badges/', follow=True)
-        self.assertContains(response, "Sign In", status_code=200) 
-    def test_current_weather_page(self):
-        response = self.client.get('/weather/', follow=True)
-        self.assertContains(response, "What's the weather like?", status_code=200)  
-    ## non-logged in user should be redirected to login url if they attempt to access the logout page  
-    def test_log_out_page(self):
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_login_page(self):
+        response = self.client.get('/login/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_logout_page(self):
         response = self.client.get('/logout/', follow=True)
-        self.assertContains(response, "Login with Google", status_code=200)     
-
-
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_logNW_page(self):
+        response = self.client.get('/LogNW/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_my_workouts_page(self):
+        response = self.client.get('/MyWorkouts/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_weather_page(self):
+        response = self.client.get('/weather/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_edit_profile_page(self):
+        response = self.client.get('/editprofile/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_badges_page(self):
+        response = self.client.get('/badges/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_posts_page(self):
+        response = self.client.get('/posts/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_newpost_page(self):
+        response = self.client.get('/newpost/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_directions_page(self):
+        response = self.client.get('/directions/', follow=True)
+        self.assertContains(response, "HOW TO USE THE APP", status_code=200) 
+    def test_leaderboard_page(self):
+        response = self.client.get('/leaderboard/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_edit_location_page(self):
+        response = self.client.get('/editlocation/', follow=True)
+        self.assertContains(response, "Login with Google", status_code=200) 
+    def test_not_logged_directions_page(self):
+        response = self.client.get('/notloggeddirections/', follow=True)
+        self.assertContains(response, "HOW TO USE THE APP", status_code=200) 

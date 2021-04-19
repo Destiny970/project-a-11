@@ -27,7 +27,7 @@ div.transbox p {
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    What's the weather like?
+                    What's the weather like in your city?
                 </h1>
             </div>
         </div>
@@ -36,13 +36,16 @@ div.transbox p {
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
+                    <br>
                     <form method="POST">
                         {% csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
                                 {{ form.name }}
+                                <br>
                             </div>
                             <div class="control">
+                                <br>
                                 <button class="button is-info">
                                     Add City
                                 </button>

@@ -1,12 +1,34 @@
 {% extends 'exercise/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+
 <center><h2>LOG A NEW WORKOUT</h2>
 <br>
-
+<br>
 <form action="{% url 'exercise:log_new' %}" method="post">
     {% csrf_token %}
-    {{ exerciseform|crispy }}
+    <div style="width: 70%;">
+        <div style="width: 60%; height: 50px; float: left;">
+            <b>Exercise Type: </b>{{ exerciseform.exercise_type }}
+        </div>
+        <div style="margin-left: 30%; height: 50px;">
+            <b>Location: </b>{{ exerciseform.location }}
+        </div>
+    </div>
+    <div align="center">
+        <b>Duration: </b>{{ exerciseform.time_taken }}
+        <br>
+
+    </div>
+    <div style="width: 30%" align="center">
+        <br>
+        <b>Date: </b> {{ exerciseform.exercise_date }}
+        <br>
+    </div>
+    <div style="width: 60%">
+        <b>Description: </b>{{ exerciseform.description }}
+    </div>
+
     <br>
     <input type="submit" value="Log Your Workout">
 </form>

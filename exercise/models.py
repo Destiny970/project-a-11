@@ -25,6 +25,7 @@ class Profile(models.Model):
     workout_points = models.IntegerField(default=0)
     num_workouts = models.IntegerField(default=0)
     avg_points = models.IntegerField(default=0)
+    current_location = models.CharField(max_length=50, default="Charlottesville")
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -44,7 +45,7 @@ class Post(models.Model):
         (ACCESS_PUBLIC, 'Public'),
         (ACCESS_PRIVATE, 'Private'),
     ]
-    contents = models.CharField(max_length=140)
+    contents = models.TextField(max_length=1000)
     access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

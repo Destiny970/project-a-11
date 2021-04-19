@@ -7,7 +7,7 @@ from .models import Exercise, Profile, City, Post
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, CityForm
+from .forms import UserRegisterForm, UserUpdateForm, CityForm, CurrentLocationUpdateForm
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView, RedirectView
 import requests
@@ -26,16 +26,21 @@ import datetime
 # https://www.selimatmaca.com/211-base-template/
 
 def directions(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin_directions.html')
     return render(request, 'exercise/directions.html')
 
-@login_required
+
 def new_post(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         form = PostForm(request.POST)
-        post = form.save(commit=False)
-        post.created_by = request.user
-        post.save()
-        return HttpResponseRedirect(reverse('exercise:posts'))
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created_by = request.user
+            post.save()
+            return redirect(reverse('exercise:posts'))
     elif request.method == 'GET':
         form = PostForm()
         context = {'form': form}
@@ -44,8 +49,9 @@ def new_post(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-@login_required
 def list_posts(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     posts = Post.objects.all().order_by('-created_at')[:10]
     authorized_posts = []
     for post in posts:
@@ -57,8 +63,9 @@ def list_posts(request):
     return render(request, 'exercise/posts.html', {'posts': authorized_posts})
 
 
-@login_required
 def profile(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
 
@@ -71,6 +78,15 @@ def profile(request):
     request.user.profile.save()
     points = model.workout_points
 
+    # if request.method == 'POST':
+    #     form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
+    #     if form.is_valid():  # and p_form.is_valid():
+    #         form.save()
+    #         messages.success(request, f'Your account has been updated! You are now able to log in')
+    #         return redirect('profile')
+    # else:
+    #     form = CurrentLocationUpdateForm(instance=request.user.profile)
+
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():  # and p_form.is_valid():
@@ -79,8 +95,10 @@ def profile(request):
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
+
     context = {
         'u_form': u_form,
+        # 'form': form,
         'total_points': total_points,
         'points': points
     }
@@ -88,6 +106,8 @@ def profile(request):
 
 
 def edit_profile(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():
@@ -117,8 +137,9 @@ def register(request):
         return render(request, 'exercise/register.html', {'form': form})
 
 
-@login_required
 def badges(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
     ordered_exercises = exercise.order_by('-exercise_date')
@@ -141,8 +162,9 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-
 def index(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
     cities = City.objects.all()
@@ -156,24 +178,70 @@ def index(request):
         for city in cities:
             city_weather = requests.get(url.format(city)).json()
             weather = {
-                'city': city,
+                'city': city.name,
                 'temperature': city_weather['main']['temp'],
                 'description': city_weather['weather'][0]['description'],
                 'icon': city_weather['weather'][0]['icon']
             }
             weather_data.append(weather)
     except KeyError:
-        pass
+        print('Enter a valid city')
     context = {'weather_data': weather_data, 'form': form}
+    print(cities)
     return render(request, 'exercise/index.html', context)
 
 
+def edit_location(request):
+    weather_data = []
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
+    if request.method == 'POST':
+        form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
+        form.save()
+
+        return HttpResponseRedirect(reverse('exercise:home'))
+
+    form = CurrentLocationUpdateForm()
+    try:
+        city = request.user.profile.current_location
+        city_weather = requests.get(url.format(city)).json()
+        print(city_weather)
+        weather = {
+            'city': city,
+            'temperature': city_weather['main']['temp'],
+            'description': city_weather['weather'][0]['description'],
+            'icon': city_weather['weather'][0]['icon']
+        }
+        weather_data.append(weather)
+    except KeyError:
+        print('Enter a valid city')
+    else:
+        form = CurrentLocationUpdateForm(instance=request.user.profile)
+    return render(request, 'exercise/editlocation.html', {'weather_data': weather_data, 'form': form})
+
+
 def home(request):
-    return render(request, 'exercise/HomeLogin.html')
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
+    city = request.user.profile.current_location
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+    city_weather = requests.get(url.format(city)).json()
+    weather = {
+        'city': city,
+        'temperature': city_weather['main']['temp'],
+        'description': city_weather['weather'][0]['description'],
+        'icon': city_weather['weather'][0]['icon']
+    }
+    context = {
+        'weather': weather
+    }
+    return render(request, 'exercise/HomeLogin.html', context)
 
 
-@login_required
 def my_ws(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     form = ExerciseForm()
     exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
     total_points = exercise.aggregate(total_points=Sum('points'))
@@ -182,8 +250,9 @@ def my_ws(request):
     return render(request, 'exercise/MyWorkouts.html', args)
 
 
-@login_required
 def log_nws(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
@@ -231,8 +300,9 @@ def log_nws(request):
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
 
 
-@login_required
 def leaderboard(request):
+    if not request.user.is_authenticated:
+        return render(request, 'exercise/notloggedin.html')
     all_users = User.objects.all()
     # leader_board = Profile.objects.order_by('-avg_points')[:]
     leader_board = Profile.objects.all()
@@ -258,6 +328,8 @@ def leaderboard(request):
 
 # Website used to help with issue with logging out user
 # https://stackoverflow.com/questions/5315100/how-to-configure-where-to-redirect-after-a-log-out-in-django
+
+
 def log_out(request):
     logout(request)
     return HttpResponseRedirect('')

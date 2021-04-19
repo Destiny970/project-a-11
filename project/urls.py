@@ -11,9 +11,10 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('exercise.urls')),
     path('admin/', admin.site.urls),
-    path('register/', exercise_views.register, name='register'),
+    # path('register/', exercise_views.register, name='register'),
     path('profile/', exercise_views.profile, name='profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='exercise/login.html'), name='login'),
+    path('login/', exercise_views.home),
+    # path('login/', auth_views.LoginView.as_view(template_name='exercise/login.html'), name='login'),
     # path('logout/', auth_views.LoginView.as_view(template_name='exercise/logout.html'), name='logout'),
     path('logout/', auth_views.LogoutView.as_view(template_name='exercise/logout.html'), name='logout'),
 ]
