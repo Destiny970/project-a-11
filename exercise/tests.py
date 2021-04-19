@@ -26,10 +26,6 @@ class ExerciseModelSetPointMethodTests(TestCase):
 ## https://docs.djangoproject.com/en/3.1/topics/testing/tools/
 ## Test class ensures that all URL paths are correctly functioning when the a user is not logged in. 
 class WorkingURLPathsNotLoggedIn(TestCase):
-    ## if a user is not logged in, the following url path should not return anything 
-    def test_accounts_page(self):
-        response = self.client.get('/accounts/', follow=True)
-        self.assertContains(response, "Server Error (500)", status_code=404)  ## NOT DONE 
     def test_home_page(self):
         response = self.client.get('/', follow=True)
         self.assertContains(response, "Login with Google", status_code=200) 
