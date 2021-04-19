@@ -22,7 +22,7 @@ div.transbox p {
     <div class="transbox">
         
         {% for post in posts %}
-            <p><em><b>@{{ post.created_by.username }}</b></em> {{ post.contents }} <em>{{post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em></p>
+            <p><em><b>@{{ post.created_by.username }}</b></em> {{ post.contents }} <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em></p>
         {% endfor %}
         
     </div>

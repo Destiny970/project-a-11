@@ -12,7 +12,9 @@ validator = RegexValidator(r"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['contents', 'access_level']
+
+        fields = ['contents']
+        # exclude = ['access_level',]
         widgets = {
             # 'contents': forms.TextInput(attrs={'class':'form-control','size': 1000,'placeholder': 'Write your tip/trick here.'}),
             'contents': forms.Textarea(attrs={'cols': 60, 'rows': 10, 'placeholder': 'Write your tip/trick/accomplishment here.'}),
