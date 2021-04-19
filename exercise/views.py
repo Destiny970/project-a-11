@@ -35,12 +35,13 @@ def new_post(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST)   
         if form.is_valid():
             post = form.save(commit=False)
             post.created_by = request.user
             post.save()
             return redirect(reverse('exercise:posts'))
+        ## print(form.errors)
     elif request.method == 'GET':
         form = PostForm()
         context = {'form': form}

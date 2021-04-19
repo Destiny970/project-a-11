@@ -8,7 +8,9 @@ from django.contrib.auth.forms import UserCreationForm
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['contents', 'access_level']
+        # exclude = ['access_level'] 
+        # fields = ['contents', 'access_level'] ## we only pass contents, so we do not want to include access_level or created_by
+        fields = ['contents']
         widgets = {
             # 'contents': forms.TextInput(attrs={'class':'form-control','size': 1000,'placeholder': 'Write your tip/trick here.'}),
             'contents': forms.Textarea(attrs={'cols': 60, 'rows': 10, 'placeholder': 'Write your tip/trick/accomplishment here.'}),
