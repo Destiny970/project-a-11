@@ -167,11 +167,12 @@ def index(request):
         return render(request, 'exercise/notloggedin.html')
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     weather_data = []
+    # print(type(weather_data))
     cities = City.objects.all()
     if request.method == 'POST':
         form = CityForm(request.POST)
-        
-        form.save()
+        if form.is_valid():
+            form.save()
     form = CityForm()
     # request the API data and convert the JSON to Python data types
     try:
@@ -184,6 +185,9 @@ def index(request):
                 'icon': city_weather['weather'][0]['icon']
             }
             weather_data.append(weather)
+
+    except ValueError:
+        print('Does not match a city')
     except KeyError:
         pass
 

@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 from datetime import timedelta
 from django.utils import timezone
+# from regex_field.fields import RegexField
 
 # Source for 3rd party weather API
 # https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django
@@ -18,6 +19,16 @@ from django.utils import timezone
 # https://i1.wp.com/wordsowers.com/wp-content/uploads/2017/01/silver-level1.png?fit=562%2C562
 # https://th.bing.com/th/id/R84dfb027e4224af516af716f00ab61e3?rik=EEUBbK%2bGv%2b9afQ&riu=http%3a%2f%2fanimallawsource.
 # org%2fwp-content%2fuploads%2f2015%2f08%2fgold-level.png&ehk=0IkwAb6rc%2fkDekvBKFYQP%2flI1PRyvvBxpFlmM8ntFAg%3d&risl=&pid=ImgRaw
+
+
+from django.core.exceptions import ValidationError
+import re
+
+
+def validate_hash(value):
+    reg = re.compile("^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$")
+    if not reg.match(value):
+        raise ValidationError(u'%s hashtag does not comply' % value)
 
 
 class Profile(models.Model):
@@ -52,8 +63,8 @@ class Post(models.Model):
 
 
 class City(models.Model):
-    name = models.CharField(max_length=25)
-
+    # name = models.CharField(max_length=25)
+    name = models.CharField(max_length=50, validators=[validate_hash])
     def __str__(self):
         return self.name
 
