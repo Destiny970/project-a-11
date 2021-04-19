@@ -14,7 +14,7 @@ class PostForm(forms.ModelForm):
         model = Post
 
         fields = ['contents']
-        # exclude = ['access_level',]
+    
         widgets = {
             # 'contents': forms.TextInput(attrs={'class':'form-control','size': 1000,'placeholder': 'Write your tip/trick here.'}),
             'contents': forms.Textarea(attrs={'cols': 60, 'rows': 10, 'placeholder': 'Write your tip/trick/accomplishment here.'}),

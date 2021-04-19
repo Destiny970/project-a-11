@@ -56,8 +56,7 @@ def new_post(request):
         return render(request, 'exercise/notloggedin.html')
     form = PostForm(request.POST or None)
     if request.method == 'POST':
-        print('Got to request.method')
-        print(form.errors)
+        form = PostForm(request.POST)   
         if form.is_valid():
             post = form.save(commit=False)
             post.created_by = request.user
@@ -65,11 +64,9 @@ def new_post(request):
             return redirect(reverse('exercise:posts'))
         else:
             form = PostForm()
-            print('Entered else')
+           
     context = {'form': form}
     return render(request, 'exercise/new_post.html', context)
-    # else:
-    #     return HttpResponseNotAllowed(['GET', 'POST'])
 
 
 def list_posts(request):
