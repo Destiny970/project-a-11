@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
+import datetime
 from datetime import timedelta
 from django.utils import timezone
 # from regex_field.fields import RegexField
@@ -136,9 +137,15 @@ class Exercise(models.Model):
         ('Indoors', 'Indoors'),
         ('Outdoors', 'Outdoors')
     ]
+
+    def exclude_future_date(value):
+        if value > timezone.now():
+            raise ValidationError("The date cannot be in the future!")
+        return value
+
     exercise_type = models.CharField(max_length=20, choices=EXERCISE_CHOICES, default='Cardio')
     location = models.CharField(max_length=8, choices=LOCATION_CHOICES, default='Indoors')
-    exercise_date = models.DateTimeField('date completed', null=True)
+    exercise_date = models.DateTimeField('date completed', null=True, validators=[exclude_future_date])
     # time_taken = models.IntegerField(default=0)
     time_taken = models.CharField(max_length=100, choices=TIME_CHOICES, default='Quick Workout (Between 1-29 min)')
     points = models.IntegerField(default=0)

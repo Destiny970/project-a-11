@@ -62,6 +62,7 @@ class ExerciseForm(forms.ModelForm):
         model = Exercise
         exclude = ['points', 'profile']
         location = forms.ChoiceField(choices=LOCATION_CHOICES)
+
         widgets = {
             ## the following stack overflow post aided in writing the code for the exercise_date widget
             ## https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget
