@@ -3,6 +3,10 @@ from .models import Exercise, Profile, City, Post
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.validators import RegexValidator
+# from regex_field.fields import RegexField
+
+validator = RegexValidator(r"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$", "The city shouldn't contain numbers" )
 
 
 class PostForm(forms.ModelForm):
@@ -19,8 +23,10 @@ class CityForm(forms.ModelForm):
     class Meta:
         model = City
         fields = ['name']
+
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
+
         }
 
 
