@@ -170,8 +170,8 @@ def index(request):
     cities = City.objects.all()
     if request.method == 'POST':
         form = CityForm(request.POST)
+        
         form.save()
-
     form = CityForm()
     # request the API data and convert the JSON to Python data types
     try:
@@ -185,7 +185,9 @@ def index(request):
             }
             weather_data.append(weather)
     except KeyError:
-        print('Enter a valid city')
+        pass
+
+
     context = {'weather_data': weather_data, 'form': form}
     print(cities)
     return render(request, 'exercise/index.html', context)
