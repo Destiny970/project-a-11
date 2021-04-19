@@ -17,6 +17,7 @@ from django.db.models import Count, Avg
 from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone
 import datetime
+from django.template import RequestContext
 
 
 # Utilized tutorial found at https://www.youtube.com/watch?v=FdVuKt_iuSI to create user profiles model/to register
@@ -31,36 +32,59 @@ def directions(request):
     return render(request, 'exercise/directions.html')
 
 
+# class PostView(TemplateView):
+#     template_name = 'exercise/new_post.html'
+#
+#     def get(self, request):
+#         form = PostForm()
+#         thoughts = Post.objects.all()
+#         args = {'form': form, 'thoughts': thoughts}
+#         return render(request, self.template_name, args)
+#
+#     def post(self, request):
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             thought = form.save(commit=False)
+#             thought.save()
+#             return redirect(reverse('exercise:posts'))
+#         text = form.cleaned_data['contents']
+#         args = {'form': form, 'text': text}
+#         return render(request, self.template_name, args)
+
 def new_post(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
+    form = PostForm(request.POST or None)
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST)   
         if form.is_valid():
             post = form.save(commit=False)
             post.created_by = request.user
             post.save()
             return redirect(reverse('exercise:posts'))
-    elif request.method == 'GET':
-        form = PostForm()
-        context = {'form': form}
-        return render(request, 'exercise/new_post.html', context)
-    else:
-        return HttpResponseNotAllowed(['GET', 'POST'])
+        else:
+            form = PostForm()
+           
+    context = {'form': form}
+    return render(request, 'exercise/new_post.html', context)
 
 
 def list_posts(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
+    # thoughts = Post.objects.all()
+    # return render(request, 'exercise/posts.html', {'thought': thoughts})
     posts = Post.objects.all().order_by('-created_at')[:10]
     authorized_posts = []
-    for post in posts:
-        try:
-            authorize(request, post, action="view")
-            authorized_posts.append(post)
-        except PermissionDenied:
-            continue
-    return render(request, 'exercise/posts.html', {'posts': authorized_posts})
+    # for post in posts:
+    #     try:
+    #         authorize(request, post, action="view")
+    #         authorized_posts.append(post)
+    #     except PermissionDenied:
+    #         continue
+    #     authorized_posts.append(post)
+
+    return render(request, 'exercise/posts.html', {'posts': posts})
 
 
 def profile(request):
