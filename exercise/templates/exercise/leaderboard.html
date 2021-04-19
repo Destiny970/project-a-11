@@ -17,20 +17,37 @@ div.transbox p {
     margin: 1%;
     color: black;
 }
+table, th, td {
+  border: 1px solid black;
+}
+th , td{
+  text-align: center;
+}
+caption{
+    color: black;
+}
 </style>
 </head>
 <body>
 
-<div class="transbox" align="center">
-    <p>Note: You are ranked by average total points not by the overall total to be fair to users who join later</p>
-</div>
 
-<div class="transbox" align="center">
+<table style="width:100%">
+    <caption>Note: You are ranked by average total points not by the overall total to be fair to users who join later</caption>
+    <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>Points</th>
+        <th>Average Points</th>
+    </tr>
     {% for rank in leader_board_avg %}
-    {{ forloop.counter }} <b>User: </b><i>{{ rank.user }}</i><b>  Points: </b><i>{{ rank.workout_points }}</i><b> Average Points: </b><i>{{ rank.avg_points }}</i>
-    <br>
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ rank.user }}</td>
+        <td>{{ rank.workout_points }}</td>
+        <td>{{ rank.avg_points }}</td>
+    </tr>
     {% endfor %}
-</div>
+</table>
 
 </body>
 </html>
