@@ -31,7 +31,6 @@ def directions(request):
     return render(request, 'exercise/directions.html')
 
 
-@login_required
 def new_post(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -50,7 +49,6 @@ def new_post(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-@login_required
 def list_posts(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -65,7 +63,6 @@ def list_posts(request):
     return render(request, 'exercise/posts.html', {'posts': authorized_posts})
 
 
-@login_required
 def profile(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -108,7 +105,6 @@ def profile(request):
     return render(request, 'exercise/profile.html', context)
 
 
-@login_required
 def edit_profile(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -141,7 +137,6 @@ def register(request):
         return render(request, 'exercise/register.html', {'form': form})
 
 
-@login_required
 def badges(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -167,7 +162,6 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-@login_required
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -197,7 +191,6 @@ def index(request):
     return render(request, 'exercise/index.html', context)
 
 
-@login_required
 def edit_location(request):
     weather_data = []
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
@@ -246,7 +239,6 @@ def home(request):
     return render(request, 'exercise/HomeLogin.html', context)
 
 
-@login_required
 def my_ws(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -258,7 +250,6 @@ def my_ws(request):
     return render(request, 'exercise/MyWorkouts.html', args)
 
 
-@login_required
 def log_nws(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -309,7 +300,6 @@ def log_nws(request):
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
 
 
-@login_required
 def leaderboard(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
