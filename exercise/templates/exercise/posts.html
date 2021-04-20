@@ -9,7 +9,8 @@
 div.transbox {
     margin: 30 px;
     background-color: #ffffff;
-    border: 1px solid white;
+    border: 5px solid black;
+    border-style: double;
     opacity: 1.0;
 }
 div.transbox p {
@@ -18,19 +19,18 @@ div.transbox p {
 }
 </style>
 </head>
+<div class="transbox"><center><h4 class="nav-item active">
+                <a class="nav-link" href = "{% url 'exercise:new_post' %}">Log New Post</a>
+</h4></center></div>
+<br>
     <body>
+    {% for post in posts %}
     <div class="transbox">
-        
-        {% for post in posts %}
-            <p><em><b>@{{ post.created_by.username }}</b></em> {{ post.contents }} <em>{{post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em></p>
-        {% endfor %}
-        
+        <p><em><b>@{{ post.created_by.username }}</b></em> {{ post.contents }} <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em></p>
     </div>
     <br>
+    {% endfor %}
     </body>
-<div class="transbox"><center><h2 class="nav-item active">
-                <a class="nav-link" href = "{% url 'exercise:new_post' %}">Log New Post</a>
-</h2></center></div>
 </html>
 
 {% endblock %}

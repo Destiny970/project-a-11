@@ -48,7 +48,7 @@
       <br>
       {% elif weather.temperature >= 50 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
       <b style="color:blue">Grab a jacket and consider heading outside for a workout today!</b>
-      {% elif weather.description == 'shower rain' or weather.description == 'thunderstorm' or weather.description != 'rain' or weather.description == 'very heavy rain' %}
+      {% elif weather.description == 'shower rain' or weather.description == 'thunderstorm' or weather.description == 'rain' or weather.description == 'very heavy rain' %}
       <b style="color:blue">It might be raining, but don't let that stop you from working out inside instead!</b>
       {% elif weather.temperature < 50 %}
       <b style="color:blue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</b>

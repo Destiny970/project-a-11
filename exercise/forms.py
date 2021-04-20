@@ -3,14 +3,18 @@ from .models import Exercise, Profile, City, Post
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.validators import RegexValidator
+# from regex_field.fields import RegexField
+
+validator = RegexValidator(r"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$", "The city shouldn't contain numbers" )
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        # exclude = ['access_level'] 
-        # fields = ['contents', 'access_level'] ## we only pass contents, so we do not want to include access_level or created_by
+
         fields = ['contents']
+    
         widgets = {
             # 'contents': forms.TextInput(attrs={'class':'form-control','size': 1000,'placeholder': 'Write your tip/trick here.'}),
             'contents': forms.Textarea(attrs={'cols': 60, 'rows': 10, 'placeholder': 'Write your tip/trick/accomplishment here.'}),
@@ -21,8 +25,10 @@ class CityForm(forms.ModelForm):
     class Meta:
         model = City
         fields = ['name']
+
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
+
         }
 
 
@@ -58,6 +64,7 @@ class ExerciseForm(forms.ModelForm):
         model = Exercise
         exclude = ['points', 'profile']
         location = forms.ChoiceField(choices=LOCATION_CHOICES)
+
         widgets = {
             ## the following stack overflow post aided in writing the code for the exercise_date widget
             ## https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget

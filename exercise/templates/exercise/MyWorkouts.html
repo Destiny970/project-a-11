@@ -11,7 +11,8 @@
 div.transbox {
     margin: 0 px;
     background-color: #ffffff;
-
+    border: 5px solid black;
+    border-style: double;
     opacity: 1.0;
 }
 div.transbox b {
@@ -22,8 +23,8 @@ div.transbox b {
 </head>
 
 <body>
-<div class="transbox" align="center">
     {% for wk in exercise %}
+    <div class="transbox" align="center">
     <font size="+2"><b>Workout Number: </b><i>{{forloop.counter}}</i></font>
     <br>
     <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
@@ -43,8 +44,8 @@ div.transbox b {
     <b>Points: </b><i>{{wk.points}}</i>
     <br>
     <br>
+    </div>
     {% endfor %}
-</div>
 </body>
 
 {% endblock %}
