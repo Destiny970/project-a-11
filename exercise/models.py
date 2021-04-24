@@ -66,11 +66,13 @@ class Post(models.Model):
 class City(models.Model):
     # name = models.CharField(max_length=25)
     name = models.CharField(max_length=50, validators=[validate_hash])
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = 'cities'
+    profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
 
 
 class Tag(models.Model):

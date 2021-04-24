@@ -193,14 +193,25 @@ def index(request):
     weather_data = []
     # print(type(weather_data))
     cities = City.objects.all()
+    # cities = City.objects.all().filter(profile=request.user.profile)
+    all_cities = City.objects.all()
+    print(all_cities)
+    # print(cities)
     if request.method == 'POST':
         form = CityForm(request.POST)
         if form.is_valid():
             form.save()
     form = CityForm()
+
+    # form = ExerciseForm()
+    # exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+    # total_points = exercise.aggregate(total_points=Sum('points'))
+    # Profile.workout_points = total_points
+    # args = {'form': form, 'exercise': exercise, 'total_points': total_points}
+    # return render(request, 'exercise/MyWorkouts.html', args)
     # request the API data and convert the JSON to Python data types
     try:
-        for city in cities:
+        for city in reversed(cities):
             city_weather = requests.get(url.format(city)).json()
             weather = {
                 'city': city.name,
@@ -215,9 +226,8 @@ def index(request):
     except KeyError:
         pass
 
-
     context = {'weather_data': weather_data, 'form': form}
-    print(cities)
+    # print(cities)
     return render(request, 'exercise/index.html', context)
 
 
@@ -274,6 +284,7 @@ def my_ws(request):
         return render(request, 'exercise/notloggedin.html')
     form = ExerciseForm()
     exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+    # print(exercise)
     total_points = exercise.aggregate(total_points=Sum('points'))
     Profile.workout_points = total_points
     args = {'form': form, 'exercise': exercise, 'total_points': total_points}
