@@ -186,49 +186,49 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-def index(request):
-    if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
-    weather_data = []
-    # print(type(weather_data))
-    cities = City.objects.all()
-    # cities = City.objects.all().filter(profile=request.user.profile)
-    all_cities = City.objects.all()
-    print(all_cities)
-    # print(cities)
-    if request.method == 'POST':
-        form = CityForm(request.POST)
-        if form.is_valid():
-            form.save()
-    form = CityForm()
-
-    # form = ExerciseForm()
-    # exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
-    # total_points = exercise.aggregate(total_points=Sum('points'))
-    # Profile.workout_points = total_points
-    # args = {'form': form, 'exercise': exercise, 'total_points': total_points}
-    # return render(request, 'exercise/MyWorkouts.html', args)
-    # request the API data and convert the JSON to Python data types
-    try:
-        for city in reversed(cities):
-            city_weather = requests.get(url.format(city)).json()
-            weather = {
-                'city': city.name,
-                'temperature': city_weather['main']['temp'],
-                'description': city_weather['weather'][0]['description'],
-                'icon': city_weather['weather'][0]['icon']
-            }
-            weather_data.append(weather)
-
-    except ValueError:
-        print('Does not match a city')
-    except KeyError:
-        pass
-
-    context = {'weather_data': weather_data, 'form': form}
-    # print(cities)
-    return render(request, 'exercise/index.html', context)
+# def index(request):
+#     if not request.user.is_authenticated:
+#         return render(request, 'exercise/notloggedin.html')
+#     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+#     weather_data = []
+#     # print(type(weather_data))
+#     cities = City.objects.all()
+#     # cities = City.objects.all().filter(profile=request.user.profile)
+#     all_cities = City.objects.all()
+#     print(all_cities)
+#     # print(cities)
+#     if request.method == 'POST':
+#         form = CityForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#     form = CityForm()
+#
+#     # form = ExerciseForm()
+#     # exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+#     # total_points = exercise.aggregate(total_points=Sum('points'))
+#     # Profile.workout_points = total_points
+#     # args = {'form': form, 'exercise': exercise, 'total_points': total_points}
+#     # return render(request, 'exercise/MyWorkouts.html', args)
+#     # request the API data and convert the JSON to Python data types
+#     try:
+#         for city in reversed(cities):
+#             city_weather = requests.get(url.format(city)).json()
+#             weather = {
+#                 'city': city.name,
+#                 'temperature': city_weather['main']['temp'],
+#                 'description': city_weather['weather'][0]['description'],
+#                 'icon': city_weather['weather'][0]['icon']
+#             }
+#             weather_data.append(weather)
+#
+#     except ValueError:
+#         print('Does not match a city')
+#     except KeyError:
+#         pass
+#
+#     context = {'weather_data': weather_data, 'form': form}
+#     # print(cities)
+#     return render(request, 'exercise/index.html', context)
 
 
 def edit_location(request):
