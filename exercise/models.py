@@ -37,7 +37,7 @@ class Profile(models.Model):
     workout_points = models.IntegerField(default=0)
     num_workouts = models.IntegerField(default=0)
     avg_points = models.IntegerField(default=0)
-    current_location = models.CharField(max_length=50, default="Charlottesville", validators=[validate_hash])
+    current_location = models.CharField(max_length=50, default="Charlottesville")
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -65,7 +65,7 @@ class Post(models.Model):
 
 class City(models.Model):
     # name = models.CharField(max_length=25)
-    name = models.CharField(max_length=50, validators=[validate_hash])
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name

@@ -212,9 +212,9 @@ def edit_location(request):
                 # print('Enter a valid city')
                 messages.error(request, 'Please enter a valid city')
                 # raise form.KeyError('Please enter a valid city')
-            except ValueError:
-                print('Enter a valid city')
-                messages.error(request, 'Please enter a valid city')
+            # except ValueError:
+            #     # print('Enter a valid city')
+            #     messages.error(request, 'Please enter a valid city')
                 # form.save()
         else:
             print(form.errors)
