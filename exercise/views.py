@@ -115,7 +115,7 @@ def profile(request):
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():  # and p_form.is_valid():
             u_form.save()
-            messages.success(request, f'Your account has been updated! You are now able to log in')
+            # messages.success(request, f'Your account has been updated! You are now able to log in')
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -139,10 +139,7 @@ def edit_profile(request):
             messages.success(request, f'Your account has been updated! You are now able to log in')
             return HttpResponseRedirect(reverse('exercise:profile'))
         else:
-            print("Something went wrong, please try again.")
-        note = "Something went wrong, please try again."
-        new_form = UserUpdateForm()
-        return render(request, 'exercise/editprofile.html', {'profileform':new_form, 'note':note})
+            print(u_form.errors)
     else:
         u_form = UserUpdateForm(instance=request.user)
     return render(request, 'exercise/editprofile.html', {'u_form': u_form})
@@ -186,51 +183,6 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-# def index(request):
-#     if not request.user.is_authenticated:
-#         return render(request, 'exercise/notloggedin.html')
-#     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
-#     weather_data = []
-#     # print(type(weather_data))
-#     cities = City.objects.all()
-#     # cities = City.objects.all().filter(profile=request.user.profile)
-#     all_cities = City.objects.all()
-#     print(all_cities)
-#     # print(cities)
-#     if request.method == 'POST':
-#         form = CityForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#     form = CityForm()
-#
-#     # form = ExerciseForm()
-#     # exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
-#     # total_points = exercise.aggregate(total_points=Sum('points'))
-#     # Profile.workout_points = total_points
-#     # args = {'form': form, 'exercise': exercise, 'total_points': total_points}
-#     # return render(request, 'exercise/MyWorkouts.html', args)
-#     # request the API data and convert the JSON to Python data types
-#     try:
-#         for city in reversed(cities):
-#             city_weather = requests.get(url.format(city)).json()
-#             weather = {
-#                 'city': city.name,
-#                 'temperature': city_weather['main']['temp'],
-#                 'description': city_weather['weather'][0]['description'],
-#                 'icon': city_weather['weather'][0]['icon']
-#             }
-#             weather_data.append(weather)
-#
-#     except ValueError:
-#         print('Does not match a city')
-#     except KeyError:
-#         pass
-#
-#     context = {'weather_data': weather_data, 'form': form}
-#     # print(cities)
-#     return render(request, 'exercise/index.html', context)
-
-
 def edit_location(request):
     weather_data = []
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
@@ -266,25 +218,6 @@ def edit_location(request):
                 # form.save()
         else:
             print(form.errors)
-
-
-
-    # form = CurrentLocationUpdateForm()
-    # try:
-    #     city = request.user.profile.current_location
-    #     city_weather = requests.get(url.format(city)).json()
-    #     # print(city_weather)
-    #     weather = {
-    #         'city': city,
-    #         'temperature': city_weather['main']['temp'],
-    #         'description': city_weather['weather'][0]['description'],
-    #         'icon': city_weather['weather'][0]['icon']
-    #     }
-    #     weather_data.append(weather)
-    # except KeyError:
-    #     print('Enter a valid city')
-    # except ValueError:
-    #     print('Enter a valid city')
     else:
         form = CurrentLocationUpdateForm(instance=request.user.profile)
     return render(request, 'exercise/editlocation.html', {'weather_data': weather_data, 'form': form})
@@ -404,3 +337,50 @@ def log_out(request):
     logout(request)
     return HttpResponseRedirect('')
 
+
+
+
+
+# def index(request):
+#     if not request.user.is_authenticated:
+#         return render(request, 'exercise/notloggedin.html')
+#     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+#     weather_data = []
+#     # print(type(weather_data))
+#     cities = City.objects.all()
+#     # cities = City.objects.all().filter(profile=request.user.profile)
+#     all_cities = City.objects.all()
+#     print(all_cities)
+#     # print(cities)
+#     if request.method == 'POST':
+#         form = CityForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#     form = CityForm()
+#
+#     # form = ExerciseForm()
+#     # exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+#     # total_points = exercise.aggregate(total_points=Sum('points'))
+#     # Profile.workout_points = total_points
+#     # args = {'form': form, 'exercise': exercise, 'total_points': total_points}
+#     # return render(request, 'exercise/MyWorkouts.html', args)
+#     # request the API data and convert the JSON to Python data types
+#     try:
+#         for city in reversed(cities):
+#             city_weather = requests.get(url.format(city)).json()
+#             weather = {
+#                 'city': city.name,
+#                 'temperature': city_weather['main']['temp'],
+#                 'description': city_weather['weather'][0]['description'],
+#                 'icon': city_weather['weather'][0]['icon']
+#             }
+#             weather_data.append(weather)
+#
+#     except ValueError:
+#         print('Does not match a city')
+#     except KeyError:
+#         pass
+#
+#     context = {'weather_data': weather_data, 'form': form}
+#     # print(cities)
+#     return render(request, 'exercise/index.html', context)

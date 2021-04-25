@@ -2,9 +2,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <center><h2>EDIT LOCATION</h2></center>
-{% if form.errors %}
-    <p>Please enter a valid city.</p>
-{% endif %}
 <center>
     <form action="{% url 'exercise:editlocation' %}" method="post">
         {% csrf_token %}

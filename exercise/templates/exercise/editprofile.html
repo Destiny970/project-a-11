@@ -5,8 +5,7 @@
 <center>
     <form action="{% url 'exercise:editprofile' %}" method="post">
         {% csrf_token %}
-        {{ u_form|crispy }}
-        <br>
+        {{ u_form | crispy }}
         <input type="submit" value="Update">
     </form>
 </center>
