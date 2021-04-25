@@ -238,24 +238,53 @@ def edit_location(request):
         return render(request, 'exercise/notloggedin.html')
     if request.method == 'POST':
         form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
-        form.save()
+        # form = CurrentLocationUpdateForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data['current_location'])
+            city = form.cleaned_data['current_location']
+            try:
+                # city = request.user.profile.current_location
+                city_weather = requests.get(url.format(city)).json()
+                weather = {
+                    'city': city,
+                    'temperature': city_weather['main']['temp'],
+                    'description': city_weather['weather'][0]['description'],
+                    'icon': city_weather['weather'][0]['icon']
+                }
+                weather_data.append(weather)
+                form.save()
+                # city.save()
+                request.user.profile.save()
+                return HttpResponseRedirect(reverse('exercise:home'))
+            except KeyError:
+                # print('Enter a valid city')
+                messages.error(request, 'Please enter a valid city')
+                # raise form.KeyError('Please enter a valid city')
+            except ValueError:
+                print('Enter a valid city')
+                messages.error(request, 'Please enter a valid city')
+                # form.save()
+        else:
+            print(form.errors)
 
-        return HttpResponseRedirect(reverse('exercise:home'))
 
-    form = CurrentLocationUpdateForm()
-    try:
-        city = request.user.profile.current_location
-        city_weather = requests.get(url.format(city)).json()
-        print(city_weather)
-        weather = {
-            'city': city,
-            'temperature': city_weather['main']['temp'],
-            'description': city_weather['weather'][0]['description'],
-            'icon': city_weather['weather'][0]['icon']
-        }
-        weather_data.append(weather)
-    except KeyError:
-        print('Enter a valid city')
+
+    # form = CurrentLocationUpdateForm()
+    # try:
+    #     city = request.user.profile.current_location
+    #     city_weather = requests.get(url.format(city)).json()
+    #     # print(city_weather)
+    #     weather = {
+    #         'city': city,
+    #         'temperature': city_weather['main']['temp'],
+    #         'description': city_weather['weather'][0]['description'],
+    #         'icon': city_weather['weather'][0]['icon']
+    #     }
+    #     weather_data.append(weather)
+    # except KeyError:
+    #     print('Enter a valid city')
+    # except ValueError:
+    #     print('Enter a valid city')
     else:
         form = CurrentLocationUpdateForm(instance=request.user.profile)
     return render(request, 'exercise/editlocation.html', {'weather_data': weather_data, 'form': form})

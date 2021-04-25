@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
 # from regex_field.fields import RegexField
+# from django.core.validations import RegexValidator
+
+alphanumeric = RegexValidator(r'^[a-zA-Z]')
+
 
 validator = RegexValidator(r"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$", "The city shouldn't contain numbers" )
 
