@@ -32,25 +32,6 @@ def directions(request):
     return render(request, 'exercise/directions.html')
 
 
-# class PostView(TemplateView):
-#     template_name = 'exercise/new_post.html'
-#
-#     def get(self, request):
-#         form = PostForm()
-#         thoughts = Post.objects.all()
-#         args = {'form': form, 'thoughts': thoughts}
-#         return render(request, self.template_name, args)
-#
-#     def post(self, request):
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             thought = form.save(commit=False)
-#             thought.save()
-#             return redirect(reverse('exercise:posts'))
-#         text = form.cleaned_data['contents']
-#         args = {'form': form, 'text': text}
-#         return render(request, self.template_name, args)
-
 def new_post(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
@@ -72,18 +53,7 @@ def new_post(request):
 def list_posts(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
-    # thoughts = Post.objects.all()
-    # return render(request, 'exercise/posts.html', {'thought': thoughts})
     posts = Post.objects.all().order_by('-created_at')[:10]
-    authorized_posts = []
-    # for post in posts:
-    #     try:
-    #         authorize(request, post, action="view")
-    #         authorized_posts.append(post)
-    #     except PermissionDenied:
-    #         continue
-    #     authorized_posts.append(post)
-
     return render(request, 'exercise/posts.html', {'posts': posts})
 
 
@@ -101,15 +71,6 @@ def profile(request):
         model.workout_points = list(total_points.values())[0]
     request.user.profile.save()
     points = model.workout_points
-
-    # if request.method == 'POST':
-    #     form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
-    #     if form.is_valid():  # and p_form.is_valid():
-    #         form.save()
-    #         messages.success(request, f'Your account has been updated! You are now able to log in')
-    #         return redirect('profile')
-    # else:
-    #     form = CurrentLocationUpdateForm(instance=request.user.profile)
 
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -210,12 +171,7 @@ def edit_location(request):
                 return HttpResponseRedirect(reverse('exercise:home'))
             except KeyError:
                 # print('Enter a valid city')
-                messages.error(request, 'Please enter a valid city')
-                # raise form.KeyError('Please enter a valid city')
-            # except ValueError:
-            #     # print('Enter a valid city')
-            #     messages.error(request, 'Please enter a valid city')
-                # form.save()
+                messages.error(request, 'Please enter a valid city name')
         else:
             print(form.errors)
     else:

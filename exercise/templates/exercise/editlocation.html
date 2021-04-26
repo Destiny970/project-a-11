@@ -1,6 +1,18 @@
 {% extends 'exercise/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<style>
+    ul {
+        text-align: center;
+        margin: 0px;
+        list-style-type: none;
+        padding 0px;
+    }
+
+    ul li {
+        display: inline;
+    }
+</style>
 <center><h2>EDIT LOCATION</h2></center>
 <center>
     <form action="{% url 'exercise:editlocation' %}" method="post">
@@ -11,9 +23,14 @@
         <input type="submit" value="Update">
         <br>
         <br>
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {%endif %}> <center>{{ message }} </center></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
     </form>
 </center>
 {% endblock %}
