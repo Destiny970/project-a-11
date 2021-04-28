@@ -30,7 +30,7 @@
       <div class="rightnav">
 
         {% if user.is_authenticated %}
-            <center><p style="font-size:22px; color: blue;">Hello, {{ user.username }}!</p></center>
+            <center><p style="font-size:22px; color: black;">Hello, {{ user.username }}!</p></center>
           <br>
 
         {% else %}
@@ -43,22 +43,23 @@
   <div class="circle">
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
-      {% if weather.temperature >= 80 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain' and weather.description != 'moderate rain'%}
-      <b style="color:blue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</b>
-      {% elif weather.temperature > 65 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain' and weather.description != 'moderate rain'%}
-      <b style="color:blue">The weather is nice right now! It's a good day to workout outside!</b>
-      {% elif weather.temperature >= 50 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain' and weather.description != 'moderate rain'%}
-      <b style="color:blue">Grab a jacket and consider heading outside for a workout today!</b>
-      {% elif weather.description == 'shower rain' or weather.description == 'thunderstorm' or weather.description == 'rain' or weather.description == 'very heavy rain' or weather.description == 'moderate rain'%}
-      <b style="color:blue">It might be raining, but don't let that stop you from working out inside instead!</b>
-      {% elif weather.temperature < 50 and weather.temperature >= 44 %}
-      <b style="color:blue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</b>
+      {% if weather.temperature >= 80 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
+      <p style="color:black">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
+      {% elif weather.temperature > 65 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
+      <p style="color:black">The weather is nice right now! It's a good day to workout outside! Maybe go for a run or a nice walk!</p>
+      {% elif weather.temperature >= 50 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
+      <p style="color:black">Grab a jacket and consider heading outside for a workout today!</p>
+      {% elif weather.temperature >= 50 and 'rain' in weather.description and 'thunderstorm' in weather.description and 'mist' in weather.description %}
+      <p style="color:black">It's not too cold, but it's raining. Why not try a workout inside instead!</p>
+      {% elif 'rain' in weather.description and 'thunderstorm' in weather.description and 'mist' in weather.description%}
+      <p style="color:black">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</p>
+      {% elif weather.temperature < 50 and weather.temperature >= 44 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
+      <p style="color:black">It's a bit cool outside, but it isn't raining. Why not do a workout outside today! Treadmill? Yoga? Stationary Bike?</p>
       {% elif weather.temperature < 44 %}
-      <b style="color:blue">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead!</b>
+      <p style="color:black">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead! Treadmill? Yoga? Stationary Bike?</p>
       {% endif %}
       <br>
       <br>
-      <center><a style="color:green; text-decoration: underline;" href = "{% url 'exercise:editlocation' %}">Click here to change your current location</a></center>
   </div>
 
       {% endblock %}
