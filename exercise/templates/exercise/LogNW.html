@@ -18,6 +18,16 @@
     <div style="width: 30%" align="center">
         <b>Date: </b> {{ exerciseform.exercise_date }}
     </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div>{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
     <br>
     <div style="width: 60%" align="center">
         <b>Description: </b>{{ exerciseform.description }}
@@ -25,6 +35,8 @@
     <center>
         <br>
     <input type="submit" value="Log and View All Workouts">
+
+
     </center>
 
 </form>

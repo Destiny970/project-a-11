@@ -219,6 +219,9 @@ def log_nws(request):
         # model.points = 5
         # user_profile = Profile._meta.get_field('workout_points')
         if filled_form.is_valid():
+            if filled_form.cleaned_data['exercise_date'] > timezone.now():
+                print('Date cannot be in the future')
+                messages.error(request, 'Please enter a date that is not in the future.')
             model = filled_form.save(commit=False)
             model.points = 5
             model.profile = Profile.objects.get(user=request.user)
@@ -250,10 +253,11 @@ def log_nws(request):
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:
-            print("Something went wrong, please try again.")
-        note = "Something went wrong, please try again."
+            # print("Please enter a date that is not in the future")
+            messages.error(request, 'Please enter a date that is not in the future.')
+
         new_form = ExerciseForm()
-        return render(request, 'exercise/LogNW.html', {'exerciseform':new_form, 'note':note})
+        return render(request, 'exercise/LogNW.html', {'exerciseform':new_form})
     else:
         form = ExerciseForm()
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
@@ -275,8 +279,8 @@ def leaderboard(request):
         # request.user.profile.save()
         rank.save()
     leader_board_avg = Profile.objects.all().order_by('-avg_points')[:]
-    for r in leader_board_avg:
-        print(r.avg_points)
+    # for r in leader_board_avg:
+    #     print(r.avg_points)
     context = {
         'all_users': all_users,
         'leader_board': leader_board,
