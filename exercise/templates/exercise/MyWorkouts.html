@@ -24,26 +24,30 @@
 
   <body>
     {% for wk in exercise %}
-    <div class="transbox" align="center">
+    <div class="transbox" align="left">
+      <div align="center">
       <font size="+2"><b>Workout Number: </b><i>{{forloop.counter}}</i></font>
-      <br>
+    </div>
       <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
       <br>
       <!-- the following website aided in writing the code used in line 13
 	   http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
+     <b>Duration: </b><i>{{wk.time_taken}}</i>
+      <br>
       <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i>
       <br>
-      <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
-      <br>
-      <b>Duration: </b><i>{{wk.time_taken}}</i>
-      <br>
       <b>Location: </b><i>{{wk.location}}</i>
+      <br>
+      <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
       <br>
       <b>Points: </b><i>{{wk.points}}</i>
       {% if wk.description != "" %} 
       <br>      
-      <b>Description: </b>
-      <i style="word-break:break-all;">{{wk.description}}</i>
+      <b>Description: </b> 
+      <br>
+      <i style="word-break:break-word;">
+        {{wk.description}}
+      </i>
       <br>
       {% endif %} 
     </div>
