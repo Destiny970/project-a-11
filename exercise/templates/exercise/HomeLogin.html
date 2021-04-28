@@ -43,15 +43,18 @@
   <div class="circle">
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
-      {% if weather.temperature > 65 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
+      {% if weather.temperature >= 80 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain' and weather.description != 'moderate rain'%}
+      <b style="color:blue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</b>
+      {% elif weather.temperature > 65 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain' and weather.description != 'moderate rain'%}
       <b style="color:blue">The weather is nice right now! It's a good day to workout outside!</b>
-      <br>
-      {% elif weather.temperature >= 50 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
+      {% elif weather.temperature >= 50 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain' and weather.description != 'moderate rain'%}
       <b style="color:blue">Grab a jacket and consider heading outside for a workout today!</b>
-      {% elif weather.description == 'shower rain' or weather.description == 'thunderstorm' or weather.description == 'rain' or weather.description == 'very heavy rain' %}
+      {% elif weather.description == 'shower rain' or weather.description == 'thunderstorm' or weather.description == 'rain' or weather.description == 'very heavy rain' or weather.description == 'moderate rain'%}
       <b style="color:blue">It might be raining, but don't let that stop you from working out inside instead!</b>
-      {% elif weather.temperature < 50 %}
+      {% elif weather.temperature < 50 and weather.temperature >= 44 %}
       <b style="color:blue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</b>
+      {% elif weather.temperature < 44 %}
+      <b style="color:blue">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead!</b>
       {% endif %}
       <br>
       <br>

@@ -57,7 +57,7 @@ class Post(models.Model):
     #     (ACCESS_PUBLIC, 'Public'),
     #     (ACCESS_PRIVATE, 'Private'),
     # ]
-    contents = models.TextField(max_length=1000)
+    contents = models.TextField(max_length=180)
     # access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -21,7 +21,7 @@ class PostForm(forms.ModelForm):
     
         widgets = {
             # 'contents': forms.TextInput(attrs={'class':'form-control','size': 1000,'placeholder': 'Write your tip/trick here.'}),
-            'contents': forms.Textarea(attrs={'cols': 60, 'rows': 10, 'placeholder': 'Write your tip/trick/accomplishment here.'}),
+            'contents': forms.Textarea(attrs={'cols': 50, 'rows': 4, 'placeholder': 'Write your tip/trick/accomplishment here.'}),
         }
 
 
@@ -47,9 +47,32 @@ class UserRegisterForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     # email = forms.EmailField()
 
+    ## https://stackoverflow.com/questions/34861322/override-maxlength-input-using-django-form-form-as-p 
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'maxlength': '12',
+            'minlength': '4',
+        })
+    )
+
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'maxlength': '12',
+            'minlength': '2',
+        })
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'maxlength': '12',
+            'minlength': '2',
+        })
+    )
+
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']
+    
 
 
 class CurrentLocationUpdateForm(forms.ModelForm):
@@ -74,7 +97,7 @@ class ExerciseForm(forms.ModelForm):
             ## https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget
             'exercise_date': forms.DateTimeInput(format=('%m/%d/%Y'),attrs={'class':'form-control','type':'date'}),
             # 'description': forms.TextInput(attrs={'class':'form-control','size': 50,'placeholder': 'Provide thoughts on your workout here.'}),
-            'description': forms.Textarea(attrs={'cols': 60, 'rows': 5, 'placeholder': 'Provide thoughts on your workout here.'}),
+            'description': forms.Textarea(attrs={'cols': 50, 'rows': 4, 'placeholder': 'Provide thoughts on your workout here.'}),
         }
 
 
