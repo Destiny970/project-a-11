@@ -34,7 +34,7 @@ def directions(request):
 
 def new_post(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     form = PostForm(request.POST or None)
     if request.method == 'POST':
         form = PostForm(request.POST)   
@@ -52,14 +52,14 @@ def new_post(request):
 
 def list_posts(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     posts = Post.objects.all().order_by('-created_at')[:10]
     return render(request, 'exercise/posts.html', {'posts': posts})
 
 
 def profile(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
 
@@ -92,7 +92,7 @@ def profile(request):
 
 def edit_profile(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():
@@ -121,7 +121,7 @@ def register(request):
 
 def badges(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
     ordered_exercises = exercise.order_by('-exercise_date')
@@ -148,7 +148,7 @@ def edit_location(request):
     weather_data = []
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
         # form = CurrentLocationUpdateForm(request.POST)
@@ -199,7 +199,7 @@ def home(request):
 
 def my_ws(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     form = ExerciseForm()
     exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
     # print(exercise)
@@ -211,7 +211,7 @@ def my_ws(request):
 
 def log_nws(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/') 
     if request.method == 'POST':
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
@@ -261,7 +261,7 @@ def log_nws(request):
 
 def leaderboard(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/') 
     all_users = User.objects.all()
     # leader_board = Profile.objects.order_by('-avg_points')[:]
     leader_board = Profile.objects.all()
