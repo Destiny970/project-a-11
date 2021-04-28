@@ -43,18 +43,16 @@
   <div class="circle">
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
-      {% if weather.temperature >= 80 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
-      <p style="color:black">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
-      {% elif weather.temperature > 65 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
-      <p style="color:black">The weather is nice right now! It's a good day to workout outside! Maybe go for a run or a nice walk!</p>
-      {% elif weather.temperature >= 50 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
-      <p style="color:black">Grab a jacket and consider heading outside for a workout today!</p>
-      {% elif weather.temperature >= 50 and 'rain' in weather.description and 'thunderstorm' in weather.description and 'mist' in weather.description %}
-      <p style="color:black">It's not too cold, but it's raining. Why not try a workout inside instead!</p>
-      {% elif 'rain' in weather.description and 'thunderstorm' in weather.description and 'mist' in weather.description%}
+      {% if 'rain' in weather.description or 'thunderstorm' in weather.description %}
       <p style="color:black">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</p>
-      {% elif weather.temperature < 50 and weather.temperature >= 44 and 'rain' not in weather.description and 'thunderstorm' not in weather.description and 'mist' not in weather.description%}
-      <p style="color:black">It's a bit cool outside, but it isn't raining. Why not do a workout outside today! Treadmill? Yoga? Stationary Bike?</p>
+      {% elif weather.temperature >= 80 %}
+      <p style="color:black">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
+      {% elif weather.temperature > 65 %}
+      <p style="color:black">The weather is nice right now! It's a good day to workout outside! Maybe go for a run or a nice walk!</p>
+      {% elif weather.temperature >= 50 %}
+      <p style="color:black">Grab a jacket and consider heading outside for a workout today!</p>
+      {% elif weather.temperature < 50 and weather.temperature >= 44 %}
+      <p style="color:black">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</p>
       {% elif weather.temperature < 44 %}
       <p style="color:black">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead! Treadmill? Yoga? Stationary Bike?</p>
       {% endif %}
