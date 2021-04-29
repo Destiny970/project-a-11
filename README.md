@@ -61,7 +61,7 @@ URL: https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django?f
 Title: Provisioning a Test PostgreSQL database on Heroku for your Django App <br>
 Author: Sola-Aremu 'Pelumi <br>
 Date: 04/29/21 <br>
-URL: https://medium.com/analytics-vidhya/ provisioning-a-test-postgresql-database-on-heroku-for-your-django-app-febb2b5d3b29 <br>
+URL: https://medium.com/analytics-vidhya/provisioning-a-test-postgresql-database-on-heroku-for-your-django-app-febb2b5d3b29 <br>
 
 Title: Testing Tools <br>
 Author: Django Documentation <br>
