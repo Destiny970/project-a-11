@@ -51,6 +51,7 @@
                 Badges/Leaderboard
             </button>
             <div class="dropdown-menu">
+                <a class="dropdown-item" href = "{% url 'exercise:badge_info' %}">Badge Info</a>
                 <a class="dropdown-item" href = "{% url 'exercise:badges' %}">Badges</a>
                 <a class="dropdown-item" href = "{% url 'exercise:leaderboard' %}">Leaderboard</a>
             </div>

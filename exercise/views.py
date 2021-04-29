@@ -119,6 +119,12 @@ def register(request):
         return render(request, 'exercise/register.html', {'form': form})
 
 
+def badge_info(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    return render(request, 'exercise/badge_info.html')
+
+
 def badges(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')

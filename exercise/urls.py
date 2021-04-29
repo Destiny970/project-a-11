@@ -17,6 +17,7 @@ urlpatterns = [
     # path('weather/', views.index, name='weather'),
     path('editprofile/', views.edit_profile, name='editprofile'),
     path('badges/', views.badges, name='badges'),
+    path('badgeinfo/', views.badge_info, name='badge_info'),
     path('posts/', views.list_posts, name='posts'),
     path('newpost/', views.new_post, name='new_post'),
     path('directions/', views.directions, name='directions'),
