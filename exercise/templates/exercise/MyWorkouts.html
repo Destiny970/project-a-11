@@ -3,56 +3,64 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <html>
-  <head>
-    <center><h2>MY WORKOUTS</h2>
-      <p>Here you can see all your workouts!</p>
-    </center>
-    <style>
-      div.transbox {
-	  margin: 0 px;
-	  background-color: #ffffff;
-	  border: 5px solid black;
-	  border-style: double;
-	  opacity: 1.0;
-      }
-      div.transbox b {
-	  margin: 1%;
-	  color: black;
-      }
-    </style>
-  </head>
 
-  <body>
-    {% for wk in exercise %}
-    <div class="transbox" align="left">
-      <div align="center">
+<head>
+  <center>
+    <h2>MY WORKOUTS</h2>
+    <p>Here you can see all your workouts!</p>
+  </center>
+  <style>
+    .bg-img {
+      background-image: none;
+      background-color: rgb(213, 236, 243);
+    }
+
+    div.transbox {
+      margin: 0 px;
+      background-color: #ffffff;
+      border: 5px solid black;
+      border-style: double;
+      opacity: 1.0;
+    }
+
+    div.transbox b {
+      margin: 1%;
+      color: black;
+    }
+  </style>
+</head>
+
+<body class="bg-img">
+  {% for wk in exercise %}
+  <div class="transbox" align="left">
+    <div align="center">
       <font size="+2"><b>Workout Number: </b><i>{{forloop.counter}}</i></font>
     </div>
-      <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
-      <br>
-      <!-- the following website aided in writing the code used in line 13
+    <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
+    <br>
+    <!-- the following website aided in writing the code used in line 13
 	   http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
-     <b>Duration: </b><i>{{wk.time_taken}}</i>
+    <b>Duration: </b><i>{{wk.time_taken}}</i>
+    <br>
+    <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i>
+    <br>
+    <b>Location: </b><i>{{wk.location}}</i>
+    <br>
+    <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
+    <br>
+    <b>Points: </b><i>{{wk.points}}</i>
+    {% if wk.description != "" %}
       <br>
-      <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i>
-      <br>
-      <b>Location: </b><i>{{wk.location}}</i>
-      <br>
-      <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
-      <br>
-      <b>Points: </b><i>{{wk.points}}</i>
-      {% if wk.description != "" %}
-        <br>
       <b>Description: </b>
       <div style="word-break:break-word; margin-left: 7px; margin-right: 7px;">
         {{wk.description}}
       </div>
-      <br>
-      {% endif %} 
-    </div>
-    {% endfor %}
-  </body>
-    <br>
-  {% endblock %}
+    {% endif %}
+  </div>
+  <br>
+  {% endfor %}
+</body>
+<br>
+{% endblock %}
 
 </html>

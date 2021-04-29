@@ -3,12 +3,19 @@
 {% block content %}
 <html>
 
+
+
 <head>
     <center>
         <h2>COMMUNITY POSTS</h2>
         <p>Learn about tips and tricks to lead a healthier lifestyle from other users!</p>
     </center>
     <style>
+        .bg-img {
+            background-image: none;
+            background-color: rgb(213, 236, 243);
+        }
+
         div.transbox {
             margin: 30 px;
             background-color: #ffffff;
@@ -32,14 +39,14 @@
 </div>
 <br>
 
-<bod y>
+<body class="bg-img">
     {% for post in posts %}
     {% if username|stringformat:"s" == post.created_by.username %}
     <div class="transbox" style="background-color:rgb(188, 238, 255);">
         <p>
             <em><b>You posted at</b></em>
             <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
-            <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
+        <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
         </p>
     </div>
     {% else %}
@@ -47,7 +54,7 @@
         <p>
             <em><b>@{{ post.created_by.username }}</b></em>
             <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
-            <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
+        <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
         </p>
     </div>
     {% endif %}
