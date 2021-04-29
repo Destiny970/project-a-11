@@ -43,6 +43,46 @@ Author: W3 Schools <br>
 Date: 04/13/21 <br>
 URL: https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp <br>
 
+Title: Django configuring different databases <br>
+Author: itzMEonTV <br>
+Date: 04/29/21 <br>
+URL: https://stackoverflow.com/questions/47579644/django-configuring-different-databases <br>
+
+Title: DATABASES <br>
+Author: Django Documentation <br>
+Date: 04/29/21 <br>
+URL: https://docs.djangoproject.com/en/3.1/ref/settings/#databases <br>
+
+Title: How to use PostgreSQL with Django <br>
+Author: Richard Yen <br>
+Date: 04/29/21 <br>
+URL: https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django?fbclid=IwAR22uppxhHcUSnvO73roHVYH3qzRzmP3687S7krh1844c5N49h2l7VTKrrA <br>
+
+Title: Provisioning a Test PostgreSQL database on Heroku for your Django App <br>
+Author: Sola-Aremu 'Pelumi <br>
+Date: 04/29/21 <br>
+URL: https://medium.com/analytics-vidhya/provisioning-a-test-postgresql-database-on-heroku-for-your-django-app-febb2b5d3b29 <br>
+
+Title: Testing Tools <br>
+Author: Django Documentation <br>
+Date: 04/29/21 <br>
+URL: https://docs.djangoproject.com/en/3.1/topics/testing/tools/ <br>
+
+Title: Django 2.0 ModelForm dateField not displaying as a widget <br>
+Author: Gustavo Gradvohl <br>
+Date: 04/29/21 <br>
+URL: https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget <br>
+
+Title: word-break <br>
+Author: MDN Web Docs <br>
+Date: 04/29/21 <br>
+URL: https://developer.mozilla.org/en-US/docs/Web/CSS/word-break <br>
+
+Title: Django if statement doesn't work as expected <br>
+Author: Ali Akhtari <br>
+Date: 04/29/21 <br>
+URL: https://stackoverflow.com/questions/15009712/django-if-statement-doesnt-work-as-expected <br>
+
 <b>Image Links:</b> <br>
 Bronze Badge: <br>
 https://img.pngio.com/bronze-medal-png-images-free-png-library-bronze-png-600_600.png <br>
