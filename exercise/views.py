@@ -197,8 +197,20 @@ def home(request):
         'description': city_weather['weather'][0]['description'],
         'icon': city_weather['weather'][0]['icon']
     }
+
+    form = ExerciseForm()
+    exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-created_at")
+    total_points = exercise.aggregate(total_points=Sum('points'))
+    if len(exercise) != 0:
+        exercise = exercise[0]
+    user_workouts = {
+        'user_points' : total_points,
+        'user_exercise' : exercise,
+    }
+
     context = {
-        'weather': weather
+        'weather': weather,
+        'user_workouts': user_workouts
     }
     return render(request, 'exercise/HomeLogin.html', context)
 
