@@ -43,7 +43,11 @@
   <div class="circle">
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
-      {% if 'rain' in weather.description or 'thunderstorm' in weather.description %}
+      {% if 'rain' in weather.description and 'snow' in weather.description %}
+      <p style="color:darkblue">Its snowing and raining! Probably best to workout inside today! Maybe on the treadmill or elliptical!</p>
+      {% elif 'snow' in weather.description %}
+      <p style="color:darkblue">Its snowing! Unless you're planning to ski or snowboard, it's probably best to workout inside today!</p>
+      {% elif 'rain' in weather.description or 'thunderstorm' in weather.description %}
       <p style="color:darkblue">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</p>
       {% elif weather.temperature >= 80 %}
       <p style="color:darkblue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
@@ -61,7 +65,7 @@
   <style>
     div.transbox {
       margin: 0 px;
-      background-color: rgb(43, 255, 0); 
+      background-color: rgb(182, 224, 238); 
       border: 5px solid black;
       border-style: double;
       opacity:1.0;

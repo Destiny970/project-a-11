@@ -42,7 +42,7 @@
 <body class="bg-img">
     {% for post in posts %}
     {% if username|stringformat:"s" == post.created_by.username %}
-    <div class="transbox" style="background-color:rgb(188, 238, 255);">
+    <div class="transbox" style="background-color:rgb(182, 224, 238);">
         <p>
             <em><b>You posted at</b></em>
             <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
