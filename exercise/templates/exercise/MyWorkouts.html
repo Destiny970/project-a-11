@@ -27,37 +27,81 @@
       margin: 1%;
       color: black;
     }
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .dropbtn {
+        background-color: rgb(189, 255, 189);
+        color: white;
+        width: 600px;
+        padding: 16px;
+        font-size: 16px;
+        color: black;
+        border: 2px solid black;
+        horder-style: double;
+        margin: 10px;
+     }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 400px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+     }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .dropbtn {background-color: rgb(189, 255, 189);}
   </style>
 </head>
 
 <body class="bg-img">
   {% for wk in exercise %}
-  <div class="transbox" align="left">
-    <div align="center">
-      <font size="+2"><b>Workout Number: </b><i>{{forloop.counter}}</i></font>
-    </div>
-    <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
-    <br>
-    <!-- the following website aided in writing the code used in line 13
-	   http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
-    <b>Duration: </b><i>{{wk.time_taken}}</i>
-    <br>
-    <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i>
-    <br>
-    <b>Location: </b><i>{{wk.location}}</i>
-    <br>
-    <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
-    <br>
-    <b>Points: </b><i>{{wk.points}}</i>
-    {% if wk.description != "" %}
+  <div class="dropdown">
+    <center>
+      <button class="dropbtn"><b>Workout on {{wk.exercise_date | date:"F d Y" }}</b></button>
+    </center>
+    <div class="dropdown-content">
+      <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
+      <br>
+      <b>Duration: </b><i>{{wk.time_taken}}</i>
+      <br>
+      <b>Location: </b><i>{{wk.location}}</i>
+      <br>
+      <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
+      <br>
+      <b>Points: </b><i>{{wk.points}}</i>
+      {% if wk.description != "" %}
       <br>
       <b>Description: </b>
       <div style="word-break:break-word; margin-left: 7px; margin-right: 7px;">
         {{wk.description}}
       </div>
     {% endif %}
+      </div>
   </div>
-  <br>
   {% endfor %}
 </body>
 <br>
