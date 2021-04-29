@@ -39,17 +39,17 @@ div.badgebox {
     <br>
     {% if total_points.total_points > 1000 %}
     <div class="background">
-        <img src="{% static 'GoldPointsBadge.jpg' %}" width="100" height="100">
+        <img src="{% static 'GoldPointsBadge.png' %}" width="100" height="100">
     </div>
     <i>Gold Badge</i>
     {% elif total_points.total_points > 500 %}
     <div class="background">
-        <img src="{% static 'SilverPointsBadge.jpg' %}" width="100" height="100">
+        <img src="{% static 'SilverPointsBadge.png' %}" width="100" height="100">
     </div>
     <i>Silver Badge</i>
     {% elif total_points.total_points > 200 %}
     <div class="background">
-        <img src="{% static 'BronzePointsBadge.jpg' %}" width="100" height="100">
+        <img src="{% static 'BronzePointsBadge.png' %}" width="100" height="100">
     </div>
     <i>Bronze Badge</i>
 
@@ -81,7 +81,7 @@ div.badgebox {
 </div>
 </div>
 
-<center>Click <a style="text-decoration: underline" href="{% url 'exercise:new_post' %}">here</a> to share your accomplishments!</center>
+<center><a style="text-decoration: underline" href="{% url 'exercise:new_post' %}">Click here to share your accomplishments!</a></center>
 
 {% endblock %}
 </html>

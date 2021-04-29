@@ -53,7 +53,7 @@ def new_post(request):
 def list_posts(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
-    posts = Post.objects.all().order_by('-created_at')[:10]
+    posts = Post.objects.all().order_by('-created_at')[:]
     return render(request, 'exercise/posts.html', {'posts': posts, 'username': request.user})
 
 
