@@ -54,7 +54,7 @@ def list_posts(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     posts = Post.objects.all().order_by('-created_at')[:10]
-    return render(request, 'exercise/posts.html', {'posts': posts})
+    return render(request, 'exercise/posts.html', {'posts': posts, 'username': request.user})
 
 
 def profile(request):

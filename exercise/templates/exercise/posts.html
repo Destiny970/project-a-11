@@ -2,40 +2,59 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <html>
+
 <head>
-    <center><h2>COMMUNITY POSTS</h2>
-    <p>Learn about tips and tricks to lead a healthier lifestyle from other users!</p></center>
+    <center>
+        <h2>COMMUNITY POSTS</h2>
+        <p>Learn about tips and tricks to lead a healthier lifestyle from other users!</p>
+    </center>
     <style>
-div.transbox {
-    margin: 30 px;
-    background-color: #ffffff;
-    border: 5px solid black;
-    border-style: double;
-    opacity: 1.0;
-}
-div.transbox p {
-    margin: 1%;
-    color: black;
-}
-</style>
+        div.transbox {
+            margin: 30 px;
+            background-color: #ffffff;
+            border: 5px solid black;
+            border-style: double;
+            opacity: 1.0;
+        }
+
+        div.transbox p {
+            margin: 1%;
+            color: black;
+        }
+    </style>
 </head>
-<div class="transbox"><center><h5 class="nav-item active">
-                <a style="text-decoration:underline" class="nav-link" href = "{% url 'exercise:new_post' %}">Log New Post</a>
-</h5></center></div>
+<div class="transbox">
+    <center>
+        <h5 class="nav-item active">
+            <a style="text-decoration:underline" class="nav-link" href="{% url 'exercise:new_post' %}">Log New Post</a>
+        </h5>
+    </center>
+</div>
 <br>
-    <body>
+
+<bod y>
     {% for post in posts %}
-    <div class="transbox">
+    {% if username|stringformat:"s" == post.created_by.username %}
+    <div class="transbox" style="background-color:rgb(188, 238, 255);">
         <p>
-            <em><b>@{{ post.created_by.username }}</b></em> 
+            <em><b>@{{ post.created_by.username }}</b></em>
             <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
             <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
-            <!-- https://developer.mozilla.org/en-US/docs/Web/CSS/word-break -->
         </p>
     </div>
+    {% else %}
+    <div class="transbox" style="background-color:rgb(189, 255, 189);">
+        <p>
+            <em><b>@{{ post.created_by.username }}</b></em>
+            <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
+            <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
+        </p>
+    </div>
+    {% endif %}
     <br>
     {% endfor %}
-    </body>
+</body>
+
 </html>
 
 {% endblock %}
