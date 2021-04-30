@@ -1,7 +1,7 @@
 {% extends 'exercise/base.html' %}
 {% load socialaccount %}
-
 {% load static %}
+
 <html>
 
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"
-</head>
+  </head>
 
 <body>
 <div class="bg-img">
@@ -21,7 +21,7 @@
         <h2><b><center>Welcome to Exercise Gamification!</center></b></h2>
     </div>
     <div class="mednav">
-        <center><p>Log your Exercises | Better Yourself | Compete with Others</p></center>
+        <center><p>Log your Exercises! | Better Yourself! | Compete with Others!</p></center>
     </div>
   </div>
   <center>
@@ -30,11 +30,11 @@
       <div class="rightnav">
 
         {% if user.is_authenticated %}
-            <center><p style="font-size:22px; color: blue;">Hello, {{ user.username }}!</p></center>
+            <center><p style="font-size:22px; color: black;">Hello, {{ user.username }}!</p></center>
           <br>
 
         {% else %}
-            <h2><center><a href="{% provider_login_url 'google' %}">Login with Google</a></center></h2>
+            <h2><center><a style="text-decoration: underline" href="{% provider_login_url 'google' %}">Login with Google</a></center></h2>
 
         {% endif %}
 
@@ -43,22 +43,64 @@
   <div class="circle">
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
-      {% if weather.temperature > 65 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
-      <b style="color:blue">The weather is nice right now! It's a good day to workout outside!</b>
-      <br>
-      {% elif weather.temperature >= 50 and weather.description != 'shower rain' and weather.description != 'thunderstorm' and weather.description != 'rain' and weather.description != 'very heavy rain'%}
-      <b style="color:blue">Grab a jacket and consider heading outside for a workout today!</b>
-      {% elif weather.description == 'shower rain' or weather.description == 'thunderstorm' or weather.description == 'rain' or weather.description == 'very heavy rain' %}
-      <b style="color:blue">It might be raining, but don't let that stop you from working out inside instead!</b>
-      {% elif weather.temperature < 50 %}
-      <b style="color:blue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</b>
+      {% if 'rain' in weather.description and 'snow' in weather.description %}
+      <p style="color:darkblue">Its snowing and raining! Probably best to workout inside today! Maybe on the treadmill or elliptical!</p>
+      {% elif 'snow' in weather.description %}
+      <p style="color:darkblue">Its snowing! Unless you're planning to ski or snowboard, it's probably best to workout inside today!</p>
+      {% elif 'rain' in weather.description or 'thunderstorm' in weather.description %}
+      <p style="color:darkblue">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</p>
+      {% elif weather.temperature >= 80 %}
+      <p style="color:darkblue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
+      {% elif weather.temperature > 65 %}
+      <p style="color:darkblue">The weather is nice right now! It's a good day to workout outside! Maybe go for a run or a nice walk!</p>
+      {% elif weather.temperature >= 50 %}
+      <p style="color:darkblue">Grab a jacket and consider heading outside for a workout today!</p>
+      {% elif weather.temperature < 50 and weather.temperature >= 44 %}
+      <p style="color:darkblue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</p>
+      {% elif weather.temperature < 44 %}
+      <p style="color:darkblue">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead! Treadmill? Yoga? Stationary Bike?</p>
       {% endif %}
-      <br>
-      <br>
-      <center><a style="color:green" href = "{% url 'exercise:editlocation' %}">Click here to change your current location</a></center>
   </div>
 
-      {% endblock %}
+  <style>
+    div.transbox {
+      margin: 0 px;
+      background-color: rgb(182, 224, 238); 
+      border: 5px solid black;
+      border-style: double;
+      opacity:1.0;
+    }
+  </style>
+
+  {% if user_workouts.user_points.total_points != none %}
+    <b>Total Points:</b> <i>{{user_workouts.user_points.total_points}}</i>
+    <br>
+    <br>
+    <div class="transbox" align="left">
+      <center>
+      <b>Your Most Recently Logged Workout:</b>
+     </center>
+        <b>Exercise Type: </b><i>{{user_workouts.user_exercise.exercise_type}}</i>
+        <br>
+        <b>Duration: </b><i>{{user_workouts.user_exercise.time_taken}}</i>
+        <br>
+        <b>Location: </b><i>{{user_workouts.user_exercise.location}}</i>
+        <br>
+        <b>Workout Log Time: </b><i>{{user_workouts.user_exercise.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
+        <br>
+        <b>Points: </b><i>{{user_workouts.user_exercise.points}}</i>
+        <br>
+        {% if user_workouts.user_exercise.description != "" %}
+          <b>Description: </b>
+          <div style="word-break:break-word; margin-left: 7px; margin-right: 7px;">
+            {{user_workouts.user_exercise.description}}
+          </div>
+        {% endif %}
+    </div>
+  {% endif %}
+
+
+  {% endblock %}
   </center>
 
 </div>

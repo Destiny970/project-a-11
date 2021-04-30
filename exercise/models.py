@@ -57,7 +57,7 @@ class Post(models.Model):
     #     (ACCESS_PUBLIC, 'Public'),
     #     (ACCESS_PRIVATE, 'Private'),
     # ]
-    contents = models.TextField(max_length=1000)
+    contents = models.TextField(max_length=180)
     # access_level = models.IntegerField(choices=ACCESS_LEVEL_CHOICES, default=ACCESS_PUBLIC)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -65,12 +65,14 @@ class Post(models.Model):
 
 class City(models.Model):
     # name = models.CharField(max_length=25)
-    name = models.CharField(max_length=50, validators=[validate_hash])
+    name = models.CharField(max_length=50)
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = 'cities'
+    profile = models.ForeignKey('Profile', null=True, on_delete=models.CASCADE)
 
 
 class Tag(models.Model):

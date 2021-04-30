@@ -3,51 +3,115 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <html>
+
 <head>
-    <center><h2>MY WORKOUTS</h2>
+  <center>
+    <h2>MY WORKOUTS</h2>
     <p>Here you can see all your workouts!</p>
-    </center>
-    <style>
-div.transbox {
-    margin: 0 px;
-    background-color: #ffffff;
-    border: 5px solid black;
-    border-style: double;
-    opacity: 1.0;
-}
-div.transbox b {
-    margin: 1%;
-    color: black;
-}
-</style>
+  </center>
+
+  <center>
+      <h5 class="nav-item active">
+          <a style="text-decoration:underline" class="nav-link" href="{% url 'exercise:log_new' %}">Log New Workout</a>
+      </h5>
+  </center>
+
+  <style>
+    .bg-img {
+      background-image: none;
+      background-color: rgb(213, 236, 243);
+    }
+
+    div.transbox {
+      margin: 0 px;
+      background-color: #ffffff;
+      border: 5px solid black;
+      border-style: double;
+      opacity: 1.0;
+    }
+
+    div.transbox b {
+      margin: 1%;
+      color: black;
+    }
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .dropbtn {
+        background-color: rgb(189, 255, 189);
+        color: white;
+        width: 600px;
+        padding: 16px;
+        font-size: 16px;
+        color: black;
+        border: 2px solid black;
+        horder-style: double;
+        margin: 10px;
+     }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 400px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+     }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .dropbtn {background-color: rgb(189, 255, 189);}
+  </style>
 </head>
 
-<body>
-    {% for wk in exercise %}
-    <div class="transbox" align="center">
-    <font size="+2"><b>Workout Number: </b><i>{{forloop.counter}}</i></font>
-    <br>
-    <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
-    <br>
-    <!-- the following website aided in writing the code used in line 13
-    http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
-    <b>Date: </b><i>{{wk.exercise_date | date:"F d Y" }}</i>
-    <br>
-    <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
-    <br>
-    <b>Duration: </b><i>{{wk.time_taken}}</i>
-    <br>
-    <b>Location: </b><i>{{wk.location}}</i>
-    <br>
-    <b>Description: </b><i>{{wk.description}}</i>
-    <br>
-    <b>Points: </b><i>{{wk.points}}</i>
-    <br>
-    <br>
-    </div>
-    {% endfor %}
+<body class="bg-img">
+  {% for wk in exercise %}
+  <div class="dropdown">
+    <center>
+      <button class="dropbtn"><b>Workout on {{wk.exercise_date | date:"F d Y" }}</b></button>
+    </center>
+    <div class="dropdown-content">
+      <b>Exercise Type: </b><i>{{wk.exercise_type}}</i>
+      <br>
+      <b>Duration: </b><i>{{wk.time_taken}}</i>
+      <br>
+      <b>Location: </b><i>{{wk.location}}</i>
+      <br>
+      <b>Workout Log Time: </b><i>{{wk.created_at|date:"SHORT_DATETIME_FORMAT" }}</i>
+      <br>
+      <b>Points: </b><i>{{wk.points}}</i>
+      {% if wk.description != "" %}
+      <br>
+      <b>Description: </b>
+      <div style="word-break:break-word; margin-left: 7px; margin-right: 7px;">
+        {{wk.description}}
+      </div>
+    {% endif %}
+      </div>
+  </div>
+  {% endfor %}
 </body>
-
+<br>
 {% endblock %}
 
 </html>

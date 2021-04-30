@@ -26,15 +26,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '&u=+3twv5cl(jw-uvtbeng=_58pa^wosv0(o27#=@u6s2q5m!s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # True
+DEBUG = True #False # True
 
 ALLOWED_HOSTS = []
 
-
+# SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
-    # 'badgify',
+    'djangosecure',
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-SECURE_SSL_REDIRECT = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 

@@ -1,17 +1,4 @@
-<style>
 
-    div.dropdown {
-        float: left;
-        padding: 14px 16px;
-        color: black;
-    }
-
-    div.navbar {
-        display: inline-block;
-    }
-
-
-</style>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -21,42 +8,78 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href=" {% url 'exercise:home' %}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent text-center">
-        <a style="color: black" class="nav-link" href = "{% url 'exercise:home' %}">Home</a>
-        <a style="color: black" class="nav-link" href = "{% url 'exercise:directions' %}">How To Use The App</a>
-        <a style="color: black" class="nav-link" href="{% url 'exercise:profile' %}">My Profile</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'exercise:directions' %}">Directions <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
 
-    <div class="dropdown-links" align="center">
-        <div class="dropdown" align="center">
-            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
-                Community
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href = "{% url 'exercise:new_post' %}">Log New Post</a>
-                <a class="dropdown-item" href = "{% url 'exercise:posts' %}">Community Posts</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
-                Workouts
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href = "{% url 'exercise:log_new' %}">Log New Workout</a>
-                <a class="dropdown-item" href = "{% url 'exercise:my_ws' %}">My Workouts</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
-                Badges/Leaderboard
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href = "{% url 'exercise:badges' %}">Badges</a>
-                <a class="dropdown-item" href = "{% url 'exercise:leaderboard' %}">Leaderboard</a>
-            </div>
-        </div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown0" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Profile
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                    <a class="dropdown-item" href="{% url 'exercise:profile' %}">View Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'exercise:editprofile' %}">Edit Name/Username</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'exercise:editlocation' %}">Edit Current Location</a>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Community
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                    <a class="dropdown-item" href="{% url 'exercise:new_post' %}">Log New Post</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'exercise:posts' %}">Community Posts</a>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Workouts
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'exercise:log_new' %}">Log New Workout</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'exercise:my_ws' %}">My Workouts</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Badges/Leaderboard
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'exercise:badge_info' %}">Badge Info</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'exercise:badges' %}">Badges</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'exercise:leaderboard' %}">Leaderboard</a>
+                </div>
+            </li>
+        </ul>
+        <a class="btn btn-basic ml-2 mr-2" href="{% url 'logout' %}">Logout</a>
+
     </div>
-        <a style="color: black" class="nav-link" href = "{% url 'exercise:weather' %}">Current Weather</a>
-        <a style="color: black" class="nav-link" href = "{% url 'logout' %}">Logout</a>
-    </nav>
+</nav>
+
+
+
 </body>

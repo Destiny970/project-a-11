@@ -32,28 +32,9 @@ def directions(request):
     return render(request, 'exercise/directions.html')
 
 
-# class PostView(TemplateView):
-#     template_name = 'exercise/new_post.html'
-#
-#     def get(self, request):
-#         form = PostForm()
-#         thoughts = Post.objects.all()
-#         args = {'form': form, 'thoughts': thoughts}
-#         return render(request, self.template_name, args)
-#
-#     def post(self, request):
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             thought = form.save(commit=False)
-#             thought.save()
-#             return redirect(reverse('exercise:posts'))
-#         text = form.cleaned_data['contents']
-#         args = {'form': form, 'text': text}
-#         return render(request, self.template_name, args)
-
 def new_post(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     form = PostForm(request.POST or None)
     if request.method == 'POST':
         form = PostForm(request.POST)   
@@ -71,25 +52,14 @@ def new_post(request):
 
 def list_posts(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
-    # thoughts = Post.objects.all()
-    # return render(request, 'exercise/posts.html', {'thought': thoughts})
-    posts = Post.objects.all().order_by('-created_at')[:10]
-    authorized_posts = []
-    # for post in posts:
-    #     try:
-    #         authorize(request, post, action="view")
-    #         authorized_posts.append(post)
-    #     except PermissionDenied:
-    #         continue
-    #     authorized_posts.append(post)
-
-    return render(request, 'exercise/posts.html', {'posts': posts})
+        return HttpResponseRedirect('/')
+    posts = Post.objects.all().order_by('-created_at')[:]
+    return render(request, 'exercise/posts.html', {'posts': posts, 'username': request.user})
 
 
 def profile(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
 
@@ -102,20 +72,11 @@ def profile(request):
     request.user.profile.save()
     points = model.workout_points
 
-    # if request.method == 'POST':
-    #     form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
-    #     if form.is_valid():  # and p_form.is_valid():
-    #         form.save()
-    #         messages.success(request, f'Your account has been updated! You are now able to log in')
-    #         return redirect('profile')
-    # else:
-    #     form = CurrentLocationUpdateForm(instance=request.user.profile)
-
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():  # and p_form.is_valid():
             u_form.save()
-            messages.success(request, f'Your account has been updated! You are now able to log in')
+            # messages.success(request, f'Your account has been updated! You are now able to log in')
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -131,7 +92,7 @@ def profile(request):
 
 def edit_profile(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         if u_form.is_valid():
@@ -139,10 +100,7 @@ def edit_profile(request):
             messages.success(request, f'Your account has been updated! You are now able to log in')
             return HttpResponseRedirect(reverse('exercise:profile'))
         else:
-            print("Something went wrong, please try again.")
-        note = "Something went wrong, please try again."
-        new_form = UserUpdateForm()
-        return render(request, 'exercise/editprofile.html', {'profileform':new_form, 'note':note})
+            print(u_form.errors)
     else:
         u_form = UserUpdateForm(instance=request.user)
     return render(request, 'exercise/editprofile.html', {'u_form': u_form})
@@ -161,9 +119,15 @@ def register(request):
         return render(request, 'exercise/register.html', {'form': form})
 
 
+def badge_info(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    return render(request, 'exercise/badge_info.html')
+
+
 def badges(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     exercise = Exercise.objects.filter(profile=request.user.profile)
     total_points = exercise.aggregate(total_points=Sum('points'))
     ordered_exercises = exercise.order_by('-exercise_date')
@@ -186,66 +150,36 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
-def index(request):
-    if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
-    weather_data = []
-    # print(type(weather_data))
-    cities = City.objects.all()
-    if request.method == 'POST':
-        form = CityForm(request.POST)
-        if form.is_valid():
-            form.save()
-    form = CityForm()
-    # request the API data and convert the JSON to Python data types
-    try:
-        for city in cities:
-            city_weather = requests.get(url.format(city)).json()
-            weather = {
-                'city': city.name,
-                'temperature': city_weather['main']['temp'],
-                'description': city_weather['weather'][0]['description'],
-                'icon': city_weather['weather'][0]['icon']
-            }
-            weather_data.append(weather)
-
-    except ValueError:
-        print('Does not match a city')
-    except KeyError:
-        pass
-
-
-    context = {'weather_data': weather_data, 'form': form}
-    print(cities)
-    return render(request, 'exercise/index.html', context)
-
-
 def edit_location(request):
     weather_data = []
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = CurrentLocationUpdateForm(request.POST, instance=request.user.profile)
-        form.save()
-
-        return HttpResponseRedirect(reverse('exercise:home'))
-
-    form = CurrentLocationUpdateForm()
-    try:
-        city = request.user.profile.current_location
-        city_weather = requests.get(url.format(city)).json()
-        print(city_weather)
-        weather = {
-            'city': city,
-            'temperature': city_weather['main']['temp'],
-            'description': city_weather['weather'][0]['description'],
-            'icon': city_weather['weather'][0]['icon']
-        }
-        weather_data.append(weather)
-    except KeyError:
-        print('Enter a valid city')
+        # form = CurrentLocationUpdateForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data['current_location'])
+            city = form.cleaned_data['current_location']
+            try:
+                # city = request.user.profile.current_location
+                city_weather = requests.get(url.format(city)).json()
+                weather = {
+                    'city': city,
+                    'temperature': city_weather['main']['temp'],
+                    'description': city_weather['weather'][0]['description'],
+                    'icon': city_weather['weather'][0]['icon']
+                }
+                weather_data.append(weather)
+                form.save()
+                # city.save()
+                request.user.profile.save()
+                return HttpResponseRedirect(reverse('exercise:home'))
+            except KeyError:
+                # print('Enter a valid city')
+                messages.error(request, 'Please enter a valid city name')
+        else:
+            print(form.errors)
     else:
         form = CurrentLocationUpdateForm(instance=request.user.profile)
     return render(request, 'exercise/editlocation.html', {'weather_data': weather_data, 'form': form})
@@ -263,17 +197,30 @@ def home(request):
         'description': city_weather['weather'][0]['description'],
         'icon': city_weather['weather'][0]['icon']
     }
+
+    form = ExerciseForm()
+    exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-created_at")
+    total_points = exercise.aggregate(total_points=Sum('points'))
+    if len(exercise) != 0:
+        exercise = exercise[0]
+    user_workouts = {
+        'user_points' : total_points,
+        'user_exercise' : exercise,
+    }
+
     context = {
-        'weather': weather
+        'weather': weather,
+        'user_workouts': user_workouts
     }
     return render(request, 'exercise/HomeLogin.html', context)
 
 
 def my_ws(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/')
     form = ExerciseForm()
     exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+    # print(exercise)
     total_points = exercise.aggregate(total_points=Sum('points'))
     Profile.workout_points = total_points
     args = {'form': form, 'exercise': exercise, 'total_points': total_points}
@@ -282,7 +229,7 @@ def my_ws(request):
 
 def log_nws(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/') 
     if request.method == 'POST':
         filled_form = ExerciseForm(request.POST)
         print(filled_form.errors)
@@ -290,6 +237,9 @@ def log_nws(request):
         # model.points = 5
         # user_profile = Profile._meta.get_field('workout_points')
         if filled_form.is_valid():
+            if filled_form.cleaned_data['exercise_date'] > timezone.now():
+                print('Date cannot be in the future')
+                messages.error(request, 'Please enter a date that is not in the future.')
             model = filled_form.save(commit=False)
             model.points = 5
             model.profile = Profile.objects.get(user=request.user)
@@ -321,10 +271,11 @@ def log_nws(request):
             model.save()
             return HttpResponseRedirect(reverse('exercise:my_ws'))
         else:
-            print("Something went wrong, please try again.")
-        note = "Something went wrong, please try again."
+            # print("Please enter a date that is not in the future")
+            messages.error(request, 'Please enter a date that is not in the future.')
+
         new_form = ExerciseForm()
-        return render(request, 'exercise/LogNW.html', {'exerciseform':new_form, 'note':note})
+        return render(request, 'exercise/LogNW.html', {'exerciseform':new_form})
     else:
         form = ExerciseForm()
         return render(request, 'exercise/LogNW.html', {'exerciseform': form})
@@ -332,7 +283,7 @@ def log_nws(request):
 
 def leaderboard(request):
     if not request.user.is_authenticated:
-        return render(request, 'exercise/notloggedin.html')
+        return HttpResponseRedirect('/') 
     all_users = User.objects.all()
     # leader_board = Profile.objects.order_by('-avg_points')[:]
     leader_board = Profile.objects.all()
@@ -346,8 +297,8 @@ def leaderboard(request):
         # request.user.profile.save()
         rank.save()
     leader_board_avg = Profile.objects.all().order_by('-avg_points')[:]
-    for r in leader_board_avg:
-        print(r.avg_points)
+    # for r in leader_board_avg:
+    #     print(r.avg_points)
     context = {
         'all_users': all_users,
         'leader_board': leader_board,
@@ -364,3 +315,50 @@ def log_out(request):
     logout(request)
     return HttpResponseRedirect('')
 
+
+
+
+
+# def index(request):
+#     if not request.user.is_authenticated:
+#         return render(request, 'exercise/notloggedin.html')
+#     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
+#     weather_data = []
+#     # print(type(weather_data))
+#     cities = City.objects.all()
+#     # cities = City.objects.all().filter(profile=request.user.profile)
+#     all_cities = City.objects.all()
+#     print(all_cities)
+#     # print(cities)
+#     if request.method == 'POST':
+#         form = CityForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#     form = CityForm()
+#
+#     # form = ExerciseForm()
+#     # exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+#     # total_points = exercise.aggregate(total_points=Sum('points'))
+#     # Profile.workout_points = total_points
+#     # args = {'form': form, 'exercise': exercise, 'total_points': total_points}
+#     # return render(request, 'exercise/MyWorkouts.html', args)
+#     # request the API data and convert the JSON to Python data types
+#     try:
+#         for city in reversed(cities):
+#             city_weather = requests.get(url.format(city)).json()
+#             weather = {
+#                 'city': city.name,
+#                 'temperature': city_weather['main']['temp'],
+#                 'description': city_weather['weather'][0]['description'],
+#                 'icon': city_weather['weather'][0]['icon']
+#             }
+#             weather_data.append(weather)
+#
+#     except ValueError:
+#         print('Does not match a city')
+#     except KeyError:
+#         pass
+#
+#     context = {'weather_data': weather_data, 'form': form}
+#     # print(cities)
+#     return render(request, 'exercise/index.html', context)

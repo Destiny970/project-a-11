@@ -20,7 +20,7 @@
         <h1><b><center>Welcome to Exercise Gamification!</center></b></h1>
     </div>
     <div class="mednav">
-        <center><p>Log your Exercises | Better Yourself | Compete with Others</p></center>
+        <center><p>Log your Exercises! | Better Yourself! | Compete with Others!</p></center>
     <br>
     <br>
     {% endblock %}
@@ -37,8 +37,8 @@
             <center><a href = "{% url 'logout' %}">Logout</a></center>
 
         {% else %}
-            <h2><center><a href="{% provider_login_url 'google' %}">Login with Google</a></center></h2>
-            <a href="{% url 'exercise:notloggeddir' %}">Click here to find out how to use the app!</a>
+            <h2><center><a style="text-decoration:underline" href="{% provider_login_url 'google' %}">Login with Google/Create New Account</a></center></h2>
+            <a style="text-decoration:underline" href="{% url 'exercise:notloggeddir' %}">Click here to find out how to use the app!</a>
 
         {% endif %}
 
