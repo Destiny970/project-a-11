@@ -47,9 +47,6 @@ class WorkingURLPathsNotLoggedIn(TestCase):
     def test_my_workouts_page(self):
         response = self.client.get('/MyWorkouts/', follow=True)
         self.assertContains(response, "Login with Google", status_code=200) 
-#     def test_weather_page(self):
-#         response = self.client.get('/weather/', follow=True)
-#         self.assertContains(response, "Login with Google", status_code=200) 
     def test_edit_profile_page(self):
         response = self.client.get('/editprofile/', follow=True)
         self.assertContains(response, "Login with Google", status_code=200) 
