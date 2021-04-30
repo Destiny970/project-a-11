@@ -30,14 +30,14 @@
         }
     </style>
 </head>
-<div class="transbox">
-    <center>
-        <h5 class="nav-item active">
-            <a style="text-decoration:underline" class="nav-link" href="{% url 'exercise:new_post' %}">Log New Post</a>
-        </h5>
-    </center>
-</div>
-<br>
+
+<center>
+    <h5 class="nav-item active">
+        <a style="text-decoration:underline" class="nav-link" href="{% url 'exercise:new_post' %}">Log New Post</a>
+    </h5>
+</center>
+
+
 
 <body class="bg-img">
     {% for post in posts %}
