@@ -44,7 +44,7 @@
     {% if username|stringformat:"s" == post.created_by.username %}
     <div class="transbox" style="background-color:rgb(182, 224, 238);">
         <p>
-            <em><b>You posted at</b></em>
+            <em><b>You posted on</b></em>
             <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
         <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
         </p>

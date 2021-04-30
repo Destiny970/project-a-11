@@ -25,9 +25,9 @@ caption{
 </head>
 <body>
 
+<caption><b>Note:</b> You are ranked by average total points not by the overall total to be fair to users who join later</caption>
+<table style="width:100%;">
 
-<table style="width:100%">
-    <caption>Note: You are ranked by average total points not by the overall total to be fair to users who join later</caption>
     <tr>
         <th>Rank</th>
         <th>User</th>
@@ -36,10 +36,27 @@ caption{
     </tr>
     {% for rank in leader_board_avg %}
     <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ rank.user }}</td>
-        <td>{{ rank.workout_points }}</td>
-        <td>{{ rank.avg_points }}</td>
+        {% if forloop.counter == 1 %}
+            <td style="background-color:gold;">{{ forloop.counter }}</td>
+            <td style="background-color:gold;">{{ rank.user }}</td>
+            <td style="background-color:gold;">{{ rank.workout_points }}</td>
+            <td style="background-color:gold;">{{ rank.avg_points }}</td>
+        {% elif forloop.counter == 2 %}
+            <td style="background-color:silver;">{{ forloop.counter }}</td>
+            <td style="background-color:silver;">{{ rank.user }}</td>
+            <td style="background-color:silver;">{{ rank.workout_points }}</td>
+            <td style="background-color:silver;">{{ rank.avg_points }}</td>
+        {% elif forloop.counter == 3 %}
+            <td style="background-color:#CD7F32;">{{ forloop.counter }}</td>
+            <td style="background-color:#CD7F32;">{{ rank.user }}</td>
+            <td style="background-color:#CD7F32;">{{ rank.workout_points }}</td>
+            <td style="background-color:#CD7F32;">{{ rank.avg_points }}</td>
+        {% else %}
+            <td>{{ forloop.counter }}</td>
+            <td>{{ rank.user }}</td>
+            <td>{{ rank.workout_points }}</td>
+            <td>{{ rank.avg_points }}</td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
