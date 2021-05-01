@@ -7,7 +7,7 @@ References:
 
 Title: CSS Layout: Float Examples <br>
 Author: W3 Schools <br>
-Date: 05/01/21
+Date: 05/01/21 <br>
 URL: https://www.w3schools.com/css/css_float_examples.asp <br>
 
 Title: Validators <br>
