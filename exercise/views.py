@@ -188,7 +188,7 @@ def edit_location(request):
 def home(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
-    city = request.user.profile.current_location
+    city = request.user.profile.current_location.capitalize()
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     city_weather = requests.get(url.format(city)).json()
     weather = {
@@ -203,6 +203,7 @@ def home(request):
     total_points = exercise.aggregate(total_points=Sum('points'))
     if len(exercise) != 0:
         exercise = exercise[0]
+        exercise.exercise_date = exercise.exercise_date.strftime('%b %d')
     user_workouts = {
         'user_points' : total_points,
         'user_exercise' : exercise,
