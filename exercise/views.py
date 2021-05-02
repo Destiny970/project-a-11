@@ -70,6 +70,7 @@ def profile(request):
     else:
         model.workout_points = list(total_points.values())[0]
     request.user.profile.save()
+    request.user.profile.current_location = request.user.profile.current_location.capitalize()
     points = model.workout_points
 
     if request.method == 'POST':
