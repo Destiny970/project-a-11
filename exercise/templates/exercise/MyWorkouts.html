@@ -89,7 +89,10 @@
   <div class="dropdown" style="margin-left:7.5%">
     <center>
       <div class="button">
-      <button class="dropbtn"><b>Workout on {{wk.exercise_date | date:"F d, Y" }}</b></button>
+      <button class="dropbtn">
+        <b>Workout on {{wk.exercise_date | date:"F d, Y" }}</b><br>
+        <a href="{% url 'exercise:delete_workout' wk.id %}">Delete workout</a>
+      </button>
       </div>
     </center>
     <div class="dropdown-content">
@@ -108,7 +111,7 @@
       <div style="word-break:break-word; margin-left: 7px; margin-right: 7px;">
         {{wk.description}}
       </div>
-    {% endif %}
+      {% endif %}
       </div>
   </div>
   {% endfor %}

@@ -61,8 +61,20 @@ def delete_post(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     post = Post.objects.get(pk=id)
-    post.delete()
+    if request.method == "POST":
+        post.delete()
+        return HttpResponseRedirect(reverse('exercise:posts'))
     return render(request, 'exercise/delete_post.html')
+
+
+def delete_workout(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    workout = Exercise.objects.get(pk=id)
+    if request.method == "POST":
+        workout.delete()
+        return HttpResponseRedirect(reverse('exercise:my_ws'))
+    return render(request, 'exercise/delete_workout.html')
 
 
 def profile(request):

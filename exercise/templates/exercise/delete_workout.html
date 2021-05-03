@@ -3,7 +3,7 @@
 
 <head>
     <div align="center">
-        <h2>DO YOU WANT TO DELETE THIS POST?</h2>
+        <h2>DO YOU WANT TO DELETE THIS WOKROUT?</h2>
     </div>
 </head>
 <body>
@@ -12,7 +12,7 @@
     <form method="POST" action="">
     {% csrf_token %}
     <input type="submit" value="Yes"/>
-    <a href="{% url 'exercise:posts' %}">Cancel </a>
+    <a href="{% url 'exercise:my_ws' %}">Cancel </a>
     </form>
 </div>
 </body>

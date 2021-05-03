@@ -47,7 +47,7 @@
       <p style="color:darkblue">Its snowing and raining! Probably best to workout inside today! Maybe on the treadmill or elliptical!</p>
       {% elif 'snow' in weather.description %}
       <p style="color:darkblue">Its snowing! Unless you're planning to ski or snowboard, it's probably best to workout inside today!</p>
-      {% elif 'rain' in weather.description or 'thunderstorm' in weather.description %}
+      {% elif 'rain' in weather.description or 'mist' in weather.description or 'thunderstorm' in weather.description %}
       <p style="color:darkblue">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</p>
       {% elif weather.temperature >= 80 %}
       <p style="color:darkblue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
