@@ -1,8 +1,5 @@
 Group A-11 Exercise Gamification, CS 3240: Spring 2021
 
-About: 
-...
-
 References:
 
 Title: CSS Layout: Float Examples <br>
