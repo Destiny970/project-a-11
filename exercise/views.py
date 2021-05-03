@@ -57,6 +57,14 @@ def list_posts(request):
     return render(request, 'exercise/posts.html', {'posts': posts, 'username': request.user})
 
 
+def delete_post(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    post = Post.objects.get(pk=id)
+    post.delete()
+    return render(request, 'exercise/delete_post.html')
+
+
 def profile(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
