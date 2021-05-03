@@ -67,16 +67,6 @@ def delete_post(request, id):
     return render(request, 'exercise/delete_post.html')
 
 
-def delete_workout(request, id):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/')
-    workout = Exercise.objects.get(pk=id)
-    if request.method == "POST":
-        workout.delete()
-        return HttpResponseRedirect(reverse('exercise:my_ws'))
-    return render(request, 'exercise/delete_workout.html')
-
-
 def profile(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -247,6 +237,24 @@ def my_ws(request):
     Profile.workout_points = total_points
     args = {'form': form, 'exercise': exercise, 'total_points': total_points}
     return render(request, 'exercise/MyWorkouts.html', args)
+
+
+def delete_workout(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    workout = Exercise.objects.get(pk=id)
+    points = int(workout.points)
+    total_points = 0
+    exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+    for object in exercise:
+        total_points = total_points + object.points
+    if request.method == "POST":
+        workout.delete()
+        request.user.profile.workout_points = total_points - points
+        request.user.profile.num_workouts = request.user.profile.num_workouts - 1
+        request.user.profile.save()
+        return HttpResponseRedirect(reverse('exercise:my_ws'))
+    return render(request, 'exercise/delete_workout.html', {'total_points': request.user.profile.workout_points})
 
 
 def log_nws(request):
