@@ -57,6 +57,16 @@ def list_posts(request):
     return render(request, 'exercise/posts.html', {'posts': posts, 'username': request.user})
 
 
+def delete_post(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    post = Post.objects.get(pk=id)
+    if request.method == "POST":
+        post.delete()
+        return HttpResponseRedirect(reverse('exercise:posts'))
+    return render(request, 'exercise/delete_post.html')
+
+
 def profile(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -70,6 +80,7 @@ def profile(request):
     else:
         model.workout_points = list(total_points.values())[0]
     request.user.profile.save()
+    request.user.profile.current_location = request.user.profile.current_location.capitalize()
     points = model.workout_points
 
     if request.method == 'POST':
@@ -188,7 +199,7 @@ def edit_location(request):
 def home(request):
     if not request.user.is_authenticated:
         return render(request, 'exercise/notloggedin.html')
-    city = request.user.profile.current_location
+    city = request.user.profile.current_location.capitalize()
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
     city_weather = requests.get(url.format(city)).json()
     weather = {
@@ -203,6 +214,7 @@ def home(request):
     total_points = exercise.aggregate(total_points=Sum('points'))
     if len(exercise) != 0:
         exercise = exercise[0]
+        exercise.exercise_date = exercise.exercise_date.strftime('%b %d')
     user_workouts = {
         'user_points' : total_points,
         'user_exercise' : exercise,
@@ -225,6 +237,24 @@ def my_ws(request):
     Profile.workout_points = total_points
     args = {'form': form, 'exercise': exercise, 'total_points': total_points}
     return render(request, 'exercise/MyWorkouts.html', args)
+
+
+def delete_workout(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    workout = Exercise.objects.get(pk=id)
+    points = int(workout.points)
+    total_points = 0
+    exercise = Exercise.objects.filter(profile=request.user.profile).order_by("-exercise_date")
+    for object in exercise:
+        total_points = total_points + object.points
+    if request.method == "POST":
+        workout.delete()
+        request.user.profile.workout_points = total_points - points
+        request.user.profile.num_workouts = request.user.profile.num_workouts - 1
+        request.user.profile.save()
+        return HttpResponseRedirect(reverse('exercise:my_ws'))
+    return render(request, 'exercise/delete_workout.html', {'total_points': request.user.profile.workout_points})
 
 
 def log_nws(request):

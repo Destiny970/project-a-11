@@ -117,7 +117,7 @@ class WorkingURLPathsLoggedIn(TestCase):
         self.assertContains(response, "Get points by logging your workouts!", status_code=200) 
     def test_logged_in_badges_page(self):
         response = self.client.get('/badges/', follow=True)
-        self.assertContains(response, "Click here to share your accomplishments!", status_code=200) 
+        self.assertContains(response, "Share My Accomplishments!", status_code=200)
     def test_logged_in_leaderboard_page(self):
         response = self.client.get('/leaderboard/', follow=True)
         self.assertContains(response, "See where you are in the rankings!", status_code=200) 
