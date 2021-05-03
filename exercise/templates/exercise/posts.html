@@ -48,7 +48,9 @@
             <em>{{ post.created_at|date:"SHORT_DATETIME_FORMAT" }}</em>
         <div style="word-break:break-word; margin-left: 25px; margin-right: 25px;">{{ post.contents }}</div>
         </p>
-        <a href="{% url 'exercise:delete_post' post.id %}">Delete post</a>
+        <div align="center">
+            <button type="submit"><a style="text-decoration: none; color:black;" href="{% url 'exercise:delete_post' post.id  %}">Delete Post</a></button>
+        </div>
     </div>
     {% else %}
     <div class="transbox" style="background-color:rgb(189, 255, 189);">
