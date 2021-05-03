@@ -31,7 +31,6 @@
 
         {% if user.is_authenticated %}
             <center><p style="font-size:22px; color: black;">Hello, {{ user.username }}!</p></center>
-          <br>
 
         {% else %}
             <h2><center><a style="text-decoration: underline" href="{% provider_login_url 'google' %}">Login with Google</a></center></h2>
@@ -44,28 +43,29 @@
       <center><b style="font-size:18px; color:green;">The current weather in {{ weather.city }}: </b> {{ weather.temperature }} ° F and {{ weather.description }}</center>
       <br>
       {% if 'rain' in weather.description and 'snow' in weather.description %}
-      <p style="color:darkblue">Its snowing and raining! Probably best to workout inside today! Maybe on the treadmill or elliptical!</p>
+      <b style="color:darkblue">Its snowing and raining! Probably best to workout inside today! Maybe on the treadmill or elliptical!</b>
       {% elif 'snow' in weather.description %}
-      <p style="color:darkblue">Its snowing! Unless you're planning to ski or snowboard, it's probably best to workout inside today!</p>
+      <b style="color:darkblue">Its snowing! Unless you're planning to ski or snowboard, it's probably best to workout inside today!</b>
       {% elif 'rain' in weather.description or 'mist' in weather.description or 'thunderstorm' in weather.description %}
-      <p style="color:darkblue">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</p>
+      <b style="color:darkblue">It might be raining, but don't let that stop you from working out inside on the treadmill or something else instead!</b>
       {% elif weather.temperature >= 80 %}
-      <p style="color:darkblue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</p>
+      <b style="color:darkblue">It's a little hot to workout outside right now, but don't let that stop you from working out inside instead!</b>
       {% elif weather.temperature > 65 %}
-      <p style="color:darkblue">The weather is nice right now! It's a good day to workout outside! Maybe go for a run or a nice walk!</p>
+      <b style="color:darkblue">The weather is nice right now! It's a good day to workout outside! Maybe go for a run or a nice walk!</b>
       {% elif weather.temperature >= 50 %}
-      <p style="color:darkblue">Grab a jacket and consider heading outside for a workout today!</p>
+      <b style="color:darkblue">Grab a jacket and consider heading outside for a workout today!</b>
       {% elif weather.temperature < 50 and weather.temperature >= 44 %}
-      <p style="color:darkblue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</p>
+      <b style="color:darkblue">It's a bit cool outside, but it isn't raining. Why not do a workout outside today!</b>
       {% elif weather.temperature < 44 %}
-      <p style="color:darkblue">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead! Treadmill? Yoga? Stationary Bike?</p>
+      <b style="color:darkblue">It's a bit too cold to workout outside right now, but don't let that stop you from working out inside instead! Treadmill? Yoga? Stationary Bike?</b>
       {% endif %}
   </div>
 
   {% if user_workouts.user_points.total_points != none %}
-    <b>Total Points:</b> <i>{{user_workouts.user_points.total_points}}</i>
-    <br>
-    <b>Your last logged workout was {{user_workouts.user_exercise.exercise_type}} on {{user_workouts.user_exercise.exercise_date}}!</b> 
+      <br>
+    <b>Most Recent Workout: </b><b style="font-weight:normal;">Your last logged workout was {{user_workouts.user_exercise.exercise_type}} on {{user_workouts.user_exercise.exercise_date}}!</b>
+      <br>
+      <b>Total Points:</b> <i>{{user_workouts.user_points.total_points}}</i>
   {% endif %}
 
   {% endblock %}
