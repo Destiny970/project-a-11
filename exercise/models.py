@@ -26,12 +26,20 @@ from django.core.exceptions import ValidationError
 import re
 
 
+# Title: Validators <br>
+# Author: Django Project <br>
+# Date: 05/01/21 <br>
+# URL: https://docs.djangoproject.com/en/3.2/ref/validators/ <br>
 def validate_hash(value):
     reg = re.compile("^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$")
     if not reg.match(value):
         raise ValidationError(u'%s hashtag does not comply' % value)
 
 
+# Title: Python Django Tutorial: Full-Featured Web App Part 8 - User Profile and Picture <br>
+# Author: Corey Schafer <br>
+# Date: 03/22/21 <br>
+# URL: https://www.youtube.com/watch?v=FdVuKt_iuSI&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=8 <br>
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     workout_points = models.IntegerField(default=0)

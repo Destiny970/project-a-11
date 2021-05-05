@@ -13,7 +13,12 @@ import os
 from pathlib import Path
 import sys
 
-# import django_heroku 
+# import django_heroku
+
+# Title: In 5 mins: Set up Google login to sign up users on Django <br>
+# Author: Zoe Chew <br>
+# Date: 03/03/21 <br>
+# URL: https://whizzoe.medium.com/in-5-mins-set-up-google-login-to-sign-up-users-on-django-e71d5c38f5d5 <br>
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

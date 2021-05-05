@@ -10,6 +10,10 @@ from django.core.validators import RegexValidator
 alphanumeric = RegexValidator(r'^[a-zA-Z]')
 
 
+# Title: Regular Expressions for City Name <br>
+#     Author: user2603432 <br>
+# Date: 04/19/21 <br>
+# URL: https://stackoverflow.com/questions/11757013/regular-expressions-for-city-name <br>
 validator = RegexValidator(r"^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$", "The city shouldn't contain numbers" )
 
 
@@ -81,6 +85,10 @@ class CurrentLocationUpdateForm(forms.ModelForm):
         fields = ['current_location']
 
 
+# Title: Django 2.0 ModelForm dateField not displaying as a widget <br>
+# Author: Gustavo Gradvohl <br>
+# Date: 03/18/21
+# URL: https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget <br>
 class ExerciseForm(forms.ModelForm):
 
     class Meta:

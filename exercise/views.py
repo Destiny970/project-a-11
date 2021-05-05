@@ -161,6 +161,10 @@ def badges(request):
     return render(request, 'exercise/badges.html', context)
 
 
+# Title: How To Build a Weather App in Django <br>
+# Author: Anthony Herbert <br>
+# Date: 03/29/21 <br>
+# URL: https://www.digitalocean.com/community/tutorials/how-to-build-a-weather-app-in-django <br>
 def edit_location(request):
     weather_data = []
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e1d3b12bb66e2fbb73a45268f086a35e'
