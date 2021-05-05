@@ -14,6 +14,7 @@ Group A-11 Exercise Gamification, CS 3240: Spring 2021
 <li>The users have the ability to share any tips, tricks, or accomplishments with the Exercise Gamification community and can do so by navigating to the 'Community' dropdown and clicking the 'Log New Post' link.</li>
 <li>The premise of our app is to encourage users to exercise outside and lead healthier lifestyles, especially once COVID is over and we are back on Grounds!</li>
 
+
 <b>References:</b>
 
 Title: CSS Layout: Float Examples <br>
