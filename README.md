@@ -1,6 +1,20 @@
 Group A-11 Exercise Gamification, CS 3240: Spring 2021
 
-References:
+<b>About:</b>
+
+<b>Account creation:</b> Simply click 'Login with Google/Create New Account'
+
+<li>Instructions for how to use the app can be found by clicking the link below the login button. </li>
+<li>Upon successfully logging in, the app will display the home page, which contains the current weather in your location (it will default to Charlottesville if it is the user's first time logging in).</li>
+<li>To change the current location or username/name on the account, click the 'Profile' dropdown menu in the navigation bar and go to the desired link.</li>
+<li>The home page will suggest exercising outdoors if the weather permits.</li>
+<li>Once at least one workout is logged, the home page will display the user's most recent workout and the points associated with their account.</li>
+<li>From there, the user can navigate to other parts of the app as they desire via the navigation bar at the top.</li>
+<li>Users are encouraged to exercise regularly to earn badges and points while also getting higher in the ranks on the leaderboard. More information about the badges can be found under the 'Badges/Leaderboard' dropdown in the 'Badge Info' section. </li>
+<li>The users have the ability to share any tips, tricks, or accomplishments with the Exercise Gamification community and can do so by navigating to the 'Community' dropdown and clicking the 'Log New Post' link.</li>
+<li>The premise of our app is to encourage users to exercise outside and lead healthier lifestyles, especially once COVID is over and we are back on Grounds!</li>
+
+<b>References:</b>
 
 Title: CSS Layout: Float Examples <br>
 Author: W3 Schools <br>
