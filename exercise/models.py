@@ -148,6 +148,11 @@ class Exercise(models.Model):
         ('Outdoors', 'Outdoors')
     ]
 
+    # Title: Validators
+    # Author: Django Project
+    # Date: 05/01/21
+    # URL: https://docs.djangoproject.com/en/3.2/ref/validators/
+
     def exclude_future_date(value):
         if value > timezone.now():
             raise ValidationError("The date cannot be in the future!")
