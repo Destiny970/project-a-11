@@ -23,7 +23,10 @@ class ExerciseModelSetPointMethodTests(TestCase):
         self.assertEqual(ex_obj.points, 20)
 
 ## The following Django documentation, accessible through the below url, was used to help write the code in this test class.
-## https://docs.djangoproject.com/en/3.1/topics/testing/tools/
+## Title: Testing Tools
+## Author: Django Documentation
+## Date: 04/29/21
+## URL: https://docs.djangoproject.com/en/3.1/topics/testing/tools/
 ## Test class ensures that all URL paths are correctly functioning when a user is not logged in; non-logged in users will not be able to url hop through our application. 
 class WorkingURLPathsNotLoggedIn(TestCase):
     def test_home_page(self):
@@ -74,9 +77,12 @@ class WorkingURLPathsNotLoggedIn(TestCase):
 
 ## Test class ensures that all URL paths are correctly functioning when a user is logged in;
 class WorkingURLPathsLoggedIn(TestCase):
-    ## I would not been able to write this test class without the help of this stackoverflow answer provided by Vladir Parrado Cruz
+    ## I would not been able to write this test class without the help of this stackoverflow answer provided by Vladir Parrado Cruz;
     ## this answer was crucial in allowing me to create a superuser in the setUp method for this class 
-    ## https://stackoverflow.com/questions/36163367/test-login-with-credentials-as-superuser-django-1-9-python-3-5  
+    ## Title: Test Login with credentials as superuser Django 1.9, Python 3.5 
+    ## Author: Vladir Parrado Cruz 
+    ## Date: 04/29/21 
+    ## URL: https://stackoverflow.com/questions/36163367/test-login-with-credentials-as-superuser-django-1-9-python-3-5
     def setUp(self): 
         self.client = Client()
         self.my_admin = User(username='tester', is_staff=True)

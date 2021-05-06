@@ -99,11 +99,27 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 # Database
-## The following stack overflow post aided in writing this code
-## https://stackoverflow.com/questions/47579644/django-configuring-different-databases
-## https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-## https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django?fbclid=IwAR22uppxhHcUSnvO73roHVYH3qzRzmP3687S7krh1844c5N49h2l7VTKrrA 
-## This site was critical in helping to debug an issue with Travis and automated testing: https://medium.com/analytics-vidhya/provisioning-a-test-postgresql-database-on-heroku-for-your-django-app-febb2b5d3b29
+# The following stack overflow answer aided in writing the if else condition used for our database configuration 
+# Title: Django configuring different databases
+# Author: itzMEonTV
+# Date: 04/29/21
+# URL: https://stackoverflow.com/questions/47579644/django-configuring-different-databases
+
+# Title: DATABASES
+# Author: Django Documentation
+# Date: 04/29/21
+# URL: https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+# Title: How to use PostgreSQL with Django
+# Author: Richard Yen
+# Date: 04/29/21
+# URL: https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django?fbclid=IwAR22uppxhHcUSnvO73roHVYH3qzRzmP3687S7krh1844c5N49h2l7VTKrrA
+
+# The below reference was critical in helping to debug an issue with Travis and automated testing:
+# Title: Provisioning a Test PostgreSQL database on Heroku for your Django App
+# Author: Sola-Aremu 'Pelumi
+# Date: 04/29/21
+# URL: https://medium.com/analytics-vidhya/provisioning-a-test-postgresql-database-on-heroku-for-your-django-app-febb2b5d3b29
 
 ## Testing DB (using sqlite)
 if 'test' in sys.argv:

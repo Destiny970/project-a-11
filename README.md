@@ -102,10 +102,10 @@ Author: Ali Akhtari <br>
 Date: 04/29/21 <br>
 URL: https://stackoverflow.com/questions/15009712/django-if-statement-doesnt-work-as-expected <br>
 
-Title: Test Login with credentials as superuser Django 1.9, Python 3.5
-Author: Vladir Parrado Cruz
-Date: 04/29/21
-URL: https://stackoverflow.com/questions/36163367/test-login-with-credentials-as-superuser-django-1-9-python-3-5  
+Title: Test Login with credentials as superuser Django 1.9, Python 3.5 <br>
+Author: Vladir Parrado Cruz <br>
+Date: 04/29/21 <br>
+URL: https://stackoverflow.com/questions/36163367/test-login-with-credentials-as-superuser-django-1-9-python-3-5 <br>
 
 <b>Image Links:</b> <br>
 Bronze Badge: <br>
